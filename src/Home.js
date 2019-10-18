@@ -3,6 +3,12 @@ import { Link } from 'react-router-dom';
 
 export default function Home() {
     return (
-        <button id="dnd-button"><Link to="/dndb">Dungeons and Douchebags</Link></button>
+        <div id="home-container">
+            <Link to="/dndb">
+                <button id="dnd-button">
+                    Dungeons <br/> and <br/> Douchebags
+                </button>
+            </Link>
+        </div>
     )
 }
