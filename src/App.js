@@ -7,7 +7,7 @@ import {
   Route,
   Link
 } from "react-router-dom";
-import Dndb from './dndbags/Dndb';
+import Dndb from './dndbags/Dndb.jsx';
 import Home from './Home';
 
 function App() {
