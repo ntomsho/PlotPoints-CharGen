@@ -1,3 +1,5 @@
+/* Home */
+
 #home-container {
   display: flex;
   width: 100vw;
@@ -16,4 +18,16 @@
   cursor: pointer;
   border: 1px solid darkgray;
   border-radius: 3%;
+}
+
+/* Skills */
+.skill-button {
+  height: 30px;
+  width: 30%;
+  border: 1px solid black;
+  cursor: pointer;
+}
+
+.skill-button.selected {
+  background: gold;
 }

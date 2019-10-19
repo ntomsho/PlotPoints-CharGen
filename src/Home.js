@@ -6,7 +6,7 @@ export default function Home() {
         <div id="home-container">
             <Link to="/dndb">
                 <button id="dnd-button">
-                    Dungeons <br/> and <br/> Douchebags
+                    Dungeons <br/> & <br/> Douchebags
                 </button>
             </Link>
         </div>

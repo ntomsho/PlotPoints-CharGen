@@ -1,38 +1,70 @@
 import React from 'react';
-import { CLASSES } from '../dndb-tables';
-
+import { CLASSES, ALTRACES } from '../dndb-tables';
+import Skills from './skills';
 
 class Dndb extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             name: "",
-            gender: "",
             cClass: "",
-            race: "",
+            race: "Human",
             background: "",
             appearance: "",
             derp: "",
-            health: 6,
+            health: 7,
             plotPoints: 1,
             trainedSkills: [],
             currentSpecials: [],
-            inventory: []
+            inventory: [],
+            regulation: true
         }
+        this.updateState = this.updateState.bind(this);
     }
+
+    updateState(key, val) {
+        this.setState({ key: val });
+    };
 
     render() {
         return (
             <div id="dndb-container">
-                <div id="main-info">
-                    Name: <input type="text" id="name-input"></input>
-                    <select>
-                        {CLASSES.map(c => {
-                            return (
-                                <option value={c}>{c}</option>
-                            )
-                        })}
-                    </select>
+                <div id="sheet-header">
+                    <h1>Dungeons & Douchebags</h1>
+                </div>
+                <div id="main-section">
+                    <div className="sheet-row">
+                        <span>Name: <input type="text" id="name-input"></input></span>
+                        Class: <select>
+                            {CLASSES.map(c => {
+                                return (
+                                    <option value={c}>{c}</option>
+                                )
+                            })}
+                        </select>
+                        Race: <select>
+                            <option value="Human">Human</option>
+                            {ALTRACES.map(r => {
+                                return (
+                                    <option value={r}>{r}</option>
+                                )
+                            })}
+                        </select>
+                    </div>
+                    <div className="sheet-row">
+                        <span>Background: <input type="text" id="background-input"></input></span>
+                        <span>Appearance: <input type="text" id="appearance-input"></input></span>
+                        <span>Derp: <input type="text" id="derp-input"></input></span>
+                    </div>
+                </div>
+                <div id="class-section">
+
+                </div>
+                <div id="skills-section">
+                    <Skills props={this.state} />
+                </div>
+                <div id="inventory-section">
+
                 </div>
             </div>
         )
