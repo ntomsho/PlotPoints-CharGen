@@ -61,7 +61,7 @@ class Dndb extends React.Component {
 
                 </div>
                 <div id="skills-section">
-                    <Skills {...this.state} />
+                    <Skills {...this.state} updateState={this.updateState} />
                 </div>
                 <div id="inventory-section">
 

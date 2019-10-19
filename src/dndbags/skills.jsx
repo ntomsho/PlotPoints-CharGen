@@ -49,9 +49,9 @@ export default function Skills(props) {
     }
 
     function createSkillRow(i) {
-        return SKILLS.slice(i, i + 3).map(skill => {
+        return SKILLS.slice(i, i + 3).map((skill, ind) => {
             return (
-                <SkillButton key={i}
+                <SkillButton key={ind}
                     skill={skill}
                     classSkill={classSkills.includes(skill)}
                     selected={skillSet.includes(skill)}
@@ -70,45 +70,12 @@ export default function Skills(props) {
             <div className="sheet-row">
                 {createSkillRow(0)}
             </div>
-            {/* <div className="sheet-row">
-                {SKILLS.slice(0, 3).map((skill, i) => {
-                    return (
-                        <SkillButton key={i} props={{
-                            skill: skill,
-                            classSkills: classSkills,
-                            skillSet: skillSet,
-                            selectSkill: selectSkill
-                        }}
-                        />
-                    )
-                })}
+            <div className="sheet-row">
+                {createSkillRow(3)}
             </div>
             <div className="sheet-row">
-                {SKILLS.slice(3, 6).map(skill => {
-                    return (
-                        <SkillButton props={{
-                            skill: skill,
-                            classSkills: classSkills,
-                            skillSet: skillSet,
-                            selectSkill: selectSkill
-                        }}
-                        />
-                    )
-                })}
+                {createSkillRow(6)}
             </div>
-            <div className="sheet-row">
-                {SKILLS.slice(6, 9).map(skill => {
-                    return (
-                        <SkillButton props={{
-                            skill: skill,
-                            classSkills: classSkills,
-                            skillSet: skillSet,
-                            selectSkill: selectSkill
-                        }}
-                        />
-                    )
-                })}
-            </div> */}
         </div>
         </>
     )
