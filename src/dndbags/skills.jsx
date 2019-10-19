@@ -48,25 +48,17 @@ export default function Skills(props) {
         }
     }
 
-    function createSkillRows() {
-        let skillRows = [];
-        for (let i = 0; i < 10; i += 3) {
-            skillRows.push(SKILLS.slice(i, i + 3))
-        };
-        skillRows.map((skill, i) => {
+    function createSkillRow(i) {
+        return SKILLS.slice(i, i + 3).map(skill => {
             return (
-                <div className="sheet-row">
-                    <SkillButton key={i} props={{
-                        skill: skill,
-                        classSkill: classSkills.includes(skill),
-                        selected: skillSet.includes(skill),
-                        selectSkill: selectSkill
-                    }}
-                    />
-                </div>
+                <SkillButton key={i}
+                    skill={skill}
+                    classSkill={classSkills.includes(skill)}
+                    selected={skillSet.includes(skill)}
+                    selectSkill={selectSkill}
+                />
             )
         })
-        return skillRows;
     }
 
     return (
@@ -75,7 +67,9 @@ export default function Skills(props) {
         <div id="skills-container">
             {remainingSkills()}
             {remainingClassSkills()}
-            {createSkillRows()}
+            <div className="sheet-row">
+                {createSkillRow(0)}
+            </div>
             {/* <div className="sheet-row">
                 {SKILLS.slice(0, 3).map((skill, i) => {
                     return (

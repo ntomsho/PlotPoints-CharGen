@@ -1,13 +1,14 @@
 import React from 'react';
 
 export default function SkillButton(props) {
+    console.log(props)
+    console.log(props.skill)
     const { skill } = props;
-    console.log(skill);
     return (
         <button className={`skill-button ${props.classSkill ? " class-skill" : ""} ${props.selected ? " selected" : ""}`}
-            onClick={props.selectSkill(skill)}
+            onClick={() => props.selectSkill(skill)}
         >
-            {skill}
+            {props.skill}
         </button>
     )
 }
