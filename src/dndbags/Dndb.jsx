@@ -36,17 +36,17 @@ class Dndb extends React.Component {
                     <div className="sheet-row">
                         <span>Name: <input type="text" id="name-input"></input></span>
                         Class: <select>
-                            {CLASSES.map(c => {
+                            {CLASSES.map((c, i) => {
                                 return (
-                                    <option value={c}>{c}</option>
+                                    <option key={i} value={c}>{c}</option>
                                 )
                             })}
                         </select>
                         Race: <select>
                             <option value="Human">Human</option>
-                            {ALTRACES.map(r => {
+                            {ALTRACES.map((r, i) => {
                                 return (
-                                    <option value={r}>{r}</option>
+                                    <option key={i} value={r}>{r}</option>
                                 )
                             })}
                         </select>

@@ -5,7 +5,7 @@ export const CLASSES = [
     "Knight of Tushuze",
     "Minstrel",
     "Mixologist",
-    "Ne\'erdowell",
+    "Ne'erdowell",
     "Ragesmasher",
     "Runegoon",
     "Verbpriest",
@@ -15,16 +15,16 @@ export const CLASSES = [
 
 export const CLASS_SKILLS = {
     "Battlebro": ["Brute Force", "Rad Moves"],
-    "Bowslinger": ["Creepin\'", "Spottin\'"],
+    "Bowslinger": ["Creepin'", "Spottin'"],
     "Hippy": ["Cardio", "Man vs. Wild"],
     "Knight of Tushuze": ["Believe in Yourself", "Brute Force"],
-    "Minstrel": ["Believe in Yourself", "Creepin\'"],
+    "Minstrel": ["Believe in Yourself", "Creepin'"],
     "Mixologist": ["Macgyver", "Thinkiness"],
-    "Ne\'erdowell": ["Creepin\'", "Macgyver"],
+    "Ne'erdowell": ["Creepin'", "Macgyver"],
     "Ragesmasher": ["Brute Force", "Man vs. Wild"],
     "Runegoon": ["Cardio", "Macgyver"],
     "Verbpriest": ["Believe in Yourself", "Rad Moves"],
-    "Wizcaster": ["Spottin\'", "Thinkiness"],
+    "Wizcaster": ["Spottin'", "Thinkiness"],
     "Zoomaster": ["Man vs. Wild", "Rad Moves"]
 };
 
@@ -49,10 +49,10 @@ export const SKILLS = [
     "Believe in Yourself",
     "Brute Force",
     "Cardio",
-    "Creepin\'",
+    "Creepin'",
     "Macgyver",
     "Man vs. Wild",
     "Rad Moves",
-    "Spottin\'",
+    "Spottin'",
     "Thinkiness"
 ];

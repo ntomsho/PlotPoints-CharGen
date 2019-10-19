@@ -1,14 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { CLASS_SKILLS, SKILLS } from '../dndb-tables';
+import SkillButton from './skill_button';
 
 export default function Skills(props) {
-
-    const classSkills = props.cClass ? CLASS_SKILLS[props.cClass] : [];
-
-    const [skillSet, setSkillSet] = useState(props.skills);
+    const [classSkills, setClassSkills] = useState([]);
+    const [skillSet, setSkillSet] = useState([]);
     const [numClassSkills, setNumClassSkills] = useState(1);
     const [numRegSkills, setNumRegSkills] = useState(props.race === "Human" ? 1 : 0);
 
+    useEffect(() => {
+        if (props.cClass) setClassSkills(CLASS_SKILLS[props.cClass]);
+    }, [props.cClass]);
+
+    useEffect(() => {
+        if (props.trainedSkills) setSkillSet(props.trainedSkills);
+    }, [props.trainedSkills]);
+    
     function remainingClassSkills() {
         if (numClassSkills > 0) {
             return (
@@ -41,42 +48,73 @@ export default function Skills(props) {
         }
     }
 
+    function createSkillRows() {
+        let skillRows = [];
+        for (let i = 0; i < 10; i += 3) {
+            skillRows.push(SKILLS.slice(i, i + 3))
+        };
+        skillRows.map((skill, i) => {
+            return (
+                <div className="sheet-row">
+                    <SkillButton key={i} props={{
+                        skill: skill,
+                        classSkill: classSkills.includes(skill),
+                        selected: skillSet.includes(skill),
+                        selectSkill: selectSkill
+                    }}
+                    />
+                </div>
+            )
+        })
+        return skillRows;
+    }
+
     return (
         <>
         <h2>Skills</h2>
         <div id="skills-container">
             {remainingSkills()}
             {remainingClassSkills()}
-            <div className="sheet-row">
-                {SKILLS.slice(0, 3).map(skill => {
-                    console.log(classSkills);
+            {createSkillRows()}
+            {/* <div className="sheet-row">
+                {SKILLS.slice(0, 3).map((skill, i) => {
                     return (
-                        <button className={`skill-button` + `${classSkills.includes(skill) ? " class-skill" : ""}` + `${skillSet.includes(skill) ? " selected" : ""}`}
-                            onClick={selectSkill(skill, )}
-                        >
-                            {skill}
-                        </button>
+                        <SkillButton key={i} props={{
+                            skill: skill,
+                            classSkills: classSkills,
+                            skillSet: skillSet,
+                            selectSkill: selectSkill
+                        }}
+                        />
                     )
                 })}
             </div>
             <div className="sheet-row">
-                {SKILLS.slice(3,6).map(skill => {
+                {SKILLS.slice(3, 6).map(skill => {
                     return (
-                        <button className={classSkills.includes(skill) ? "skill-button class-skill unselected" : "skill-button unselected"}>
-                            {skill}
-                        </button>
+                        <SkillButton props={{
+                            skill: skill,
+                            classSkills: classSkills,
+                            skillSet: skillSet,
+                            selectSkill: selectSkill
+                        }}
+                        />
                     )
                 })}
             </div>
             <div className="sheet-row">
                 {SKILLS.slice(6, 9).map(skill => {
                     return (
-                        <button className={classSkills.includes(skill) ? "skill-button class-skill unselected" : "skill-button unselected"}>
-                            {skill}
-                        </button>
+                        <SkillButton props={{
+                            skill: skill,
+                            classSkills: classSkills,
+                            skillSet: skillSet,
+                            selectSkill: selectSkill
+                        }}
+                        />
                     )
                 })}
-            </div>
+            </div> */}
         </div>
         </>
     )
