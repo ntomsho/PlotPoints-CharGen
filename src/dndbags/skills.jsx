@@ -3,48 +3,61 @@ import { CLASS_SKILLS, SKILLS } from '../dndb-tables';
 import SkillButton from './skill_button';
 
 export default function Skills(props) {
-    const [classSkills, setClassSkills] = useState([]);
-    const [skillSet, setSkillSet] = useState([]);
-    const [numClassSkills, setNumClassSkills] = useState(1);
-    const [numRegSkills, setNumRegSkills] = useState(props.race === "Human" ? 1 : 0);
-
-    useEffect(() => {
-        if (props.cClass) setClassSkills(CLASS_SKILLS[props.cClass]);
-    }, [props.cClass]);
-
-    useEffect(() => {
-        if (props.trainedSkills) setSkillSet(props.trainedSkills);
-    }, [props.trainedSkills]);
+    const classSkills = CLASS_SKILLS[props.cClass];
+    const skillSet = props.trainedSkills;
+    const maxRegSkills = props.race === "Human" ? 1 : 0;
+    let numClassSkills = 0;
+    let numRegSkills = 0;
+    skillSet.forEach(skill => {
+        if (classSkills.includes(skill)) {
+            numClassSkills == 0 ? numClassSkills++ : numRegSkills++;
+        } else {
+            numRegSkills++;
+        }
+    })
     
     function remainingClassSkills() {
-        if (numClassSkills > 0) {
+        if (numClassSkills === 0) {
             return (
-                <span>Choose {numClassSkills} Class Skill</span>
+                <span>Choose a Class Skill</span>
             )
         }
     }
     
     function remainingSkills() {
-        if (numRegSkills > 0) {
+        if (numRegSkills < maxRegSkills) {
             return (
                 <>
-                <span>{numRegSkills} Random Skill{numRegSkills > 1 ? "s" : ""} Remaining</span>
+                <span>{maxRegSkills} Random Skill{numRegSkills > 1 ? "s" : ""} Remaining</span>
                 <button>Random ⚀</button>
                 </>
             )
         }
     }
 
-    function selectSkill(skill, inClass, selected) {
+    function selectSkill(skill) {
         let newSkillSet = props.trainedSkills;
+        const inClass = classSkills.includes(skill);
+        const selected = skillSet.includes(skill);
+
         if (selected) {
-            inClass ? setNumClassSkills(numClassSkills + 1) : setNumRegSkills(numRegSkills + 1);
+            if (inClass && numClassSkills < 2) {
+                numClassSkills--;
+            } else {
+                numRegSkills--;
+            }
             newSkillSet.splice(newSkillSet.indexOf(skill), 1);
             props.updateState('trainedSkills', newSkillSet);
         } else {
-            inClass ? setNumClassSkills(numClassSkills - 1) : setNumRegSkills(numRegSkills - 1);
-            newSkillSet.push(skill);
-            props.updateState('trainedSkills', newSkillSet);
+            if (inClass && numClassSkills === 0) {
+                numClassSkills++;
+                newSkillSet.push(skill);
+                props.updateState('trainedSkills', newSkillSet);
+            } else if (numRegSkills < maxRegSkills) {
+                numRegSkills++;
+                newSkillSet.push(skill);
+                props.updateState('trainedSkills', newSkillSet);
+            }
         }
     }
 

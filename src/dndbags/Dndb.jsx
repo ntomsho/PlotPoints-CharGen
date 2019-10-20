@@ -7,7 +7,7 @@ class Dndb extends React.Component {
         super(props);
         this.state = {
             name: "",
-            cClass: "",
+            cClass: "Battlebro",
             race: "Human",
             background: "",
             appearance: "",
@@ -23,7 +23,9 @@ class Dndb extends React.Component {
     }
 
     updateState(key, val) {
-        this.setState({ key: val });
+        let newState = Object.assign({}, this.state);
+        newState[key] = val;
+        this.setState(newState);
     };
 
     render() {
