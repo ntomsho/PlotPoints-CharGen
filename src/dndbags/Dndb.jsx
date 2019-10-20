@@ -18,7 +18,7 @@ class Dndb extends React.Component {
             plotPoints: 1,
             trainedSkills: [],
             currentSpecials: {},
-            inventory: [],
+            inventory: ["", "", "", "", "", "", "", "", "", "", "", ""],
             regulation: true
         }
         this.updateState = this.updateState.bind(this);

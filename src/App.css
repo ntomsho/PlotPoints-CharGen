@@ -76,3 +76,7 @@
 #battlebro-charges button {
   font-size: 30px;
 }
+
+.inventory-space {
+  width: 25%;
+}
