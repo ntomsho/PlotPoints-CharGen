@@ -2,6 +2,7 @@ import React from 'react';
 import { CLASSES, ALTRACES } from '../dndb-tables';
 import Skills from './skills';
 import ClassMain from './class_main';
+import Inventory from './inventory';
 
 class Dndb extends React.Component {
     constructor(props) {
@@ -67,7 +68,7 @@ class Dndb extends React.Component {
                     <Skills {...this.state} updateState={this.updateState} />
                 </div>
                 <div id="inventory-section">
-
+                    <Inventory {...this.state} updateState={this.updateState} />
                 </div>
             </div>
         )

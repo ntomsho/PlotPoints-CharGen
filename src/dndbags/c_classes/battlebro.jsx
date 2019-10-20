@@ -48,7 +48,7 @@ export default function Battlebro(props) {
     }
 
     function setChargeNum(num) {
-        props.currentSpecials.charge === num ? setCharge(charge - 1) : setCharge(num);
+        charge === num ? setCharge(charge - 1) : setCharge(num);
     }
 
     return (
