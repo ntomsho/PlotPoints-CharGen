@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { CLASS_SKILLS, SKILLS } from '../dndb-tables';
 import SkillButton from './skill_button';
 
@@ -10,7 +10,7 @@ export default function Skills(props) {
     let numRegSkills = 0;
     skillSet.forEach(skill => {
         if (classSkills.includes(skill)) {
-            numClassSkills == 0 ? numClassSkills++ : numRegSkills++;
+            numClassSkills === 0 ? numClassSkills++ : numRegSkills++;
         } else {
             numRegSkills++;
         }

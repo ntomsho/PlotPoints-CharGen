@@ -1,6 +1,7 @@
 import React from 'react';
 import { CLASSES, ALTRACES } from '../dndb-tables';
 import Skills from './skills';
+import ClassMain from './class_main';
 
 class Dndb extends React.Component {
     constructor(props) {
@@ -15,7 +16,7 @@ class Dndb extends React.Component {
             health: 7,
             plotPoints: 1,
             trainedSkills: [],
-            currentSpecials: [],
+            currentSpecials: {},
             inventory: [],
             regulation: true
         }
@@ -60,7 +61,7 @@ class Dndb extends React.Component {
                     </div>
                 </div>
                 <div id="class-section">
-
+                    <ClassMain {...this.state} updateState={this.updateState} />
                 </div>
                 <div id="skills-section">
                     <Skills {...this.state} updateState={this.updateState} />
