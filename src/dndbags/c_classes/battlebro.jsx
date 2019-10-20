@@ -1,22 +1,21 @@
 import React, { useState } from 'react';
-import { random, WEAPONS, GERUNDS, ELEMENTS } from '../../dndb-tables';
+import { random, WEAPONS, GERUNDS, ELEMENTS_OF } from '../../dndb-tables';
 
 export default function Battlebro(props) {
     let { currentSpecials } = props;
     //When possible, take this off the local state and move it up to main state
     const [charge, setCharge] = useState(currentSpecials.charge || 1);
-    // let weaponEdited = false;
 
     function randomizeWeapon() {
         let newSpecials = Object.assign({}, currentSpecials);
-        // delete newSpecials.weaponString;
+        delete newSpecials.weaponString;
         newSpecials.weaponType = ` ${random(WEAPONS.slice(0, 18))}`;
         let newWeaponSpecial;
         const useVerb = random([true, false]);
         if (useVerb) {
             newWeaponSpecial = {"verb": `${random(GERUNDS)} `};
         } else {
-            newWeaponSpecial = {"element": ` of ${random(ELEMENTS)}`};
+            newWeaponSpecial = {"element": ` of ${random(ELEMENTS_OF)}`};
         }
         newSpecials.weaponSpecial = newWeaponSpecial;
         props.updateState("currentSpecials", newSpecials);
@@ -34,34 +33,30 @@ export default function Battlebro(props) {
         if (useVerb) {
             newSpecials.weaponSpecial = { "verb": `${random(GERUNDS)} ` };
         } else {
-            newSpecials.weaponSpecial = { "element": ` of ${random(ELEMENTS)}` };
+            newSpecials.weaponSpecial = { "element": ` of ${random(ELEMENTS_OF)}` };
         }
         props.updateState("currentSpecials", newSpecials);
     }
 
     function weaponName() {
-        if (!currentSpecials.weaponType || !currentSpecials.weaponSpecial) {
-            return <input type="text"></input>
-        // } else if (currentSpecials.weaponString) {
-        //     return <input type="text" value={currentSpecials.weaponString} />
-        } else if (Object.keys(currentSpecials.weaponSpecial)[0] === "verb") {
-            return <input type="text" value={currentSpecials.weaponSpecial["verb"] + currentSpecials.weaponType} />
-        } else {
-            return <input type="text" value={currentSpecials.weaponType + currentSpecials.weaponSpecial["element"]} />
+        let weaponString;
+        if (currentSpecials.weaponType && currentSpecials.weaponSpecial) {
+            if (Object.keys(currentSpecials.weaponSpecial)[0] === "verb") {
+                weaponString = currentSpecials.weaponSpecial["verb"] + currentSpecials.weaponType;
+            } else {
+                weaponString = currentSpecials.weaponType + currentSpecials.weaponSpecial["element"];
+            }
         }
+
+        return (
+            <input type="text" onChange={handleChange} value={weaponString} />
+        )
     }
 
-    // function saveWeaponString(weaponString) {
-    //     props.updateState(currentSpecials.weaponString, weaponString);
-    // }
-
-    // function weaponStringButton() {
-    //     if (weaponEdited) {
-    //         return (
-
-    //         )
-    //     }
-    // }
+    function handleChange(event) {
+        const newSpecial = { weaponType: "", weaponSpecial: "", 'weaponString': event.target.value }
+        props.updateState('currentSpecials', newSpecial);
+    }
 
     function setChargeNum(num) {
         charge === num ? setCharge(charge - 1) : setCharge(num);
