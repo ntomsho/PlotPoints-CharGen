@@ -5,9 +5,11 @@ export default function Battlebro(props) {
     let { currentSpecials } = props;
     //When possible, take this off the local state and move it up to main state
     const [charge, setCharge] = useState(currentSpecials.charge || 1);
+    // let weaponEdited = false;
 
     function randomizeWeapon() {
         let newSpecials = Object.assign({}, currentSpecials);
+        // delete newSpecials.weaponString;
         newSpecials.weaponType = ` ${random(WEAPONS.slice(0, 18))}`;
         let newWeaponSpecial;
         const useVerb = random([true, false]);
@@ -40,12 +42,26 @@ export default function Battlebro(props) {
     function weaponName() {
         if (!currentSpecials.weaponType || !currentSpecials.weaponSpecial) {
             return <input type="text"></input>
+        // } else if (currentSpecials.weaponString) {
+        //     return <input type="text" value={currentSpecials.weaponString} />
         } else if (Object.keys(currentSpecials.weaponSpecial)[0] === "verb") {
             return <input type="text" value={currentSpecials.weaponSpecial["verb"] + currentSpecials.weaponType} />
         } else {
             return <input type="text" value={currentSpecials.weaponType + currentSpecials.weaponSpecial["element"]} />
         }
     }
+
+    // function saveWeaponString(weaponString) {
+    //     props.updateState(currentSpecials.weaponString, weaponString);
+    // }
+
+    // function weaponStringButton() {
+    //     if (weaponEdited) {
+    //         return (
+
+    //         )
+    //     }
+    // }
 
     function setChargeNum(num) {
         charge === num ? setCharge(charge - 1) : setCharge(num);
