@@ -267,6 +267,45 @@ export const GERUNDS = [
     "Withering"
 ];
 
+export const FORMS = [
+    "Armor",
+    "Arrow",
+    "Aura",
+    "Ball",
+    "Beam",
+    "Blade",
+    "Blast",
+    "Bubble",
+    "Burst",
+    "Circle",
+    "Cloak",
+    "Cloud",
+    "Cube",
+    "Dance",
+    "Disk",
+    "Field",
+    "Gaze",
+    "Golem",
+    "Line",
+    "Pants",
+    "Portal",
+    "Pulse",
+    "Ray",
+    "Servant",
+    "Shield",
+    "Song",
+    "Steed",
+    "Storm",
+    "Swarm",
+    "Touch",
+    "Trap",
+    "Vortex",
+    "Wall",
+    "Wave",
+    "Wings",
+    "Word"
+]
+
 //index 0-17 == Melee
 //index 18-35 == Ranged
 export const WEAPONS = [

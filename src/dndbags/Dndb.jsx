@@ -9,7 +9,7 @@ class Dndb extends React.Component {
         super(props);
         this.state = {
             name: "",
-            cClass: "Battlebro",
+            cClass: "Wizcaster",
             race: "Human",
             background: "",
             appearance: "",
@@ -19,6 +19,8 @@ class Dndb extends React.Component {
             trainedSkills: [],
             currentSpecials: {},
             inventory: ["", "", "", "", "", "", "", "", "", "", "", ""],
+            level: 1,
+            experience: 0,
             regulation: true
         }
         this.updateState = this.updateState.bind(this);

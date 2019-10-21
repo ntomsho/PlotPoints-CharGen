@@ -1,6 +1,7 @@
 import React from 'react';
 import { CLASS_COLORS } from '../dndb-tables';
 import Battlebro from './c_classes/battlebro';
+import Wizcaster from './c_classes/wizcaster';
 
 export default function ClassMain(props) {
     const classColor = props.cClass ? CLASS_COLORS[props.cClass] : "white"
@@ -10,6 +11,9 @@ export default function ClassMain(props) {
         switch (props.cClass) {
             case "Battlebro":
                 classComp = <Battlebro currentSpecials={props.currentSpecials} updateState={props.updateState} />
+                break;
+            case "Wizcaster":
+                classComp = <Wizcaster currentSpecials={props.currentSpecials} updateState={props.updateState} />
                 break;
             default:
                 classComp = <></>
