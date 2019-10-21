@@ -1,4 +1,6 @@
 import React from 'react';
+import { DndProvider } from 'react-dnd'
+import HTML5Backend from 'react-dnd-html5-backend'
 import { CLASSES, ALTRACES } from '../dndb-tables';
 import Skills from './skills';
 import ClassMain from './class_main';
@@ -34,6 +36,7 @@ class Dndb extends React.Component {
 
     render() {
         return (
+            <DndProvider backend={HTML5Backend}>
             <div id="dndb-container">
                 <div id="sheet-header">
                     <h1>Dungeons & Douchebags</h1>
@@ -73,6 +76,7 @@ class Dndb extends React.Component {
                     <Inventory {...this.state} updateState={this.updateState} />
                 </div>
             </div>
+            </DndProvider>
         )
     }
 }
