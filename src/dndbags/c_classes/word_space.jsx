@@ -15,9 +15,16 @@ const style = {
 }
 
 export default function WordSpace(props) {
+
     const [{ isOver, canDrop }, drop] = useDrop({
-        accept: props.accepts,
+        accept: ['Form', 'Element', 'Verb'],
+        // canDrop: (item) => {
+        //     console.log("Accepting: " + props.accepts);
+        //     console.log("Dragging: " + item.type);
+        //     props.accepts.includes(item.type);
+        // },
         drop: (item) => {
+            console.log("Dragged: " + item)
             props.addWordToCurrentSpell(item.id, props.start);
         },
         collect: monitor => ({
@@ -25,7 +32,7 @@ export default function WordSpace(props) {
             canDrop: !!monitor.canDrop()
         })
     })
-
+console.log("canDrop: " + canDrop)
     const isActive = isOver && canDrop;
 
     return (

@@ -11,23 +11,30 @@ export default function Wizcaster(props) {
     function addWordToCurrentSpell(word, start) {
         let newCurrentSpell = currentSpell;
         start ? newCurrentSpell.unshift(word) : newCurrentSpell.push(word);
-        console.log(newCurrentSpell);
+        setCurrentSpell([...newCurrentSpell]);
+    }
+
+    function removeWordFromCurrentSpell(index) {
+        let newCurrentSpell = currentSpell
+        newCurrentSpell.splice(index, 1);
         setCurrentSpell([...newCurrentSpell]);
     }
 
     function currentSpellDisp() {
-        console.log(currentSpell);
         let freeCategories = ["Form", "Element", "Verb"];
-        currentSpell.forEach(spell => freeCategories.splice(currentSpell.indexOf(spell.category), 1));
-        let startSpace = currentSpell.length < 3 ? <WordSpace start={true} accepts={freeCategories} addWordToCurrentSpell={addWordToCurrentSpell} /> : <></>;
-        let endSpace = currentSpell.length < 3 ? <WordSpace start={false} accepts={freeCategories} addWordToCurrentSpell={addWordToCurrentSpell} /> : <></>;
+        currentSpell.forEach(spell => freeCategories.splice(freeCategories.indexOf(spell.category), 1));
+        let startSpace = currentSpell.length < 3 ? <WordSpace start={true} accepts={freeCategories} currentSpell={currentSpell} addWordToCurrentSpell={addWordToCurrentSpell} /> : <></>;
+        let endSpace = currentSpell.length < 3 ? <WordSpace start={false} accepts={freeCategories} currentSpell={currentSpell} addWordToCurrentSpell={addWordToCurrentSpell} /> : <></>;
 
         return (
             <>
             {startSpace}
             {currentSpell.map((w, i) => {
                 return (
-                    <input key={i} type="text" value={w['word']} />
+                    <div key={i} className="current-spell-word">
+                        <div>{w['word']}</div>
+                        <button onClick={() => removeWordFromCurrentSpell(i)}>-</button>
+                    </div>
                 )
             })}
             {endSpace}
@@ -74,11 +81,14 @@ export default function Wizcaster(props) {
 
     function wordsList() {
         if (currentSpecials.words) {
+            let freeCategories = ["Form", "Element", "Verb"];
+            currentSpell.forEach(spell => freeCategories.splice(freeCategories.indexOf(spell.category), 1));
             return (
                 <ul>
                     {currentSpecials.words.map((obj, i) => {
+                        
                         return (
-                            <WordOfPower key={i} ind={i} word={obj} randomizeWord={randomizeWord} /> 
+                            <WordOfPower key={i} ind={i} word={obj} usable={freeCategories.includes(obj.category)} randomizeWord={randomizeWord} /> 
                         )
                     })}
                 </ul>

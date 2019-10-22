@@ -67,6 +67,10 @@
   width: 70vw;
 }
 
+.ability-main {
+  display: flex;
+}
+
 .ability-main input {
   height: 40px;
   font-size: 30px;
