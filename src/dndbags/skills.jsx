@@ -19,7 +19,7 @@ export default function Skills(props) {
     function remainingClassSkills() {
         if (numClassSkills === 0) {
             return (
-                <span>Choose a Class Skill</span>
+                <span>Choose a <strong style={{backgroundColor: 'gold'}}>Class Skill</strong></span>
             )
         }
     }
