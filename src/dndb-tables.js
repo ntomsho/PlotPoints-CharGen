@@ -623,7 +623,22 @@ export const MUTATIONS = [
     `Stench`,
     `Stretchy`,
     `Teleportation`,
-    `Two-headed`,
+    `Two-headed`
+]
+
+export const SONGS = [
+    "Aria",
+    "Dirge",
+    "Groove",
+    "Hoedown",
+    "Limerick",
+    "Lullaby",
+    "Jingle",
+    "March",
+    "Power Ballad",
+    "Rap",
+    "Shanty",
+    "Solo"
 ]
 
 export function random(arr) {

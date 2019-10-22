@@ -5,6 +5,7 @@ import Bowslinger from './c_classes/bowslinger';
 import Hippy from './c_classes/hippy';
 import Wizcaster from './c_classes/wizcaster';
 import KnightOfTushuze from './c_classes/knight_of_tushuze';
+import Minstrel from './c_classes/minstrel';
 
 export default function ClassMain(props) {
     const classColor = props.cClass ? CLASS_COLORS[props.cClass] : "white"
@@ -23,6 +24,9 @@ export default function ClassMain(props) {
                 break;
             case "Knight of Tushuze":
                 classComp = <KnightOfTushuze currentSpecials={props.currentSpecials} updateState={props.updateState} />
+                break;
+            case "Minstrel":
+                classComp = <Minstrel currentSpecials={props.currentSpecials} updateState={props.updateState} />
                 break;
             case "Wizcaster":
                 classComp = <Wizcaster currentSpecials={props.currentSpecials} updateState={props.updateState} />
