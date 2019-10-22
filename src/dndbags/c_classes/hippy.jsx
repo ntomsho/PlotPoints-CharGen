@@ -8,7 +8,7 @@ export default function Hippy(props) {
     const input = React.createRef();
 
     if (!currentSpecials.forms) {
-        createForms();
+        props.updateState('currentSpecials', { 'forms': [] })
     }
 
     function createForms() {

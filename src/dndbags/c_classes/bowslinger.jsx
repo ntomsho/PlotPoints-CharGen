@@ -3,8 +3,12 @@ import { ELEMENTS, GERUNDS, random } from '../../dndb-tables';
 
 export default function Bowslinger(props) {
     let { currentSpecials } = props;
-
     const [savableAmmo, setSavableAmmo] = useState([])
+    const input = React.createRef();
+    
+    if (!currentSpecials.ammo) {
+        createAmmo();
+    }
 
     function randomAmmo() {
         let wordCat = random([ELEMENTS, GERUNDS]);
@@ -39,6 +43,12 @@ export default function Bowslinger(props) {
         let newSavable = savableAmmo;
         newSavable.splice(ind, 1);
         setSavableAmmo([...newSavable]);
+    }
+
+    function addCustomAmmo() {
+        let newAmmo = currentSpecials.ammo;
+        newAmmo.push(input.current.value);
+        props.updateState('currentSpecials', { 'ammo': newAmmo })
     }
 
     function ammoDisp() {
@@ -106,6 +116,7 @@ export default function Bowslinger(props) {
                 </div>
                 <div>
                     <button className="randomize-button" onClick={createAmmo}>Randomize Ammo</button>
+                    <span>Add Ammo: </span><input type="text" ref={input}></input><button onClick={addCustomAmmo}>+</button>
                 </div>
             </div>
         </div>
