@@ -5,9 +5,9 @@ export default function Bowslinger(props) {
     let { currentSpecials } = props;
     const [savableAmmo, setSavableAmmo] = useState([])
     const input = React.createRef();
-    
+
     if (!currentSpecials.ammo) {
-        createAmmo();
+        props.updateState('currentSpecials', { 'ammo': [] })
     }
 
     function randomAmmo() {
