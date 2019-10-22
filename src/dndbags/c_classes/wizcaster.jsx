@@ -53,7 +53,7 @@ export default function Wizcaster(props) {
                 wordCat = ELEMENTS;
                 break;
             default:
-                wordCat = VERBS;
+                wordCat = GERUNDS;
         }
         const word = random(wordCat);
         return { 'word': word, 'category': wordCatName }
@@ -84,11 +84,14 @@ export default function Wizcaster(props) {
             let freeCategories = ["Form", "Element", "Verb"];
             currentSpell.forEach(spell => freeCategories.splice(freeCategories.indexOf(spell.category), 1));
             return (
-                <ul>
+                <ul style={{listStyle: 'none'}}>
                     {currentSpecials.words.map((obj, i) => {
                         
                         return (
-                            <WordOfPower key={i} ind={i} word={obj} usable={freeCategories.includes(obj.category)} randomizeWord={randomizeWord} /> 
+                            <div key={i}>
+                                <WordOfPower ind={i} word={obj} usable={freeCategories.includes(obj.category)} randomizeWord={randomizeWord} /> 
+                                <button onClick={() => randomizeWord(i)}>Randomize</button>
+                            </div>
                         )
                     })}
                 </ul>

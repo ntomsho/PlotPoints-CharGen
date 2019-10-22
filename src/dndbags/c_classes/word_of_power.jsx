@@ -24,7 +24,6 @@ export default function WordOfPower(props) {
             <div>
                 <span>{props.word.word}</span> &nbsp;
                 <span>{props.word.category}</span>
-                <button onClick={() => props.randomizeWord(props.ind)}>Randomize</button>
             </div>
         </li>
     )
