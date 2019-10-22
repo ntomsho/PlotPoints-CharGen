@@ -5,6 +5,11 @@ export default function Hippy(props) {
     let { currentSpecials } = props;
     const [currentForm, setCurrentForm] = useState(null);
     const [currentMutation, setCurrentMutation] = useState(null);
+    const input = React.createRef();
+
+    if (!currentSpecials.forms) {
+        createForms();
+    }
 
     function createForms() {
         let forms = [];
@@ -32,6 +37,12 @@ export default function Hippy(props) {
                 </>
             )
         }
+    }
+
+    function addCustomForm() {
+        let newForms = currentSpecials.forms;
+        newForms.push(input.current.value);
+        props.updateState('currentSpecials', {'forms': newForms})
     }
 
     function formsDisp() {
@@ -79,6 +90,7 @@ export default function Hippy(props) {
                 </div>
                 <div>
                     <button className="randomize-button" onClick={createForms}>Randomize Animal Forms</button>
+                    <span>Add Animal Form: </span><input type="text" ref={input}></input><button onClick={addCustomForm}>+</button>
                 </div>
             </div>
         </div>
