@@ -2,6 +2,7 @@ import React from 'react';
 import { CLASS_COLORS } from '../dndb-tables';
 import Battlebro from './c_classes/battlebro';
 import Bowslinger from './c_classes/bowslinger';
+import Hippy from './c_classes/hippy';
 import Wizcaster from './c_classes/wizcaster';
 
 export default function ClassMain(props) {
@@ -15,6 +16,9 @@ export default function ClassMain(props) {
                 break;
             case "Bowslinger":
                 classComp = <Bowslinger currentSpecials={props.currentSpecials} updateState={props.updateState} />
+                break;
+            case "Hippy":
+                classComp = <Hippy currentSpecials={props.currentSpecials} updateState={props.updateState} />
                 break;
             case "Wizcaster":
                 classComp = <Wizcaster currentSpecials={props.currentSpecials} updateState={props.updateState} />
