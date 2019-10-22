@@ -81,6 +81,11 @@
   font-size: 30px;
 }
 
+#ammo-lists {
+  display: flex;
+  justify-content: space-around;
+}
+
 .keepword.selected {
   background-color: gold;
 }
