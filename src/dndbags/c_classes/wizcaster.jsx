@@ -8,6 +8,9 @@ export default function Wizcaster(props) {
 
     const [currentSpell, setCurrentSpell] = useState([]);
     const [keepWord, setKeepWord] = useState({word: null});
+    const input1 = React.createRef();
+    const input2 = React.createRef();
+
     useEffect(() => {
         let currentWords = [];
         for(let i = 0; i < currentSpell.length; i++) {
@@ -15,6 +18,10 @@ export default function Wizcaster(props) {
         }
         if (!currentWords.includes(keepWord.word)) setKeepWord({word: null});
     }, [currentSpell]);
+
+    if (!currentSpecials.words) {
+        props.updateState('currentSpecials', { 'words': [] })
+    }
 
     function addWordToCurrentSpell(word, start) {
         let newCurrentSpell = currentSpell;
@@ -126,6 +133,12 @@ export default function Wizcaster(props) {
         props.updateState('currentSpecials', {'words': words});
     }
 
+    function addCustomWord() {
+        let newWords = currentSpecials.words;
+        newWords.push({'word': input1.current.value, 'category': input2.current.value})
+        props.updateState('currentSpecials', {'words': newWords});
+    }
+
     function wordsList() {
         if (currentSpecials.words) {
             let freeCategories = ["Form", "Element", "Verb"];
@@ -168,6 +181,14 @@ export default function Wizcaster(props) {
                 </div>
                 <div>
                     <button className="randomize-button" onClick={randomizeWords}>Generate New Words</button>
+                    <span>Add Word of Power: </span>
+                    <input type="text" ref={input1}></input>
+                    <select ref={input2}>
+                        <option value="Form">Form</option>
+                        <option value="Element">Element</option>
+                        <option value="Verb">Verb</option>
+                    </select>
+                    <button onClick={addCustomWord}>+</button>
                 </div>
             </div>
         </div>
