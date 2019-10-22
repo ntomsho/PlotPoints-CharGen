@@ -20,6 +20,21 @@ export default function Wizcaster(props) {
         setCurrentSpell([...newCurrentSpell]);
     }
 
+    function currentSpellWord(word, index) {
+        if (currentSpell.length >= 2 && index >= 1) {
+            if (word.category === "Element" && currentSpell[index - 1].category === "Form") {
+                return `of ${ELEMENTS_OF[ELEMENTS.indexOf(word.word)]}`
+            }
+            if (word.category === "Verb" && currentSpell[index - 1].category === "Form") {
+                return `of ${GERUNDS[VERBS.indexOf(word.word)]}`
+            }
+        }
+        if (word.category === "Verb") {
+            return GERUNDS[VERBS.indexOf(word.word)]
+        }
+        return word.word
+    }
+
     function currentSpellDisp() {
         let freeCategories = ["Form", "Element", "Verb"];
         currentSpell.forEach(spell => freeCategories.splice(freeCategories.indexOf(spell.category), 1));
@@ -32,7 +47,8 @@ export default function Wizcaster(props) {
             {currentSpell.map((w, i) => {
                 return (
                     <div key={i} className="current-spell-word">
-                        <div>{w['word']}</div>
+                        {/* <div>{w['word']}</div> */}
+                        <div>{currentSpellWord(w, i)}</div>
                         <button onClick={() => removeWordFromCurrentSpell(i)}>-</button>
                     </div>
                 )
@@ -53,7 +69,7 @@ export default function Wizcaster(props) {
                 wordCat = ELEMENTS;
                 break;
             default:
-                wordCat = GERUNDS;
+                wordCat = VERBS;
         }
         const word = random(wordCat);
         return { 'word': word, 'category': wordCatName }
