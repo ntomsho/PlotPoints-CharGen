@@ -32,7 +32,7 @@ export const CLASS_COLORS = {
     "Battlebro": "darkorange",
     "Bowslinger": "darkolivegreen",
     "Hippy": "forestgreen",
-    "Knight of Tushuze": "gold",
+    "Knight of Tushuze": "palegoldenrod",
     "Minstrel": "royalblue",
     "Mixologist": "lightcoral",
     "Ne'erdowell": "slategray",
