@@ -6,7 +6,7 @@ export default function WordOfPower(props) {
     const [{ isDragging }, drag] = useDrag({
         // item: { type: 'Form', id: props.word },
         item: { type: props.word.category, id: props.word},
-        canDrag: !props.disabled,
+        canDrag: !props.selected,
         collect: monitor => ({
             isDragging: !!monitor.isDragging()
         })

@@ -81,6 +81,12 @@
   font-size: 30px;
 }
 
+.keepword.selected {
+  background-color: gold;
+}
+
+
+
 .inventory-space {
   width: 25%;
 }

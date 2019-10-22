@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { random, FORMS, GERUNDS, VERBS, ELEMENTS, ELEMENTS_OF } from '../../dndb-tables';
 import WordOfPower from './word_of_power';
 import WordSpace from './word_space';
@@ -7,6 +7,14 @@ export default function Wizcaster(props) {
     let { currentSpecials } = props;
 
     const [currentSpell, setCurrentSpell] = useState([]);
+    const [keepWord, setKeepWord] = useState({word: null});
+    useEffect(() => {
+        let currentWords = [];
+        for(let i = 0; i < currentSpell.length; i++) {
+            currentWords.push(currentSpell[i].word);
+        }
+        if (!currentWords.includes(keepWord.word)) setKeepWord({word: null});
+    }, [currentSpell]);
 
     function addWordToCurrentSpell(word, start) {
         let newCurrentSpell = currentSpell;
@@ -15,6 +23,7 @@ export default function Wizcaster(props) {
     }
 
     function removeWordFromCurrentSpell(index) {
+        if (currentSpell[index].word === keepWord.word) setKeepWord({word: null})
         let newCurrentSpell = currentSpell
         newCurrentSpell.splice(index, 1);
         setCurrentSpell([...newCurrentSpell]);
@@ -25,6 +34,9 @@ export default function Wizcaster(props) {
             if (word.category === "Element" && currentSpell[index - 1].category === "Form") {
                 return `of ${ELEMENTS_OF[ELEMENTS.indexOf(word.word)]}`
             }
+            if (word.category === "Element" && currentSpell[index - 1].category === "Verb") {
+                return ELEMENTS_OF[ELEMENTS.indexOf(word.word)]
+            }
             if (word.category === "Verb" && currentSpell[index - 1].category === "Form") {
                 return `of ${GERUNDS[VERBS.indexOf(word.word)]}`
             }
@@ -33,6 +45,14 @@ export default function Wizcaster(props) {
             return GERUNDS[VERBS.indexOf(word.word)]
         }
         return word.word
+    }
+
+    function castSpellButton() {
+        if (currentSpell.length >= 2) {
+            return (
+                <button onClick={castSpell}>Cast</button>
+            )
+        }
     }
 
     function currentSpellDisp() {
@@ -47,15 +67,26 @@ export default function Wizcaster(props) {
             {currentSpell.map((w, i) => {
                 return (
                     <div key={i} className="current-spell-word">
-                        {/* <div>{w['word']}</div> */}
                         <div>{currentSpellWord(w, i)}</div>
                         <button onClick={() => removeWordFromCurrentSpell(i)}>-</button>
+                        <button className={`keepword${keepWord && keepWord.word === w.word ? ' selected' : '' }`} onClick={() => setKeepWord(w)}>Keep?</button>
                     </div>
                 )
             })}
             {endSpace}
             </>
         )
+    }
+
+    function castSpell() {
+        let newWords = currentSpecials.words;
+        for(let i=0; i < currentSpell.length; i++) {
+            if (currentSpell[i].word !== keepWord.word) {
+                newWords.splice(newWords.indexOf(currentSpell[i]), 1);
+            }
+        }
+        setCurrentSpell([]);
+        props.updateState('currentSpecials', {'words': newWords});
     }
     
     function createRandomWord() {
@@ -130,6 +161,7 @@ export default function Wizcaster(props) {
             <div className="class-ability-display">
                 <div className="ability-main">
                     {currentSpellDisp()}
+                    {castSpellButton()}
                 </div>
                 <div className="words-list">
                     {wordsList()}

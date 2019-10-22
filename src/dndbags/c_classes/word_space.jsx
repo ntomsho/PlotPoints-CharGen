@@ -24,7 +24,7 @@ export default function WordSpace(props) {
         //     props.accepts.includes(item.type);
         // },
         drop: (item) => {
-            console.log("Dragged: " + item)
+            // console.log("Dragged: " + item)
             props.addWordToCurrentSpell(item.id, props.start);
         },
         collect: monitor => ({
@@ -32,7 +32,7 @@ export default function WordSpace(props) {
             canDrop: !!monitor.canDrop()
         })
     })
-console.log("canDrop: " + canDrop)
+// console.log("canDrop: " + canDrop)
     const isActive = isOver && canDrop;
 
     return (
