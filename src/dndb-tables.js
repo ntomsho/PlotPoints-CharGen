@@ -663,3 +663,20 @@ export function random(arr) {
 export function randomAnimal() {
     return random(random([AERIAL_CREATURES, AQUATIC_CREATURES, BUG_CREATURES, PREDATOR_CREATURES, PREY_CREATURES, DOMESTICATED_CREATURES]));
 }
+
+export function randomMagicItem() {
+    return random([
+        `${random(ELEMENTS)} ${random(EQUIPMENT)}`,
+        `${random(ELEMENTS)} ${random(TRINKETS)}`,
+        `${random(GERUNDS)} ${random(EQUIPMENT)}`,
+        `${random(GERUNDS)} ${random(TRINKETS)}`,
+        `${random(EQUIPMENT)} of ${random(GERUNDS)}`,
+        `${random(TRINKETS)} of ${random(GERUNDS)}`,
+        `${random(GERUNDS)} ${random(WEAPONS)}`,
+        `${random(ELEMENTS)} ${random(WEAPONS)}`,
+        `${random(TRINKETS)} of ${random(GERUNDS)} ${random(ELEMENTS_OF)}`,
+        `${random(WEAPONS)} of ${random(GERUNDS)} ${random(ELEMENTS_OF)}`,
+        `${random(GERUNDS)} Potion`,
+        `Potion of ${random(ELEMENTS_OF)}`
+    ])
+}
