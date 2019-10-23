@@ -6,6 +6,7 @@ import Hippy from './c_classes/hippy';
 import KnightOfTushuze from './c_classes/knight_of_tushuze';
 import Minstrel from './c_classes/minstrel';
 import Mixologist from './c_classes/mixologist';
+import Neerdowell from './c_classes/neerdowell';
 import Wizcaster from './c_classes/wizcaster';
 
 export default function ClassMain(props) {
@@ -31,6 +32,9 @@ export default function ClassMain(props) {
                 break;
             case "Mixologist":
                 classComp = <Mixologist currentSpecials={props.currentSpecials} updateState={props.updateState} />
+                break;
+            case "Ne'erdowell":
+                classComp = <Neerdowell currentSpecials={props.currentSpecials} updateState={props.updateState} />
                 break;
             case "Wizcaster":
                 classComp = <Wizcaster currentSpecials={props.currentSpecials} updateState={props.updateState} />
