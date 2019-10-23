@@ -662,6 +662,27 @@ export const RUNES = [
     'ᛄ','ᛅ','ᛇ','ᛈ','ᛉ','ᛊ','ᛋ','ᛒ','ᛓ','ᛔ','ᛕ','ᛖ','ᛗ','ᛘ','ᛝ','ᛞ','ᛟ','ᛠ','ᛢ','ᛤ','ᛥ','ᛩ','ᛪ'
 ]
 
+export const COMMANDS = [
+    "Cower",
+    "Dance",
+    "Defend",
+    "Dream",
+    "Drop",
+    "Fall",
+    "Forget",
+    "Freeze",
+    "Give",
+    "Ignite",
+    "Kill",
+    "Move",
+    "Run",
+    "Sing",
+    "Sleep",
+    "Stop",
+    "Vogue",
+    "Yell"
+]
+
 export function random(arr) {
     return arr[Math.floor(Math.random() * arr.length)];
 }

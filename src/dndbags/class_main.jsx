@@ -10,6 +10,7 @@ import Neerdowell from './c_classes/neerdowell';
 import Ragesmasher from './c_classes/ragesmasher';
 import Runegoon from './c_classes/runegoon';
 import Wizcaster from './c_classes/wizcaster';
+import Verbpriest from './c_classes/verbpriest';
 
 export default function ClassMain(props) {
     const classColor = props.cClass ? CLASS_COLORS[props.cClass] : "white"
@@ -43,6 +44,9 @@ export default function ClassMain(props) {
                 break;
             case "Runegoon":
                 classComp = <Runegoon currentSpecials={props.currentSpecials} updateState={props.updateState} />
+                break;
+            case "Verbpriest":
+                classComp = <Verbpriest currentSpecials={props.currentSpecials} updateState={props.updateState} />
                 break;
             case "Wizcaster":
                 classComp = <Wizcaster currentSpecials={props.currentSpecials} updateState={props.updateState} />
