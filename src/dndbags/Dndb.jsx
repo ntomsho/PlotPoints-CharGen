@@ -11,7 +11,7 @@ class Dndb extends React.Component {
         super(props);
         this.state = {
             name: "",
-            cClass: "Minstrel",
+            cClass: "Mixologist",
             race: "Human",
             background: "",
             appearance: "",

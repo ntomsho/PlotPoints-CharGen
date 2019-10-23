@@ -94,6 +94,18 @@
   background-color: gold;
 }
 
+.components-list {
+  display: flex;
+  justify-content: space-around;
+}
+
+.comp {
+  cursor: pointer;
+}
+
+.comp.selected {
+  background-color: gold;
+}
 
 
 .inventory-space {

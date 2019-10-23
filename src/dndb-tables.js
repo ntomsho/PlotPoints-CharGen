@@ -641,6 +641,21 @@ export const SONGS = [
     "Solo"
 ]
 
+export const BASES = [
+    "Bomb",
+    "Brew",
+    "Decoction",
+    "Elixir",
+    "Emulsion",
+    "Grenade",
+    "Infusion",
+    "Oil",
+    "Poison",
+    "Potion",
+    "Powder",
+    "Resin"
+]
+
 export function random(arr) {
     return arr[Math.floor(Math.random() * arr.length)];
 }
