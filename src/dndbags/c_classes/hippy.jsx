@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { randomAnimal, MUTATIONS, random } from '../../dndb-tables';
 
 export default function Hippy(props) {
-    let { currentSpecials } = props;
+    const { currentSpecials } = props;
     const [currentForm, setCurrentForm] = useState(null);
     const [currentMutation, setCurrentMutation] = useState(null);
     const input = React.createRef();
