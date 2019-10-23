@@ -703,7 +703,7 @@ export function randomMagicItem() {
         `${random(ELEMENTS)} ${random(WEAPONS)}`,
         `${random(TRINKETS)} of ${random(GERUNDS)} ${random(ELEMENTS_OF)}`,
         `${random(WEAPONS)} of ${random(GERUNDS)} ${random(ELEMENTS_OF)}`,
-        `${random(GERUNDS)} Potion`,
-        `Potion of ${random(ELEMENTS_OF)}`
+        `${random(GERUNDS)} ${random(BASES)}`,
+        `${random(BASES)} of ${random(ELEMENTS_OF)}`
     ])
 }
