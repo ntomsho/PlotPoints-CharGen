@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { ELEMENTS, GERUNDS, random } from '../../dndb-tables';
 
 export default function Bowslinger(props) {
-    let { currentSpecials } = props;
+    const { currentSpecials } = props;
     const [savableAmmo, setSavableAmmo] = useState([])
     const input = React.createRef();
 

@@ -8,6 +8,7 @@ import Minstrel from './c_classes/minstrel';
 import Mixologist from './c_classes/mixologist';
 import Neerdowell from './c_classes/neerdowell';
 import Ragesmasher from './c_classes/ragesmasher';
+import Runegoon from './c_classes/runegoon';
 import Wizcaster from './c_classes/wizcaster';
 
 export default function ClassMain(props) {
@@ -39,6 +40,9 @@ export default function ClassMain(props) {
                 break;
             case "Ragesmasher":
                 classComp = <Ragesmasher currentSpecials={props.currentSpecials} updateState={props.updateState} />
+                break;
+            case "Runegoon":
+                classComp = <Runegoon currentSpecials={props.currentSpecials} updateState={props.updateState} />
                 break;
             case "Wizcaster":
                 classComp = <Wizcaster currentSpecials={props.currentSpecials} updateState={props.updateState} />
