@@ -9,8 +9,9 @@ import Mixologist from './c_classes/mixologist';
 import Neerdowell from './c_classes/neerdowell';
 import Ragesmasher from './c_classes/ragesmasher';
 import Runegoon from './c_classes/runegoon';
-import Wizcaster from './c_classes/wizcaster';
 import Verbpriest from './c_classes/verbpriest';
+import Wizcaster from './c_classes/wizcaster';
+import Zoomaster from './c_classes/zoomaster';
 
 export default function ClassMain(props) {
     const classColor = props.cClass ? CLASS_COLORS[props.cClass] : "white"
@@ -50,6 +51,9 @@ export default function ClassMain(props) {
                 break;
             case "Wizcaster":
                 classComp = <Wizcaster currentSpecials={props.currentSpecials} updateState={props.updateState} />
+                break;
+            case "Zoomaster":
+                classComp = <Zoomaster currentSpecials={props.currentSpecials} updateState={props.updateState} />
                 break;
             default:
                 classComp = <></>

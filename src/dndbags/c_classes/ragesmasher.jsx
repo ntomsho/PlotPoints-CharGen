@@ -57,7 +57,7 @@ export default function Ragesmasher(props) {
             )
         }
     }
-    console.log(rage)
+
     return (
         <div className="class-ability-container">
             <div className="class-info">

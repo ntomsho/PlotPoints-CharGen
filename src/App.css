@@ -107,6 +107,11 @@
   background-color: gold;
 }
 
+.zoomaster-ability-section {
+  display: flex;
+  flex-direction: column;
+}
+
 
 .inventory-space {
   width: 25%;
