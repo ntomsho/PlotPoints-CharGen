@@ -46,6 +46,55 @@ class Dndb extends React.Component {
         }
     }
 
+    updateHealth(num) {
+        this.updateState('health', this.state.health === num ? num - 1 : num);
+    }
+
+    healthTrackerDisp() {
+        const hearts = [];
+        for (let i = 0; i < 7; i++) {
+            hearts.push(
+                <img key={i}
+                    id={`heart-${i + 1}`}
+                    className="heart-container"
+                    onClick={() => this.updateHealth(i + 1)}
+                    src={this.state.health >= i + 1 ?
+                        "http://icons.iconarchive.com/icons/designbolts/free-valentine-heart/256/Heart-icon.png" : 
+                        "http://icons.iconarchive.com/icons/icons8/windows-8/256/Gaming-Hearts-icon.png"}
+                />
+            )
+        }
+        return (
+            <div>
+                {hearts}
+            </div>
+        )
+    }
+
+    updatePlotPoints(num) {
+        this.updateState('plotPoints', this.state.plotPoints === num ? num - 1 : num);
+    }
+
+    plotPointsTrackerDisp() {
+        const pp = [];
+        for (let i = 0; i < 3; i++) {
+            pp.push(
+                <span key={i}
+                    id={`pp-${i + 1}`}
+                    className="pp-container"
+                    onClick={() => this.updatePlotPoints(i + 1)}
+                >
+                    {this.state.plotPoints >= i + 1 ? "⦿" : "⦾"}
+                </span>
+            )
+        }
+        return (
+            <div>
+                {pp}
+            </div>
+        )
+    }
+
     render() {
         return (
             <DndProvider backend={HTML5Backend}>
@@ -71,6 +120,19 @@ class Dndb extends React.Component {
                                 )
                             })}
                         </select>
+                    </div>
+                    <div className="sheet-row">
+                        <div className="health-tracker">
+                            Health
+                            {this.healthTrackerDisp()}
+                        </div>
+                        <div className="plot-points-tracker">
+                            Plot Points
+                            {this.plotPointsTrackerDisp()}
+                        </div>
+                        <div className="plot-points-tracker">
+
+                        </div>
                     </div>
                     <div className="sheet-row">
                         <span>Background: <input type="text" name="background" onChange={this.handleChange} value={this.state.background} id="background-input"></input></span>
