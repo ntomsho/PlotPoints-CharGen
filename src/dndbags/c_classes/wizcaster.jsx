@@ -17,7 +17,7 @@ export default function Wizcaster(props) {
             currentWords.push(currentSpell[i].word);
         }
         if (!currentWords.includes(keepWord.word)) setKeepWord({word: null});
-    }, [currentSpell]);
+    }, [currentSpell, keepWord.word]);
 
     if (!currentSpecials.words) {
         props.updateState('currentSpecials', { 'words': [] })

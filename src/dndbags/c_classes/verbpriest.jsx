@@ -12,6 +12,8 @@ export default function Verbpriest(props) {
                 return random(VERBS);
             case "Command":
                 return random(COMMANDS);
+            default:
+                return
         }
     }
 

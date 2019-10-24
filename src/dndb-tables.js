@@ -43,23 +43,6 @@ export const CLASS_COLORS = {
     "Zoomaster": "darkgreen"
 }
 
-export const ALTRACES = [
-    //Make dynamic
-    "Animal-person",
-    //
-    "Dwarf",
-    "Edgy demon",
-    "Elf (christmas)",
-    "Elf (pretty)",
-    "Facechanger",
-    "Golem",
-    "Merman",
-    "Ogre",
-    "Ork",
-    "Thiefling",
-    "Zombie"
-];
-
 export const SKILLS = [
     "Believe in Yourself",
     "Brute Force",
@@ -109,6 +92,120 @@ export const BACKGROUNDS = [
     "Trust fund baby",
     "Waiter",
     "Wizard’s apprentice"
+]
+
+export const APPEARANCES = [
+    "Androgynous",
+    "Angry",
+    "Ascetic",
+    "Athletic",
+    "Bedraggled",
+    "Boney",
+    "Bookish",
+    "Bro",
+    "Creepy",
+    "Dirty",
+    "Edgelord",
+    "Fancy",
+    "Formal",
+    "Hairy",
+    "Hipster",
+    "Immaculate",
+    "Jacked",
+    "Like someone famous",
+    "Mustachioed",
+    "Mystical",
+    "Nervous",
+    "Perfect hair",
+    "Punk",
+    "Rad",
+    "Scarred",
+    "Sharp - dressed",
+    "Skeezy",
+    "Spacey",
+    "Straight - laced",
+    "Tattooed",
+    "Theatrical",
+    "Trendy",
+    "Unremarkable",
+    "Weary",
+    "Weird",
+    "Wild"
+]
+
+export const DERPS = [
+    "Allergic to a color",
+    "Allergic to common substance",
+    "Anger management issues",
+    "Annoying habit",
+    "Arms like twizzlers",
+    "Boyscout",
+    "Bro",
+    "Complete idiot",
+    "Compulsive snacker",
+    "Debbie downer",
+    "Deficient personal hygiene",
+    "Delusions of grandeur",
+    "Doesn’t believe in money",
+    "Dogmatic libertarian",
+    "Emotionless",
+    "Fantasy racism (vs. humans)",
+    "Fantasy racism (vs. non-humans)",
+    "Formerly wealthy",
+    "Functionally illiterate",
+    "Has to pet animals",
+    "High-functioning alcoholic",
+    "Hipster",
+    "Hypochondriac",
+    "In a cult",
+    "Incredibly boring",
+    "Invents junk",
+    "Just a total asshole",
+    "Light of innocence",
+    "Lumbering oaf",
+    "Makes stuff up",
+    "Memelord",
+    "Modern anachronism",
+    "Naked avarice",
+    "Narcissist",
+    "Narcolepsy",
+    "Neurotic",
+    "Only speaks Gronk",
+    "On probation",
+    "Paranoia",
+    "Pathological liar",
+    "Poor short term memory",
+    "Pronoia(they’re all out to help me!)",
+    "Pseudo intellectual",
+    "Pyromania",
+    "Quixotic quest",
+    "Raised by Animals",
+    "Religious zealot",
+    "Rolls dice before doing anything",
+    "Says 'yes' to everything",
+    "Severe IBS",
+    "Shit luck",
+    "Short attention span",
+    "Slacker",
+    "Sovereign Citizen",
+    "Stone-age luddite",
+    "Talks to rocks",
+    "Tells stories that go nowhere",
+    "Thinks they're a vampire",
+    "Thinks they are/aren’t a wizard",
+    "Thinks they’re a superhero",
+    "Thinks they’re in an rpg",
+    "Thinks they’re psychic",
+    "*Tips fedora* M’lady",
+    "Tinfoil hat",
+    "Too old for this shit",
+    "Trapped in a long con",
+    "Unhelpful imaginary friend",
+    "Unsuccessful casanova",
+    "Wannabe bard",
+    "Wanted",
+    "Washed up celebrity",
+    "Yellow-bellied coward"
 ]
 
 export const ELEMENTS = [
@@ -587,6 +684,21 @@ export const DOMESTICATED_CREATURES = [
     "Turkey",
 ]
 
+export const ALTRACES = [
+    `${randomAnimal()}-person`,
+    "Dwarf",
+    "Edgy demon",
+    "Elf (christmas)",
+    "Elf (pretty)",
+    "Facechanger",
+    "Golem",
+    "Merman",
+    "Ogre",
+    "Ork",
+    "Thiefling",
+    "Zombie"
+];
+
 export const MUTATIONS = [
     `${random(AERIAL_CREATURES)} feature`,
     `${random(AQUATIC_CREATURES)} feature`,
@@ -685,6 +797,14 @@ export const COMMANDS = [
 
 export function random(arr) {
     return arr[Math.floor(Math.random() * arr.length)];
+}
+
+export function randomRace() {
+    if (Math.floor(Math.random() * 100) <= 66) {
+        return "Human";
+    } else {
+        return random(ALTRACES);
+    }
 }
 
 export function randomAnimal() {

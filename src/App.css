@@ -23,6 +23,7 @@
 .heart-container {
   width: 5%;
   padding: 0 1%;
+  cursor: pointer;
 }
 
 /* Skills */

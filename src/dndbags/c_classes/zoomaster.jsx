@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { randomAnimal, random, MUTATIONS } from '../../dndb-tables';
 
 export default function Zoomaster(props) {

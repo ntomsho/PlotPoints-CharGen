@@ -10,7 +10,6 @@ export default function Inventory(props) {
             if (!props.inventory[i]) {
                 newInventory[i] = random(EQUIPMENT);
                 count += 1;
-                console.log(count);
             }
         }
         props.updateState("inventory", newInventory);
