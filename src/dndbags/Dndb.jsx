@@ -36,7 +36,14 @@ class Dndb extends React.Component {
     };
 
     handleChange(event) {
-        this.updateState(event.target.name, event.target.value)
+        if (event.target.name === "cClass") {
+            let newState = Object.assign({}, this.state);
+            newState['currentSpecials'] = {};
+            newState['cClass'] = event.target.value
+            this.setState(newState);
+        } else {
+            this.updateState(event.target.name, event.target.value)
+        }
     }
 
     render() {
