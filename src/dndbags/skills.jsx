@@ -3,7 +3,7 @@ import { CLASS_SKILLS, SKILLS } from '../dndb-tables';
 import SkillButton from './skill_button';
 
 export default function Skills(props) {
-    const classSkills = CLASS_SKILLS[props.cClass];
+    const classSkills = CLASS_SKILLS[props.cClass] || [];
     const skillSet = props.trainedSkills;
     const maxRegSkills = props.race === "Human" ? 1 : 0;
     let numClassSkills = 0;

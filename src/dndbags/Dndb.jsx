@@ -11,7 +11,7 @@ class Dndb extends React.Component {
         super(props);
         this.state = {
             name: "",
-            cClass: "Zoomaster",
+            cClass: "",
             race: "Human",
             background: "",
             appearance: "",
@@ -26,6 +26,7 @@ class Dndb extends React.Component {
             regulation: true
         }
         this.updateState = this.updateState.bind(this);
+        this.handleChange = this.handleChange.bind(this);
     }
 
     updateState(key, val) {
@@ -33,6 +34,10 @@ class Dndb extends React.Component {
         newState[key] = val;
         this.setState(newState);
     };
+
+    handleChange(event) {
+        this.updateState(event.target.name, event.target.value)
+    }
 
     render() {
         return (
@@ -43,15 +48,15 @@ class Dndb extends React.Component {
                 </div>
                 <div id="main-section">
                     <div className="sheet-row">
-                        <span>Name: <input type="text" id="name-input"></input></span>
-                        Class: <select>
+                        <span>Name: <input type="text" name="name" id="name-input" onChange={this.handleChange} value={this.state.name}></input></span>
+                        Class: <select name="cClass" onChange={this.handleChange} value={this.state.cClass}>
                             {CLASSES.map((c, i) => {
                                 return (
                                     <option key={i} value={c}>{c}</option>
                                 )
                             })}
                         </select>
-                        Race: <select>
+                        Race (but not in like a racist way): <select name="race" onChange={this.handleChange} value={this.state.race}>
                             <option value="Human">Human</option>
                             {ALTRACES.map((r, i) => {
                                 return (
@@ -61,9 +66,9 @@ class Dndb extends React.Component {
                         </select>
                     </div>
                     <div className="sheet-row">
-                        <span>Background: <input type="text" id="background-input"></input></span>
-                        <span>Appearance: <input type="text" id="appearance-input"></input></span>
-                        <span>Derp: <input type="text" id="derp-input"></input></span>
+                        <span>Background: <input type="text" name="background" onChange={this.handleChange} value={this.state.background} id="background-input"></input></span>
+                        <span>Appearance: <input type="text" name="appearance" onChange={this.handleChange} id="appearance-input"></input></span>
+                        <span>Derp: <input type="text" name="derp" onChange={this.handleChange} id="derp-input"></input></span>
                     </div>
                 </div>
                 <div id="class-section">
