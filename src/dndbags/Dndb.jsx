@@ -1,6 +1,5 @@
 import React from 'react';
-import { DndProvider } from 'react-dnd'
-import HTML5Backend from 'react-dnd-html5-backend'
+import BackendWrapper from './backend_wrapper';
 import { CLASSES, SKILLS, ALTRACES, random, randomRace, BACKGROUNDS, APPEARANCES, DERPS } from '../dndb-tables';
 import Skills from './skills';
 import ClassMain from './class_main';
@@ -29,7 +28,7 @@ class Dndb extends React.Component {
         this.handleChange = this.handleChange.bind(this);
         this.generateRandomCharacter = this.generateRandomCharacter.bind(this);
     }
-
+    
     updateState(key, val) {
         let newState = Object.assign({}, this.state);
         newState[key] = val;
@@ -110,7 +109,7 @@ class Dndb extends React.Component {
 
     render() {
         return (
-            <DndProvider backend={HTML5Backend}>
+            <BackendWrapper>
             <div id="dndb-container">
                 <div id="sheet-header">
                     <h1>Dungeons & Douchebags</h1>
@@ -167,7 +166,7 @@ class Dndb extends React.Component {
                     <Inventory {...this.state} updateState={this.updateState} />
                 </div>
             </div>
-            </DndProvider>
+            </BackendWrapper>
         )
     }
 }
