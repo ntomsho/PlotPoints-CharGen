@@ -1,4 +1,7 @@
 import React from 'react';
+import Amplify from 'aws-amplify';
+import awsconfig from './aws-exports';
+import { withAuthenticator } from 'aws-amplify-react';
 import './App.css';
 import {
   BrowserRouter as Router,
@@ -7,6 +10,8 @@ import {
 } from "react-router-dom";
 import Dndb from './dndbags/Dndb.jsx';
 import Home from './Home';
+
+Amplify.configure(awsconfig)
 
 function App() {
   return (
@@ -23,4 +28,4 @@ function App() {
   );
 }
 
-export default App;
+export default withAuthenticator(App, true);
