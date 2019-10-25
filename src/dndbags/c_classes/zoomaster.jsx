@@ -46,14 +46,12 @@ export default function Zoomaster(props) {
     return (
         <div className="class-ability-container">
             <div className="class-info">
-                <div className="class-desc">A graduate of Fighter College; a skilled combatant with a transforming magical weapon.</div>
+                <div className="class-desc">A tamer of beasts with a shapeshifting chimera as an animal companion.</div>
                 <br />
-                <div>Magic Ability:<br /><strong>Graduate Weapon</strong></div>
-                <div>Your capstone project is a shapechanging weapon. Whenever you defeat an enemy in battle, it gains one charge. You can spend one charge to:</div>
-                <ul>
-                    <li>Activate its magical property for one action</li>
-                    <li>Change its weapon type or its magical property</li>
-                </ul>
+                <div>Magic Ability:<br /><strong>Chimeric Companion</strong></div>
+                <div>Your best friend is a Chimera that shifts between the shapes of various creatures. Whenever you rest, it assumes a new animal form and mutation.</div>
+                <div>If you feed your Chimera a hearty meal of whatever its current form eat, you can change its mutation, animal form, or both.</div>
+                <div>You and your Chimera share Health. Any damage or healing done to one of you is done to the other.</div>
             </div>
             <div className="class-ability-display">
                 {companionDisp()}

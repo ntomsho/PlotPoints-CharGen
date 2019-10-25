@@ -74,14 +74,11 @@ export default function Hippy(props) {
     return (
         <div className="class-ability-container">
             <div className="class-info">
-                <div className="class-desc">A graduate of Fighter College; a skilled combatant with a transforming magical weapon.</div>
+                <div className="class-desc">A totally chill master of nature who can shapeshift into animals.</div>
                 <br />
-                <div>Magic Ability:<br /><strong>Graduate Weapon</strong></div>
-                <div>Your capstone project is a shapechanging weapon. Whenever you defeat an enemy in battle, it gains one charge. You can spend one charge to:</div>
-                <ul>
-                    <li>Activate its magical property for one action</li>
-                    <li>Change its weapon type or its magical property</li>
-                </ul>
+                <div>Magic Ability:<br /><strong>Animal Forms</strong></div>
+                <div>Whenever you rest, you are given a set of three animal forms that you can shift in and out of at will. When in an animal form, you gain Magic Advantage on any actions the form is well suited for.</div>
+                <div>You can give up one of your forms to add a mutation that applies to any other form (including your base form) for the rest of the scene.</div>
             </div>
             <div className="class-ability-display">
                 {mutationDisp()}

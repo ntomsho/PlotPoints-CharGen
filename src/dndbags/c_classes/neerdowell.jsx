@@ -51,10 +51,11 @@ export default function Neerdowell(props) {
     return (
         <div className="class-ability-container">
             <div className="class-info">
-                <div className="class-desc">A graduate of Fighter College; a skilled combatant with a transforming magical weapon.</div>
+                <div className="class-desc">A roguish thief with a vast collection of stolen trinkets and devices.</div>
                 <br />
-                <div>Magic Ability:<br /><strong>Graduate Weapon</strong></div>
-                <div>Your capstone project is a shapechanging weapon. Whenever you defeat an enemy in battle, it gains one charge. You can spend one charge to:</div>
+                <div>Magic Ability:<br /><strong>Bag of Tricks</strong></div>
+                <div>The Ne'erdowell never leaves home without a seemingly bottomless bag of single-use magic items of dubious provenance.</div>
+                <div>Whenever you rest, a new set of five magic items is available for use from the bag.</div>
                 <ul>
                     <li>Activate its magical property for one action</li>
                     <li>Change its weapon type or its magical property</li>

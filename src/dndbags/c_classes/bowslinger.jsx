@@ -96,14 +96,11 @@ export default function Bowslinger(props) {
     return (
         <div className="class-ability-container">
             <div className="class-info">
-                <div className="class-desc">A graduate of Fighter College; a skilled combatant with a transforming magical weapon.</div>
+                <div className="class-desc">A sharpshooting bounty hunter who constructs special ammunition for their ranged weapon.</div>
                 <br />
-                <div>Magic Ability:<br /><strong>Graduate Weapon</strong></div>
-                <div>Your capstone project is a shapechanging weapon. Whenever you defeat an enemy in battle, it gains one charge. You can spend one charge to:</div>
-                <ul>
-                    <li>Activate its magical property for one action</li>
-                    <li>Change its weapon type or its magical property</li>
-                </ul>
+                <div>Magic Ability:<br /><strong>Magic Ammo</strong></div>
+                <div>You are skilled in adding magical properties to arrows, bullets, and throwing weapons. Whenever you rest, you construct five shots of magic ammo, each with a magical property that activates when fired</div>
+                <div>After firing a piece of ammo, you can make a roll to try to recover it intact, but any unused ammo becomes inert when you rest</div>
             </div>
             <div className="class-ability-display">
                 <div id="ammo-lists">

@@ -55,13 +55,14 @@ export default function KnightOfTushuze(props) {
     return (
         <div className="class-ability-container">
             <div className="class-info">
-                <div className="class-desc">A graduate of Fighter College; a skilled combatant with a transforming magical weapon.</div>
+                <div className="class-desc">A knight of a righteous and goodly order, doing good deeds and providing nice blessings.</div>
                 <br />
-                <div>Magic Ability:<br /><strong>Graduate Weapon</strong></div>
-                <div>Your capstone project is a shapechanging weapon. Whenever you defeat an enemy in battle, it gains one charge. You can spend one charge to:</div>
+                <div>Magic Ability:<br /><strong>Blessings of Tushuze</strong></div>
+                <div>Members of the order gain four blessings per day, and can gain more by doing good deeds. You can spend a Blessing to:</div>
                 <ul>
-                    <li>Activate its magical property for one action</li>
-                    <li>Change its weapon type or its magical property</li>
+                    <li>Give yourself or an ally Magic Advantage on an action using the listed Skill</li>
+                    <li>Create an intensely bright light that evil things hate for the duration of the scene</li>
+                    <li>Heal yourself or an ally for 1d6 Health</li>
                 </ul>
             </div>
             <div className="class-ability-display">

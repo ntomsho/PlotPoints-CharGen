@@ -125,14 +125,11 @@ export default function Mixologist(props) {
     return (
         <div className="class-ability-container">
             <div className="class-info">
-                <div className="class-desc">A graduate of Fighter College; a skilled combatant with a transforming magical weapon.</div>
+                <div className="class-desc">An alchemist and apothecary who can craft a variety of useful concoctions.</div>
                 <br />
-                <div>Magic Ability:<br /><strong>Graduate Weapon</strong></div>
-                <div>Your capstone project is a shapechanging weapon. Whenever you defeat an enemy in battle, it gains one charge. You can spend one charge to:</div>
-                <ul>
-                    <li>Activate its magical property for one action</li>
-                    <li>Change its weapon type or its magical property</li>
-                </ul>
+                <div>Magic Ability:<br /><strong>Alchemical Concoctions</strong></div>
+                <div>You carry with you a supply of 5 alchemical Bases and 5 Catalysts with you that inexplicably replenishes itself when you rest.</div>
+                <div>Combine a Base and a Catalyst to create a Concoction you can use immediately.</div>
             </div>
             <div className="class-ability-display">
                 <div className="ability-main">

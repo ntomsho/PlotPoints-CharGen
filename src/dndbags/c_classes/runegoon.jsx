@@ -81,14 +81,11 @@ export default function Runegoon(props) {
     return (
         <div className="class-ability-container">
             <div className="class-info">
-                <div className="class-desc">A graduate of Fighter College; a skilled combatant with a transforming magical weapon.</div>
+                <div className="class-desc">A crafter of magical runes that invoke an ancient arcane language.</div>
                 <br />
-                <div>Magic Ability:<br /><strong>Graduate Weapon</strong></div>
-                <div>Your capstone project is a shapechanging weapon. Whenever you defeat an enemy in battle, it gains one charge. You can spend one charge to:</div>
-                <ul>
-                    <li>Activate its magical property for one action</li>
-                    <li>Change its weapon type or its magical property</li>
-                </ul>
+                <div>Magic Ability:<br /><strong>Arcane Runes</strong></div>
+                <div>Whenever you rest, you gain access to a set of four ancient runes. You can activate any of them by writing, painting, or inscribing the associated rune onto something.</div>
+                <div>Whatever you draw the rune on is infused with the properties of the runic word for the rest of the scene.</div>
             </div>
             <div className="class-ability-display">
                 <div id="rune-lists" style={{display: 'flex', flexDirection: 'column'}}>

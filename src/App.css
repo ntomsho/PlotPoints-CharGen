@@ -35,19 +35,22 @@
 .skill-button {
   height: 30px;
   width: 30%;
-  border: 1px solid black;
+  border: 1px solid gray;
   cursor: pointer;
   outline: none;
 }
 
 .skill-button.class-skill {
-  background: gold;
+  border: 3px solid black;
 }
 
 .skill-button.selected {
-  border: 2px solid black;
+  background: gold;
   text-decoration: underline;
+  font-weight: bold;
 }
+
+/* Classes */
 
 #class-headline {
   color: white;

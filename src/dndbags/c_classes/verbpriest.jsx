@@ -19,7 +19,7 @@ export default function Verbpriest(props) {
 
     function createWords() {
         let words = [];
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < 6; i++) {
             words.push(randomWord());
         }
         props.updateState('currentSpecials', { 'words': words });
@@ -59,13 +59,16 @@ export default function Verbpriest(props) {
     return (
         <div className="class-ability-container">
             <div className="class-info">
-                <div className="class-desc">A graduate of Fighter College; a skilled combatant with a transforming magical weapon.</div>
+                <div className="class-desc">A speaker of sacred words that command both living and inanimate things.</div>
                 <br />
-                <div>Magic Ability:<br /><strong>Graduate Weapon</strong></div>
-                <div>Your capstone project is a shapechanging weapon. Whenever you defeat an enemy in battle, it gains one charge. You can spend one charge to:</div>
+                <div>Magic Ability:<br /><strong>Sacred Words</strong></div>
+                <div>Whenever you rest, you recall 6 Words of Power in the ancient language of the gods.</div>
+                <div>When you speak one of the Words at a creature or object, it is compelled to perform the action until completed or at least attempt to for a few minutes</div>
+                <div>Simple safe commands work automatically but you may have to roll to:</div>
                 <ul>
-                    <li>Activate its magical property for one action</li>
-                    <li>Change its weapon type or its magical property</li>
+                    <li>Make a dangerous or self-destructive command of a living creature</li>
+                    <li>Add additional words (targets, conditions, etc.) to the command</li>
+                    <li>Control particularly large, heavy, or magical objects</li>
                 </ul>
             </div>
             <div className="class-ability-display">

@@ -61,13 +61,15 @@ export default function Ragesmasher(props) {
     return (
         <div className="class-ability-container">
             <div className="class-info">
-                <div className="class-desc">A graduate of Fighter College; a skilled combatant with a transforming magical weapon.</div>
+                <div className="class-desc">A primal barbarian warrior who channels animal spirits when they aren’t flipping out.</div>
                 <br />
-                <div>Magic Ability:<br /><strong>Graduate Weapon</strong></div>
-                <div>Your capstone project is a shapechanging weapon. Whenever you defeat an enemy in battle, it gains one charge. You can spend one charge to:</div>
+                <div>Magic Ability:<br /><strong>Animal Totems and Barbaric Rage</strong></div>
+                <div>You can channel one Animal Totem at a time to gain Magic Advantage on any action associated with that animal.</div>
+                <div>You can spend a point of Rage to Rage Out, losing your Totem for the rest of the scene (roll a new one next scene), but gaining Magic Advantage on all rolls to fight, smash, or break stuff, but taking +1 Difficulty on anything else.</div>
+                <div>If your Rage would go above 3, you automatically Rage Out instead of gaining the point. You gain Rage whenever you:</div>
                 <ul>
-                    <li>Activate its magical property for one action</li>
-                    <li>Change its weapon type or its magical property</li>
+                    <li>Take Damage</li>
+                    <li>Are made particularly mad by something</li>
                 </ul>
             </div>
             <div className="class-ability-display">

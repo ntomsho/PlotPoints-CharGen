@@ -82,7 +82,7 @@ export default function Minstrel(props) {
     return (
         <div className="class-ability-container">
             <div className="class-info">
-                <div className="class-desc">A graduate of Fighter College; a skilled combatant with a transforming magical weapon.</div>
+                <div className="class-desc">A rockin’ magical songsmith and all-around entertainer.</div>
                 <br />
                 <div>Magic Ability:<br /><strong>Bard Songs</strong></div>
                 <div>Your music is magic! Whenever you start playing one of your songs, you can use its magical effects in any action for the rest of the scene. You can sacrifice a song you aren't playing or end one you are playing to create a Crescendo:</div>
