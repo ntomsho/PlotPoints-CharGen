@@ -2,9 +2,23 @@
     "paths": [
         {
             "name": "/dndb",
-            "lambdaFunction": "dndbchar",
+            "lambdaFunction": "ppchargen",
             "privacy": {
-                "open": true
+                "protected": true,
+                "auth": [
+                    "/POST",
+                    "/GET",
+                    "/PUT",
+                    "/PATCH",
+                    "/DELETE"
+                ],
+                "unauth": [
+                    "/POST",
+                    "/GET",
+                    "/PUT",
+                    "/PATCH",
+                    "/DELETE"
+                ]
             }
         }
     ],
@@ -12,24 +26,24 @@
     "apiName": "dndb",
     "functionArns": [
         {
-            "lambdaFunction": "dndbchar"
+            "lambdaFunction": "ppchargen"
         }
     ],
     "privacy": {
-        "auth": 0,
-        "unauth": 0,
+        "auth": 1,
+        "unauth": 1,
         "authRoleName": "amplify-pp-chargen-dev-173750-authRole",
         "unAuthRoleName": "amplify-pp-chargen-dev-173750-unauthRole"
     },
     "dependsOn": [
         {
             "category": "function",
-            "resourceName": "dndbchar",
+            "resourceName": "ppchargen",
             "attributes": [
                 "Name",
                 "Arn"
             ]
         }
     ],
-    "uuid": "e7e129c7"
+    "uuid": "f34d05c0"
 }

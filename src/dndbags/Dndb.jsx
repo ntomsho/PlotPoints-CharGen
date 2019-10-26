@@ -108,14 +108,16 @@ class Dndb extends React.Component {
         )
     }
 
-    // post = async () => {
-    //     console.log('calling api');
-    //     const response = await API.post('dndb', '/dndb') {
-    //         body: {
-                
-    //         }
-    //     }
-    // }
+    post = async () => {
+        console.log('calling api');
+        let newChar = Object.assign({}, this.state);
+        newChar[playerName] = Auth.currentAuthenticatedUser().then(user => user.username);
+        const response = await API.post('dndb', '/dndb') {
+            body: {
+                ...newChar
+            }
+        }
+    }
 
     get = async () => {
         console.log('calling api');
@@ -132,6 +134,7 @@ class Dndb extends React.Component {
                 </div>
                 <button onClick={this.generateRandomCharacter}>Generate Random Character</button>
                 <button onClick={this.get}>List all characters</button>
+                <button onClick={this.post}>Save Character</button>
                 <div id="main-section">
                     <div className="sheet-row">
                         <span>Name: <input type="text" name="name" id="name-input" onChange={this.handleChange} value={this.state.name}></input></span>

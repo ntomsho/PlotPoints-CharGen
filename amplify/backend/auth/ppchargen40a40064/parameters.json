@@ -1,6 +1,6 @@
 {
     "identityPoolName": "pp_chargen9c6f110a_identitypool_9c6f110a",
-    "allowUnauthenticatedIdentities": false,
+    "allowUnauthenticatedIdentities": true,
     "resourceNameTruncated": "ppchar40a40064",
     "userPoolName": "ppchargen40a40064_userpool_40a40064",
     "autoVerifiedAttributes": [

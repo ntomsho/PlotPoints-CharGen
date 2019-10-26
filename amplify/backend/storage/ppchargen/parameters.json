@@ -1,0 +1,5 @@
+{
+    "tableName": "ppchargen",
+    "partitionKeyName": "name",
+    "partitionKeyType": "S"
+}

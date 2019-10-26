@@ -19,7 +19,7 @@
             "dependsOn": [
                 {
                     "category": "function",
-                    "resourceName": "dndbchar",
+                    "resourceName": "ppchargen",
                     "attributes": [
                         "Name",
                         "Arn"
@@ -30,6 +30,10 @@
     },
     "storage": {
         "dynamodndb": {
+            "service": "DynamoDB",
+            "providerPlugin": "awscloudformation"
+        },
+        "ppchargen": {
             "service": "DynamoDB",
             "providerPlugin": "awscloudformation"
         }
@@ -43,6 +47,21 @@
                 {
                     "category": "storage",
                     "resourceName": "dynamodndb",
+                    "attributes": [
+                        "Name",
+                        "Arn"
+                    ]
+                }
+            ]
+        },
+        "ppchargen": {
+            "service": "Lambda",
+            "providerPlugin": "awscloudformation",
+            "build": true,
+            "dependsOn": [
+                {
+                    "category": "storage",
+                    "resourceName": "ppchargen",
                     "attributes": [
                         "Name",
                         "Arn"
