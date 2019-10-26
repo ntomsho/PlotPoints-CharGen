@@ -1,7 +1,7 @@
 import React from 'react';
 import Amplify from 'aws-amplify';
 import awsconfig from './aws-exports';
-import { withAuthenticator } from 'aws-amplify-react';
+import { Authenticator } from 'aws-amplify-react';
 import './App.css';
 import {
   BrowserRouter as Router,

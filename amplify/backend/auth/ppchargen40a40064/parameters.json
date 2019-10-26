@@ -1,5 +1,5 @@
 {
-    "identityPoolName": "ppchargen40a40064_identitypool_40a40064",
+    "identityPoolName": "pp_chargen9c6f110a_identitypool_9c6f110a",
     "allowUnauthenticatedIdentities": false,
     "resourceNameTruncated": "ppchar40a40064",
     "userPoolName": "ppchargen40a40064_userpool_40a40064",
@@ -12,8 +12,8 @@
     ],
     "smsAuthenticationMessage": "Your authentication code is {####}",
     "smsVerificationMessage": "Your verification code is {####}",
-    "emailVerificationSubject": "Your verification code",
-    "emailVerificationMessage": "Your verification code is {####}",
+    "emailVerificationSubject": "Welcome to the game, nerd.",
+    "emailVerificationMessage": "Look, I don't want to do this, but I have to verify it's really you. Only the real you would know that their verification code is {####}",
     "defaultPasswordPolicy": false,
     "passwordPolicyMinLength": 8,
     "passwordPolicyCharacters": [],
@@ -44,6 +44,13 @@
             "Arn"
         ]
     },
-    "useDefault": "default",
-    "dependsOn": []
+    "useDefault": "manual",
+    "dependsOn": [],
+    "triggers": "{}",
+    "hostedUI": false,
+    "parentStack": {
+        "Ref": "AWS::StackId"
+    },
+    "permissions": [],
+    "thirdPartyAuth": false
 }
