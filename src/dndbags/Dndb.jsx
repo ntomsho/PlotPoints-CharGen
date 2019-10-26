@@ -5,6 +5,8 @@ import { CLASSES, SKILLS, ALTRACES, random, randomRace, BACKGROUNDS, APPEARANCES
 import Skills from './skills';
 import ClassMain from './class_main';
 import Inventory from './inventory';
+import { ConsoleLogger } from '@aws-amplify/core';
+import { IoTJobsDataPlane } from 'aws-sdk/clients/all';
 
 let currentUser;
 Auth.currentAuthenticatedUser().then(user => {
@@ -33,6 +35,8 @@ class Dndb extends React.Component {
         this.updateState = this.updateState.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.generateRandomCharacter = this.generateRandomCharacter.bind(this);
+        this.characterSave = this.characterSave.bind(this);
+        this.getChar = this.getChar.bind(this);
     }
     
     updateState(key, val) {
@@ -50,6 +54,33 @@ class Dndb extends React.Component {
         newState['derp'] = random(DERPS);
         newState['trainedSkills'] = [random(SKILLS)];
         this.setState(newState);
+    }
+
+    loadCharacter(character) {
+
+    }
+
+    saveCharacter() {
+        
+    }
+
+    clearSheet() {
+        this.setState({
+            name: "",
+            cClass: "",
+            race: "Human",
+            background: "",
+            appearance: "",
+            derp: "",
+            health: 7,
+            plotPoints: 1,
+            trainedSkills: [],
+            currentSpecials: {},
+            inventory: ["", "", "", "", "", "", "", "", "", "", "", ""],
+            level: 1,
+            experience: 0,
+            regulation: true
+        })
     }
 
     handleChange(event) {
@@ -113,7 +144,19 @@ class Dndb extends React.Component {
         )
     }
 
-    post = async () => {
+    characterSave() {
+        this.getChar(this.state.name).then(response => {
+            const existingChar = response[0];
+            console.log(existingChar)
+            if (!existingChar || existingChar.playerName === currentUser) {
+                this.put();
+            } else {
+                alert(`There's already a character named ${this.state.name}. Don't blame me, blame ${existingChar.playerName}.`);
+            }
+        })
+    }
+
+    put = async () => {
         console.log('calling api post');
         let newChar = Object.assign({}, this.state);
         newChar['playerName'] = currentUser;
@@ -121,13 +164,29 @@ class Dndb extends React.Component {
         newChar['currentSpecials'] = JSON.stringify(this.state.currentSpecials);
         newChar['inventory'] = JSON.stringify(this.state.inventory);
         newChar['regulation'] = this.state.regulation ? "true" : "false";
-        const response = await API.post('dndb', '/dndb', {
+        const response = await API.put('dndb', '/dndb', {
             body: {
                 ...newChar
             }
         });
         alert(`Character saved!`);
     }
+
+    // update = async () => {
+    //     console.log('calling api post');
+    //     let newChar = Object.assign({}, this.state);
+    //     newChar['playerName'] = currentUser;
+    //     newChar['trainedSkills'] = JSON.stringify(this.state.trainedSkills);
+    //     newChar['currentSpecials'] = JSON.stringify(this.state.currentSpecials);
+    //     newChar['inventory'] = JSON.stringify(this.state.inventory);
+    //     newChar['regulation'] = this.state.regulation ? "true" : "false";
+    //     const response = await API.update('dndb', '/dndb', {
+    //         body: {
+    //             ...newChar
+    //         }
+    //     });
+    //     alert(`Character saved!`);
+    // }
 
     get = async () => {
         console.log('calling api get');
@@ -147,6 +206,12 @@ class Dndb extends React.Component {
         console.log(otherChars)
     }
 
+    getChar = async (charName) => {
+        console.log('calling api get');
+        const response = await API.get('dndb', `/dndb/${charName}`)
+        return response;
+    }
+
     render() {
         return (
             <BackendWrapper>
@@ -156,7 +221,7 @@ class Dndb extends React.Component {
                 </div>
                 <button onClick={this.generateRandomCharacter}>Generate Random Character</button>
                 <button onClick={this.get}>List all characters</button>
-                <button onClick={this.post}>Save Character</button>
+                <button onClick={this.characterSave}>Save Character</button>
                 <div id="main-section">
                     <div className="sheet-row">
                         <span>Name: <input type="text" name="name" id="name-input" onChange={this.handleChange} value={this.state.name}></input></span>
