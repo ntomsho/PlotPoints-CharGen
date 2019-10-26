@@ -1,8 +1,9 @@
-import React from 'react';
-import { CLASS_SKILLS, SKILLS, random } from '../dndb-tables';
+import React, { useState } from 'react';
+import { CLASS_SKILLS, SKILLS, SKILL_USES, random } from '../dndb-tables';
 import SkillButton from './skill_button';
 
 export default function Skills(props) {
+    const [highlightedSkill, setHighlightedSkill] = useState("");
     const classSkills = CLASS_SKILLS[props.cClass] || [];
     const skillSet = props.trainedSkills;
     const maxRegSkills = props.race === "Human" ? 1 : 0;
@@ -43,6 +44,18 @@ export default function Skills(props) {
         }
     }
 
+    function skillDesc() {
+        if (highlightedSkill) {
+            return (
+                <div style={{ width: '33%' }}>
+                    <h3>{highlightedSkill}</h3>
+                    <div>{SKILL_USES[highlightedSkill]}</div>
+                    <button onClick={() => selectSkill(highlightedSkill)}>{skillSet.includes(highlightedSkill) ? 'Remove Skill' : 'Add Skill'}</button>
+                </div>
+            )
+        }
+    }
+
     function selectSkill(skill) {
         let newSkillSet = props.trainedSkills;
         const inClass = classSkills.includes(skill);
@@ -76,6 +89,7 @@ export default function Skills(props) {
                     skill={skill}
                     classSkill={classSkills.includes(skill)}
                     selected={skillSet.includes(skill)}
+                    setHighlightedSkill={setHighlightedSkill}
                     selectSkill={selectSkill}
                 />
             )
@@ -85,18 +99,21 @@ export default function Skills(props) {
     return (
         <>
         <h2>Skills</h2>
-        <div id="skills-container">
-            {remainingSkills()}
-            {remainingClassSkills()}
-            <div className="sheet-row">
-                {createSkillRow(0)}
+            <div style={{display: 'flex'}}>
+            <div id="skills-container" style={{width: '66%'}}>
+                {remainingSkills()}
+                {remainingClassSkills()}
+                <div className="sheet-row">
+                    {createSkillRow(0)}
+                </div>
+                <div className="sheet-row">
+                    {createSkillRow(3)}
+                </div>
+                <div className="sheet-row">
+                    {createSkillRow(6)}
+                </div>
             </div>
-            <div className="sheet-row">
-                {createSkillRow(3)}
-            </div>
-            <div className="sheet-row">
-                {createSkillRow(6)}
-            </div>
+            {skillDesc()}
         </div>
         </>
     )

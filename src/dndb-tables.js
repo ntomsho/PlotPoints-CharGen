@@ -55,6 +55,18 @@ export const SKILLS = [
     "Thinkiness"
 ];
 
+export const SKILL_USES = {
+    "Believe in Yourself": "Charming, leading, willpower, dumb luck",
+    "Brute Force": "Punching, lifting, breaking stuff, being scary",
+    "Cardio": "Running, swimming, climbing, stamina, healthiness",
+    "Creepin'": "Sneaking, stealing, lying, general skullduggery",
+    "Macgyver": "Crafting, building, forging, making stuff",
+    "Man vs. Wild": "Surviving, foraging, riding, animal handling, nature knowledge",
+    "Rad Moves": "Dodging, running, jumping, acrobatics, balance",
+    "Spottin'": "Shooting, looking, noticing, awareness, precision",
+    "Thinkiness": "Knowing, remembering, wits, historical, scientific, and arcane knowledge"
+}
+
 export const BACKGROUNDS = [
     "Accountant",
     "Bandit",
