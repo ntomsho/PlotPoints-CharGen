@@ -112,11 +112,11 @@ class Dndb extends React.Component {
         console.log('calling api');
         let newChar = Object.assign({}, this.state);
         newChar[playerName] = Auth.currentAuthenticatedUser().then(user => user.username);
-        const response = await API.post('dndb', '/dndb') {
+        const response = await API.post('dndb', '/dndb', {
             body: {
                 ...newChar
             }
-        }
+        });
         alert(JSON.stringify(response, null, 2))
     }
 
