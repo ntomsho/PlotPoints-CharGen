@@ -12,7 +12,7 @@ import Dndb from './dndbags/Dndb.jsx';
 import Home from './Home';
 
 Amplify.configure(awsconfig)
-Auth.currentAuthenticatedUser().then(user => console.log(Object.getOwnPropertyNames(user)))
+
 function App() {
   return (
     <Router>

@@ -71,7 +71,7 @@
 				"Timeout": "25",
 				"Code": {
 					"S3Bucket": "amplify-pp-chargen-dev-173750-deployment",
-					"S3Key": "amplify-builds/ppchargen-715730334b73426a5178-build.zip"
+					"S3Key": "amplify-builds/ppchargen-61783777483362785633-build.zip"
 				}
 			}
 		},

@@ -6,6 +6,11 @@ import Skills from './skills';
 import ClassMain from './class_main';
 import Inventory from './inventory';
 
+let currentUser;
+Auth.currentAuthenticatedUser().then(user => {
+    currentUser = user.username;
+})
+
 class Dndb extends React.Component {
     constructor(props) {
         super(props);
@@ -109,9 +114,13 @@ class Dndb extends React.Component {
     }
 
     post = async () => {
-        console.log('calling api');
+        console.log('calling api test');
         let newChar = Object.assign({}, this.state);
-        newChar['playerName'] = Auth.currentAuthenticatedUser().then(user => user.username);
+        newChar['playerName'] = currentUser;
+        newChar['trainedSkills'] = JSON.stringify(this.state.trainedSkills);
+        newChar['currentSpecials'] = JSON.stringify(this.state.currentSpecials);
+        newChar['inventory'] = JSON.stringify(this.state.inventory);
+        newChar['regulation'] = this.state.regulation ? "true" : "false";
         const response = await API.post('dndb', '/dndb', {
             body: {
                 ...newChar
@@ -122,8 +131,8 @@ class Dndb extends React.Component {
 
     get = async () => {
         console.log('calling api');
-        const response = await API.get('dndb', '/dndbchars');
-        alert(JSON.stringify(response, null, 2))
+        const response = await API.get('dndb', '/dndb');
+        console.log(response.data)
     }
 
     render() {
