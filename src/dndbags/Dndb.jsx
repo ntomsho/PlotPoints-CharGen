@@ -114,7 +114,7 @@ class Dndb extends React.Component {
     }
 
     post = async () => {
-        console.log('calling api test');
+        console.log('calling api post');
         let newChar = Object.assign({}, this.state);
         newChar['playerName'] = currentUser;
         newChar['trainedSkills'] = JSON.stringify(this.state.trainedSkills);
@@ -126,11 +126,11 @@ class Dndb extends React.Component {
                 ...newChar
             }
         });
-        alert(JSON.stringify(response, null, 2))
+        alert(`Character saved!`);
     }
 
     get = async () => {
-        console.log('calling api');
+        console.log('calling api get');
         let myChars = [];
         let otherChars = [];
         const response = await API.get('dndb', '/dndb');

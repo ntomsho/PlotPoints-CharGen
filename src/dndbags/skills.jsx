@@ -1,5 +1,5 @@
 import React from 'react';
-import { CLASS_SKILLS, SKILLS } from '../dndb-tables';
+import { CLASS_SKILLS, SKILLS, random } from '../dndb-tables';
 import SkillButton from './skill_button';
 
 export default function Skills(props) {
@@ -23,13 +23,21 @@ export default function Skills(props) {
             )
         }
     }
+
+    function randomSkill() {
+        let newSkill = random(SKILLS);
+        while (props.trainedSkills.includes(newSkill)) {
+            newSkill = random(SKILLS);
+        }
+        return newSkill;
+    }
     
     function remainingSkills() {
         if (numRegSkills < maxRegSkills) {
             return (
                 <>
                 <span>{maxRegSkills} Random Skill{numRegSkills > 1 ? "s" : ""} Remaining</span>
-                <button>Random ⚀</button>
+                <button onClick={() => selectSkill(randomSkill())}>Random ⚀</button>
                 </>
             )
         }
