@@ -1,0 +1,5 @@
+{
+    "tableName": "dndbcharacters",
+    "partitionKeyName": "name",
+    "partitionKeyType": "S"
+}

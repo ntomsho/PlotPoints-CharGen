@@ -1,7 +1,7 @@
 import React from 'react';
-import Amplify from 'aws-amplify';
+import Amplify, {Auth} from 'aws-amplify';
 import awsconfig from './aws-exports';
-import { Authenticator } from 'aws-amplify-react';
+import { withAuthenticator } from 'aws-amplify-react';
 import './App.css';
 import {
   BrowserRouter as Router,
@@ -12,7 +12,7 @@ import Dndb from './dndbags/Dndb.jsx';
 import Home from './Home';
 
 Amplify.configure(awsconfig)
-
+Auth.currentAuthenticatedUser().then(user => console.log(Object.getOwnPropertyNames(user)))
 function App() {
   return (
     <Router>

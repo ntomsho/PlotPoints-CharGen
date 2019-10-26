@@ -11,5 +11,44 @@
             "providerPlugin": "awscloudformation",
             "dependsOn": []
         }
+    },
+    "api": {
+        "dndb": {
+            "service": "API Gateway",
+            "providerPlugin": "awscloudformation",
+            "dependsOn": [
+                {
+                    "category": "function",
+                    "resourceName": "dndbchar",
+                    "attributes": [
+                        "Name",
+                        "Arn"
+                    ]
+                }
+            ]
+        }
+    },
+    "storage": {
+        "dynamodndb": {
+            "service": "DynamoDB",
+            "providerPlugin": "awscloudformation"
+        }
+    },
+    "function": {
+        "dndbchar": {
+            "service": "Lambda",
+            "providerPlugin": "awscloudformation",
+            "build": true,
+            "dependsOn": [
+                {
+                    "category": "storage",
+                    "resourceName": "dynamodndb",
+                    "attributes": [
+                        "Name",
+                        "Arn"
+                    ]
+                }
+            ]
+        }
     }
 }

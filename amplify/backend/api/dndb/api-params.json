@@ -1,0 +1,35 @@
+{
+    "paths": [
+        {
+            "name": "/dndb",
+            "lambdaFunction": "dndbchar",
+            "privacy": {
+                "open": true
+            }
+        }
+    ],
+    "resourceName": "dndb",
+    "apiName": "dndb",
+    "functionArns": [
+        {
+            "lambdaFunction": "dndbchar"
+        }
+    ],
+    "privacy": {
+        "auth": 0,
+        "unauth": 0,
+        "authRoleName": "amplify-pp-chargen-dev-173750-authRole",
+        "unAuthRoleName": "amplify-pp-chargen-dev-173750-unauthRole"
+    },
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "dndbchar",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        }
+    ],
+    "uuid": "e7e129c7"
+}
