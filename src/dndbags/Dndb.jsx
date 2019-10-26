@@ -131,8 +131,20 @@ class Dndb extends React.Component {
 
     get = async () => {
         console.log('calling api');
+        let myChars = [];
+        let otherChars = [];
         const response = await API.get('dndb', '/dndb');
-        console.log(response.data)
+        response.data.forEach(char => {
+            if (char.playerName === currentUser) {
+                myChars.push(char);
+            } else {
+                otherChars.push(char);
+            }
+        })
+        console.log(`My characters:`)
+        console.log(myChars)
+        console.log(`Other characters:`)
+        console.log(otherChars)
     }
 
     render() {
