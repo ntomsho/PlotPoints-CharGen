@@ -117,6 +117,7 @@ class Dndb extends React.Component {
                 ...newChar
             }
         }
+        alert(JSON.stringify(response, null, 2))
     }
 
     get = async () => {
