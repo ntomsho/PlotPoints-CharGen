@@ -1,5 +1,4 @@
 import React from 'react';
-import BackendWrapper from './backend_wrapper';
 import Amplify, { Storage, API, Auth } from 'aws-amplify';
 import { CLASSES, SKILLS, ALTRACES, random, randomRace, BACKGROUNDS, APPEARANCES, DERPS } from '../dndb-tables';
 import CharSelect from './char_select';
@@ -7,8 +6,6 @@ import Skills from './skills';
 import ClassMain from './class_main';
 import Inventory from './inventory';
 import Advancement from './advancement';
-import { ConsoleLogger } from '@aws-amplify/core';
-import { IoTJobsDataPlane } from 'aws-sdk/clients/all';
 
 let currentUser;
 Auth.currentAuthenticatedUser().then(user => {
@@ -150,7 +147,6 @@ class Dndb extends React.Component {
     characterSave() {
         this.getChar(this.state.name).then(response => {
             const existingChar = response[0];
-            console.log(existingChar)
             if (!existingChar || existingChar.playerName === currentUser) {
                 this.put();
             } else {
@@ -187,10 +183,10 @@ class Dndb extends React.Component {
                 otherChars.push(char);
             }
         })
-        console.log(`My characters:`)
-        console.log(myChars)
-        console.log(`Other characters:`)
-        console.log(otherChars)
+        // console.log(`My characters:`)
+        // console.log(myChars)
+        // console.log(`Other characters:`)
+        // console.log(otherChars)
         return myChars;
     }
 
@@ -202,7 +198,6 @@ class Dndb extends React.Component {
 
     render() {
         return (
-            <BackendWrapper>
             <div id="dndb-container">
                 <div id="sheet-header">
                     <h1>Dungeons & Douchebags</h1>
@@ -265,7 +260,6 @@ class Dndb extends React.Component {
                     <Advancement {...this.state} updateState={this.updateState} />
                 </div>
             </div>
-            </BackendWrapper>
         )
     }
 }

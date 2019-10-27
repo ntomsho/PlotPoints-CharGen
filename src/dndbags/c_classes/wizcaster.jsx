@@ -1,105 +1,24 @@
-import React, { useState, useEffect } from 'react';
-import { random, FORMS, GERUNDS, VERBS, ELEMENTS, ELEMENTS_OF } from '../../dndb-tables';
-import WordOfPower from './word_of_power';
-import WordSpace from './word_space';
+import React, { useState } from 'react';
+import { random, FORMS, ELEMENTS, VERBS, ELEMENTS_OF, GERUNDS } from '../../dndb-tables';
 
 export default function Wizcaster(props) {
     let { currentSpecials } = props;
+    let { words } = currentSpecials;
 
-    const [currentSpell, setCurrentSpell] = useState([]);
-    const [keepWord, setKeepWord] = useState({word: null});
+    const [currentSpell, setCurrentSpell] = useState([])
+    const [keepWordInd, setKeepWordInd] = useState(null)
+    const [selectedWordInd, setSelectedWordInd] = useState(null)
     const input1 = React.createRef();
     const input2 = React.createRef();
 
-    useEffect(() => {
-        let currentWords = [];
-        for(let i = 0; i < currentSpell.length; i++) {
-            currentWords.push(currentSpell[i].word);
-        }
-        if (!currentWords.includes(keepWord.word)) setKeepWord({word: null});
-    }, [currentSpell, keepWord.word]);
-
     if (!currentSpecials.words) {
-        props.updateState('currentSpecials', { 'words': [] })
+        props.updateState('currentSpecials', { 'words': [] });
     }
 
-    function addWordToCurrentSpell(word, start) {
-        let newCurrentSpell = currentSpell;
-        start ? newCurrentSpell.unshift(word) : newCurrentSpell.push(word);
-        setCurrentSpell([...newCurrentSpell]);
-    }
-
-    function removeWordFromCurrentSpell(index) {
-        if (currentSpell[index].word === keepWord.word) setKeepWord({word: null})
-        let newCurrentSpell = currentSpell
-        newCurrentSpell.splice(index, 1);
-        setCurrentSpell([...newCurrentSpell]);
-    }
-
-    function currentSpellWord(word, index) {
-        if (currentSpell.length >= 2 && index >= 1) {
-            if (word.category === "Element" && currentSpell[index - 1].category === "Form") {
-                return `of ${ELEMENTS_OF[ELEMENTS.indexOf(word.word)]}`
-            }
-            if (word.category === "Element" && currentSpell[index - 1].category === "Verb") {
-                return ELEMENTS_OF[ELEMENTS.indexOf(word.word)]
-            }
-            if (word.category === "Verb" && currentSpell[index - 1].category === "Form") {
-                return `of ${GERUNDS[VERBS.indexOf(word.word)]}`
-            }
-        }
-        if (word.category === "Verb") {
-            return GERUNDS[VERBS.indexOf(word.word)]
-        }
-        return word.word
-    }
-
-    function castSpellButton() {
-        if (currentSpell.length >= 2) {
-            return (
-                <button onClick={castSpell}>Cast</button>
-            )
-        }
-    }
-
-    function currentSpellDisp() {
-        let freeCategories = ["Form", "Element", "Verb"];
-        currentSpell.forEach(spell => freeCategories.splice(freeCategories.indexOf(spell.category), 1));
-        let startSpace = currentSpell.length < 3 ? <WordSpace start={true} accepts={freeCategories} currentSpell={currentSpell} addWordToCurrentSpell={addWordToCurrentSpell} /> : <></>;
-        let endSpace = currentSpell.length < 3 ? <WordSpace start={false} accepts={freeCategories} currentSpell={currentSpell} addWordToCurrentSpell={addWordToCurrentSpell} /> : <></>;
-
-        return (
-            <>
-            {startSpace}
-            {currentSpell.map((w, i) => {
-                return (
-                    <div key={i} className="current-spell-word">
-                        <div>{currentSpellWord(w, i)}</div>
-                        <button onClick={() => removeWordFromCurrentSpell(i)}>-</button>
-                        <button className={`keepword${keepWord && keepWord.word === w.word ? ' selected' : '' }`} onClick={() => setKeepWord(w)}>Keep?</button>
-                    </div>
-                )
-            })}
-            {endSpace}
-            </>
-        )
-    }
-
-    function castSpell() {
-        let newWords = currentSpecials.words;
-        for(let i=0; i < currentSpell.length; i++) {
-            if (currentSpell[i].word !== keepWord.word) {
-                newWords.splice(newWords.indexOf(currentSpell[i]), 1);
-            }
-        }
-        setCurrentSpell([]);
-        props.updateState('currentSpecials', {'words': newWords});
-    }
-    
-    function createRandomWord() {
+    function randomWord() {
         const wordCatName = random(["Form", "Element", "Verb"]);
         let wordCat;
-        switch (wordCatName) {
+        switch(wordCatName) {
             case "Form":
                 wordCat = FORMS;
                 break;
@@ -109,52 +28,143 @@ export default function Wizcaster(props) {
             default:
                 wordCat = VERBS;
         }
-        const word = random(wordCat);
-        return { 'word': word, 'category': wordCatName }
-    }
-    
-    function randomizeWords() {
-        let words = [];
-        while (words.length < 6) {
-            const newWord = createRandomWord();
-            if (!words.includes(newWord)) {
-                words.push(newWord);
-            }
-        }
-        setCurrentSpell([]);
-        props.updateState('currentSpecials', {'words': words});
-    }
-
-    function randomizeWord(num) {
-        let words = currentSpecials.words;
-        const newWord = createRandomWord();
-        words[num] = newWord;
-        setCurrentSpell([]);
-        props.updateState('currentSpecials', {'words': words});
+        return { 'word': random(wordCat), 'wordCat': wordCatName }
     }
 
     function addCustomWord() {
-        let newWords = currentSpecials.words;
-        newWords.push({'word': input1.current.value, 'category': input2.current.value})
+        let newWords = words;
+        newWords.push({ 'word': input2.current.value, 'wordCat': input1.current.value })
+        props.updateState('currentSpecials', newWords);
+    }
+
+    function createWords() {
+        let newWords = [];
+        for (let i = 0; i < 6; i++) {
+            newWords.push(randomWord());
+        }
+        setCurrentSpell([]);
+        props.updateState('currentSpecials', { 'words': newWords });
+    }
+
+    function addWordToSpell(start, wordInd) {
+        let newSpell = currentSpell;
+        if (start) {
+            if (keepWordInd !== null) setKeepWordInd(keepWordInd + 1);
+            newSpell.unshift(wordInd);
+            setCurrentSpell([...newSpell]);
+        } else {
+            newSpell.push(wordInd);
+            setCurrentSpell([...newSpell]);
+        }
+        setSelectedWordInd(null);
+    }
+
+    function removeWordFromSpell(ind) {
+        let newSpell = currentSpell;
+        if (ind === keepWordInd) {
+            setKeepWordInd(null);
+        } else if (keepWordInd > ind) {
+            setKeepWordInd(keepWordInd - 1);
+        }
+        newSpell.splice(ind, 1);
+        setCurrentSpell([...newSpell]);
+    }
+
+    function castSpell() {
+        let newWords = words;
+        for (let i = 0; i < currentSpell.length; i++) {
+            if (i !== keepWordInd) newWords.splice(currentSpell[i], 1);
+        }
+        setKeepWordInd(null);
+        setSelectedWordInd(null);
+        setCurrentSpell([]);
         props.updateState('currentSpecials', {'words': newWords});
     }
 
-    function wordsList() {
-        if (currentSpecials.words) {
-            let freeCategories = ["Form", "Element", "Verb"];
-            currentSpell.forEach(spell => freeCategories.splice(freeCategories.indexOf(spell.category), 1));
+    function wordsListDisp() {
+        if (words) {
             return (
-                <ul style={{listStyle: 'none'}}>
-                    {currentSpecials.words.map((obj, i) => {
-                        
-                        return (
-                            <div key={i}>
-                                <WordOfPower ind={i} word={obj} usable={freeCategories.includes(obj.category)} randomizeWord={randomizeWord} /> 
-                                <button onClick={() => randomizeWord(i)}>Randomize</button>
-                            </div>
-                        )
-                    })}
-                </ul>
+                <>
+                {words.map((word, i) => {
+                    return (
+                        <li key={i} 
+                        className={`wizcaster-word${selectedWordInd === i ? ' selected' : ''}`} 
+                        onClick={() => selectedWordInd === i ? setSelectedWordInd(null) : setSelectedWordInd(i)}>
+                            <strong>{word.word}</strong> {word.wordCat}
+                        </li>
+                    )
+                })}
+                </>
+            )
+        }
+    }
+
+    function currentSpellWord(word, index) {
+        if (currentSpell.length >= 2 && index >= 1) {
+            if (word.wordCat === "Element" && words[currentSpell[index - 1]].wordCat === "Form") {
+                return `of ${ELEMENTS_OF[ELEMENTS.indexOf(word.word)]}`
+            }
+            if (word.wordCat === "Element" && words[currentSpell[index - 1]].wordCat === "Verb") {
+                return ELEMENTS_OF[ELEMENTS.indexOf(word.word)]
+            }
+            if (word.wordCat === "Verb" && words[currentSpell[index - 1]].wordCat === "Form") {
+                return `of ${GERUNDS[VERBS.indexOf(word.word)]}`
+            }
+        }
+        if (word.wordCat === "Verb") {
+            return GERUNDS[VERBS.indexOf(word.word)]
+        }
+        return word.word
+    }
+
+    function spellAddButtonLeft() {
+        if (selectedWordInd !== null && selectedWordInd < words.length && !currentSpell.includes(selectedWordInd)) {
+            if (words[selectedWordInd].wordCat === "Element" && 
+            currentSpell.length > 0 && 
+            words[currentSpell[0]].wordCat === "Verb") {
+                return (<></>)
+            } else {
+                return (
+                    <button onClick={() => addWordToSpell(true, selectedWordInd)}>+</button>
+                )
+            }
+        }
+    }
+
+    function spellAddButtonRight() {
+        if (selectedWordInd !== null && currentSpell.length !== 0 && !currentSpell.includes(selectedWordInd)) {
+            if (words[selectedWordInd].wordCat === "Verb" && currentSpell.length > 0 && words[currentSpell[currentSpell.length - 1].wordCat === "Element"]) {
+                return (<></>)
+            } else {
+                return (
+                    <button onClick={() => addWordToSpell(false, selectedWordInd)}>+</button>
+                )
+            }
+        }
+    }
+
+    function currentSpellDisp() {
+        return (
+            <>
+            {spellAddButtonLeft()}
+            {currentSpell.map((wordInd, spellInd) => {
+                return (
+                    <div key={spellInd}>
+                        <div>{currentSpellWord(words[wordInd], spellInd)}</div>
+                        <button onClick={() => removeWordFromSpell(spellInd)}>-</button>
+                        <button className={`keepword${keepWordInd === spellInd ? ' selected' : ''}`} onClick={() => setKeepWordInd(spellInd)}>Keep?</button>
+                    </div>
+                )
+            })}
+            {spellAddButtonRight()}
+            </>
+        )
+    }
+
+    function castSpellButton() {
+        if (currentSpell.length > 1 && keepWordInd !== null) {
+            return (
+                <button onClick={castSpell}>Cast Spell</button>
             )
         }
     }
@@ -174,17 +184,17 @@ export default function Wizcaster(props) {
                     {castSpellButton()}
                 </div>
                 <div className="words-list">
-                    {wordsList()}
+                    {wordsListDisp()}
                 </div>
                 <div>
-                    <button className="randomize-button" onClick={randomizeWords}>Generate New Words</button>
+                    <button className="randomize-button" onClick={createWords}>Generate New Words</button>
                     <span>Add Word of Power: </span>
-                    <input type="text" ref={input1}></input>
-                    <select ref={input2}>
+                    <select ref={input1}>
                         <option value="Form">Form</option>
                         <option value="Element">Element</option>
                         <option value="Verb">Verb</option>
                     </select>
+                    <input type="text" ref={input2}></input>
                     <button onClick={addCustomWord}>+</button>
                 </div>
             </div>

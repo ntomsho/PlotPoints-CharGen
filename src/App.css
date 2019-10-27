@@ -120,6 +120,14 @@ button {
   background-color: gold;
 }
 
+.wizcaster-word {
+  cursor: pointer;
+}
+
+.wizcaster-word.selected {
+  background-color: gold;
+}
+
 .zoomaster-ability-section {
   display: flex;
   flex-direction: column;
@@ -143,7 +151,7 @@ button {
   background: linear-gradient(to left, white 50%, gold 50%);
   background-size: 200% 100%;
   overflow: hidden;
-  transition: all 2s ease;
+  transition: all 1.5s ease;
 }
 
 .exp-bar-segment {

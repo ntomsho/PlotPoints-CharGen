@@ -64,8 +64,6 @@ export default function Skills(props) {
     }
 
     function selectSkill(skill) {
-        console.log(skill);
-        console.log(props.trainedSkills)
         let newSkillSet = props.trainedSkills;
         const inClass = classSkills.includes(skill);
         const selected = props.trainedSkills.includes(skill);
@@ -82,26 +80,6 @@ export default function Skills(props) {
             newSkillSet.push(skill);
             props.updateState('trainedSkills', newSkillSet);
         }
-
-        // if (selected) {
-        //     if (inClass && numClassSkills < 2) {
-        //         setNumClassSkills(numClassSkills - 1);
-        //     } else {
-        //         setNumRegSkills(numRegSkills - 1);
-        //     }
-        //     newSkillSet.splice(newSkillSet.indexOf(skill), 1);
-        //     props.updateState('trainedSkills', newSkillSet);
-        // } else {
-        //     if (inClass && numClassSkills === 0) {
-        //         setNumClassSkills(numClassSkills + 1);
-        //         newSkillSet.push(skill);
-        //         props.updateState('trainedSkills', newSkillSet);
-        //     } else if (numRegSkills < maxRegSkills) {
-        //         setNumRegSkills(numRegSkills + 1);
-        //         newSkillSet.push(skill);
-        //         props.updateState('trainedSkills', newSkillSet);
-        //     }
-        // }
     }
 
     function createSkillRow(i) {
