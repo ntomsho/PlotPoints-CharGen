@@ -2,6 +2,7 @@ import React from 'react';
 import BackendWrapper from './backend_wrapper';
 import Amplify, { Storage, API, Auth } from 'aws-amplify';
 import { CLASSES, SKILLS, ALTRACES, random, randomRace, BACKGROUNDS, APPEARANCES, DERPS } from '../dndb-tables';
+import CharSelect from './char_select';
 import Skills from './skills';
 import ClassMain from './class_main';
 import Inventory from './inventory';
@@ -36,6 +37,7 @@ class Dndb extends React.Component {
         this.handleChange = this.handleChange.bind(this);
         this.generateRandomCharacter = this.generateRandomCharacter.bind(this);
         this.characterSave = this.characterSave.bind(this);
+        this.loadCharacter = this.loadCharacter.bind(this);
         this.getChar = this.getChar.bind(this);
     }
     
@@ -57,11 +59,7 @@ class Dndb extends React.Component {
     }
 
     loadCharacter(character) {
-
-    }
-
-    saveCharacter() {
-        
+        this.setState(character);
     }
 
     clearSheet() {
@@ -172,22 +170,6 @@ class Dndb extends React.Component {
         alert(`Character saved!`);
     }
 
-    // update = async () => {
-    //     console.log('calling api post');
-    //     let newChar = Object.assign({}, this.state);
-    //     newChar['playerName'] = currentUser;
-    //     newChar['trainedSkills'] = JSON.stringify(this.state.trainedSkills);
-    //     newChar['currentSpecials'] = JSON.stringify(this.state.currentSpecials);
-    //     newChar['inventory'] = JSON.stringify(this.state.inventory);
-    //     newChar['regulation'] = this.state.regulation ? "true" : "false";
-    //     const response = await API.update('dndb', '/dndb', {
-    //         body: {
-    //             ...newChar
-    //         }
-    //     });
-    //     alert(`Character saved!`);
-    // }
-
     get = async () => {
         console.log('calling api get');
         let myChars = [];
@@ -204,6 +186,7 @@ class Dndb extends React.Component {
         console.log(myChars)
         console.log(`Other characters:`)
         console.log(otherChars)
+        return myChars;
     }
 
     getChar = async (charName) => {
@@ -219,6 +202,7 @@ class Dndb extends React.Component {
                 <div id="sheet-header">
                     <h1>Dungeons & Douchebags</h1>
                 </div>
+                <CharSelect get={this.get} loadCharacter={this.loadCharacter} />
                 <button onClick={this.generateRandomCharacter}>Generate Random Character</button>
                 <button onClick={this.get}>List all characters</button>
                 <button onClick={this.characterSave}>Save Character</button>

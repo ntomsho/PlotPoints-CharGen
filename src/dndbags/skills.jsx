@@ -1,21 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { CLASS_SKILLS, SKILLS, SKILL_USES, random } from '../dndb-tables';
 import SkillButton from './skill_button';
 
 export default function Skills(props) {
     const [highlightedSkill, setHighlightedSkill] = useState("");
+    const [numClassSkills, setNumClassSkills] = useState(0);
+    const [numRegSkills, setNumRegSkills] = useState(0);
     const classSkills = CLASS_SKILLS[props.cClass] || [];
-    const skillSet = props.trainedSkills;
     const maxRegSkills = props.race === "Human" ? 1 : 0;
-    let numClassSkills = 0;
-    let numRegSkills = 0;
-    skillSet.forEach(skill => {
-        if (classSkills.includes(skill)) {
-            numClassSkills === 0 ? numClassSkills++ : numRegSkills++;
-        } else {
-            numRegSkills++;
-        }
-    })
+
+    useEffect(() => {
+        const skillSet = props.trainedSkills;
+        let classSkillCount = 0;
+        let regSkillCount = 0;
+        skillSet.forEach(skill => {
+            if (classSkills.includes(skill)) {
+                classSkillCount === 0 ? classSkillCount++ : regSkillCount++;
+            } else {
+                regSkillCount++;
+            }
+        })
+        setNumClassSkills(classSkillCount);
+        setNumRegSkills(regSkillCount);
+    }, [JSON.stringify(props.trainedSkills)])
     
     function remainingClassSkills() {
         if (numClassSkills === 0) {
@@ -50,36 +57,51 @@ export default function Skills(props) {
                 <div style={{ width: '33%' }}>
                     <h3>{highlightedSkill}</h3>
                     <div>{SKILL_USES[highlightedSkill]}</div>
-                    <button onClick={() => selectSkill(highlightedSkill)}>{skillSet.includes(highlightedSkill) ? 'Remove Skill' : 'Add Skill'}</button>
+                    <button onClick={() => selectSkill(highlightedSkill)}>{props.trainedSkills.includes(highlightedSkill) ? 'Remove Skill' : 'Add Skill'}</button>
                 </div>
             )
         }
     }
 
     function selectSkill(skill) {
+        console.log(skill);
+        console.log(props.trainedSkills)
         let newSkillSet = props.trainedSkills;
         const inClass = classSkills.includes(skill);
-        const selected = skillSet.includes(skill);
+        const selected = props.trainedSkills.includes(skill);
 
         if (selected) {
-            if (inClass && numClassSkills < 2) {
-                numClassSkills--;
-            } else {
-                numRegSkills--;
-            }
             newSkillSet.splice(newSkillSet.indexOf(skill), 1);
             props.updateState('trainedSkills', newSkillSet);
         } else {
-            if (inClass && numClassSkills === 0) {
-                numClassSkills++;
-                newSkillSet.push(skill);
-                props.updateState('trainedSkills', newSkillSet);
-            } else if (numRegSkills < maxRegSkills) {
-                numRegSkills++;
-                newSkillSet.push(skill);
-                props.updateState('trainedSkills', newSkillSet);
+            if (inClass && (numClassSkills > 0 && numRegSkills >= maxRegSkills)) {
+                return
+            } else if (!inClass && numRegSkills >= maxRegSkills) {
+                return
             }
+            newSkillSet.push(skill);
+            props.updateState('trainedSkills', newSkillSet);
         }
+
+        // if (selected) {
+        //     if (inClass && numClassSkills < 2) {
+        //         setNumClassSkills(numClassSkills - 1);
+        //     } else {
+        //         setNumRegSkills(numRegSkills - 1);
+        //     }
+        //     newSkillSet.splice(newSkillSet.indexOf(skill), 1);
+        //     props.updateState('trainedSkills', newSkillSet);
+        // } else {
+        //     if (inClass && numClassSkills === 0) {
+        //         setNumClassSkills(numClassSkills + 1);
+        //         newSkillSet.push(skill);
+        //         props.updateState('trainedSkills', newSkillSet);
+        //     } else if (numRegSkills < maxRegSkills) {
+        //         setNumRegSkills(numRegSkills + 1);
+        //         newSkillSet.push(skill);
+        //         props.updateState('trainedSkills', newSkillSet);
+        //     }
+        // }
     }
 
     function createSkillRow(i) {
@@ -88,7 +110,7 @@ export default function Skills(props) {
                 <SkillButton key={ind}
                     skill={skill}
                     classSkill={classSkills.includes(skill)}
-                    selected={skillSet.includes(skill)}
+                    selected={props.trainedSkills.includes(skill)}
                     setHighlightedSkill={setHighlightedSkill}
                     selectSkill={selectSkill}
                 />
