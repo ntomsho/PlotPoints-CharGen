@@ -1,3 +1,7 @@
+button {
+  cursor: pointer;
+}
+
 /* Home */
 
 #home-container {
@@ -124,4 +128,27 @@
 
 .inventory-space {
   width: 25%;
+}
+
+/* Advancement */
+
+#exp-tracker {
+  display: flex;
+}
+
+#exp-bar {
+  display: flex;
+  width: 50vw;
+  height: 30px;
+  background: linear-gradient(to left, white 50%, gold 50%);
+  background-size: 200% 100%;
+  overflow: hidden;
+  transition: all 2s ease;
+}
+
+.exp-bar-segment {
+  width: 5vw;
+  height: 30px;
+  background: transparent;
+  border: 1px solid black;
 }

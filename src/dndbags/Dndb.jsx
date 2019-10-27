@@ -6,6 +6,7 @@ import CharSelect from './char_select';
 import Skills from './skills';
 import ClassMain from './class_main';
 import Inventory from './inventory';
+import Advancement from './advancement';
 import { ConsoleLogger } from '@aws-amplify/core';
 import { IoTJobsDataPlane } from 'aws-sdk/clients/all';
 
@@ -59,6 +60,9 @@ class Dndb extends React.Component {
     }
 
     loadCharacter(character) {
+        character['trainedSkills'] = JSON.parse(character['trainedSkills'])
+        character['currentSpecials'] = JSON.parse(character['currentSpecials'])
+        character['inventory'] = JSON.parse(character['inventory'])
         this.setState(character);
     }
 
@@ -130,6 +134,7 @@ class Dndb extends React.Component {
                     id={`pp-${i + 1}`}
                     className="pp-container"
                     onClick={() => this.updatePlotPoints(i + 1)}
+                    style={{cursor: 'pointer'}}
                 >
                     {this.state.plotPoints >= i + 1 ? "⦿" : "⦾"}
                 </span>
@@ -255,6 +260,9 @@ class Dndb extends React.Component {
                 </div>
                 <div id="inventory-section">
                     <Inventory {...this.state} updateState={this.updateState} />
+                </div>
+                <div id="inventory-section">
+                    <Advancement {...this.state} updateState={this.updateState} />
                 </div>
             </div>
             </BackendWrapper>
