@@ -8,7 +8,8 @@ import {
   Switch,
   Route
 } from "react-router-dom";
-import Dndb from './dndbags/Dndb.jsx';
+// import Dndb from './dndbags/Dndb.jsx';
+import CharSelect from './dndbags/char_select';
 import Home from './Home';
 
 Amplify.configure(awsconfig)
@@ -18,7 +19,7 @@ function App() {
     <Router>
       <Switch>
         <Route path="/dndb">
-          <Dndb />
+          <CharSelect />
         </Route>
         <Route exact path="/">
           <Home />

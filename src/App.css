@@ -24,10 +24,30 @@ button {
   border-radius: 3%;
 }
 
+/* Dndb Main */
+
+#dndb-main {
+  display: flex;
+  align-items: center;
+}
+
 .heart-container {
   width: 5%;
   padding: 0 1%;
   cursor: pointer;
+}
+
+/* Char Select */
+
+.char-select-menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.char-select-link {
+  cursor: pointer;
+  border: 1px solid black;
 }
 
 /* Skills */
