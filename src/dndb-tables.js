@@ -497,13 +497,13 @@ export const TRINKETS = [
 
 export const EQUIPMENT = [
     `${random(BACKGROUNDS)} tools`,
-    `Bear Trap`,
+    `Bear trap`,
     `Bomb`,
     `Caltrops`,
-    `Chain(10 ft.)`,
+    `Chain (10 ft.)`,
     `Crowbar`,
-    `Disguise Kit`,
-    `Food(1 day)`,
+    `Disguise kit`,
+    `Food (1 day)`,
     `Flask of oil`,
     `Glue`,
     `Grappling hook`,
@@ -520,9 +520,9 @@ export const EQUIPMENT = [
     `Mirror`,
     `Musical instrument`,
     `Net`,
-    `Plot device(consume to regain 1 Plot Point)`,
+    `Spare ammo`,
     `${random(WEAPONS.slice(19,36))}`,
-    `Rope(50 ft.)`,
+    `Rope (50 ft.)`,
     `Sack`,
     `Shield`,
     `Shovel`,
@@ -806,6 +806,47 @@ export const COMMANDS = [
     "Vogue",
     "Yell"
 ]
+
+export const STARTING_ITEMS = {
+    //And add standard items: 8 - package.length
+    //Feed into switch statement, default: selected string
+    "Battlebro": [
+        ["Graduate Weapon"], ["Ranged Weapon", "Shield"], ["Potion of Healing", "Weapon Oil"]
+    ],
+    "Bowslinger": [
+        ["Ranged Weapon"], ["Melee Weapon", "Spare ammo"], ["Net", "Bear trap"], ["Potion of Healing", "Weapon Oil"]
+    ],
+    "Hippy": [
+        ["Melee Weapon", "Ranged Weapon"], ["Medicinal Herb", "Vial of poison"], ["Animal Totem", "Magic Item"]
+    ],
+    "Knight of Tushuze": [
+        ["Melee Weapon"], ["Ranged Weapon", "Shield"], ["Potion of Healing", "Magic Item"]
+    ],
+    "Minstrel": [
+        ["Melee Weapon", "Ranged Weapon"], ["Musical instrument", "Horn"], ["Lockpicks", "Disguise Kit"], ["Songbook", "Magic Item"]
+    ],
+    "Mixologist": [
+        ["Melee Weapon", "Ranged Weapon"], ["Alchemist's tools"], ["Vial of acid", "Vial of poison"], ["Magic Potion", "2 Alchemical Ingredients"]
+    ],
+    "Ne'erdowell": [
+        ["Melee Weapon", "Ranged Weapon"], ["Lockpicks", "Grappling hook"], ["Caltrops", "Crowbar"], ["Magic Item"]
+    ],
+    "Ragesmasher": [
+        ["Melee Weapon"], ["Melee Weapon", "Ranged Weapon"], ["Potion of Healing", "Animal Totem"],
+    ],
+    "Runegoon": [
+        ["Melee Weapon", "Ranged Weapon"], ["Paint"], ["Blacksmith's tools", "Mason's tools"], ["Scroll of Power", "Magic Item"]
+    ],
+    "Verbpriest": [
+        ["Melee Weapon", "Ranged Weapon"], ["Cleric's tools", "Horn"], ["Potion of Healing", "Scroll of Power"]
+    ],
+    "Wizcaster": [
+        ["Staff", "Dagger"], ["Ranged Weapon", "Bookbinder's tools"], ["Scroll of Power", "Magic Item"]
+    ],
+    "Zoomaster": [
+        ["Melee Weapon", "Ranged Weapon"], ["Shield", "Spare ammo"], ["Potion of Healing", "Creature fodder"]
+    ]
+}
 
 export function random(arr) {
     return arr[Math.floor(Math.random() * arr.length)];
