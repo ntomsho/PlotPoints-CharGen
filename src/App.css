@@ -303,9 +303,44 @@ h1, h2, h3 {
   flex-direction: column;
 }
 
+/* Inventory */
+
+.starting-items-choice {
+  padding: 1%;
+  margin: 0.5% 2%;
+  border: 1px solid black;
+  border-radius: 5px;
+  width: 35%;
+  text-align: center;
+  cursor: pointer;
+  font-size: 4vw;
+}
+
+.starting-items-choice.selected {
+  background-color: gold;
+}
+
+.accept-button {
+  font-size: 4vw;
+  font-family: 'grenze', serif;
+  border: 1px solid black;
+  border-radius: 5px;
+  background-color: white;
+}
 
 .inventory-space {
   width: 25%;
+}
+
+@media screen and (min-width: 600px) {
+  .starting-items-choice {
+    width: 15%;
+    font-size: inherit;
+  }
+
+  .accept-button {
+    font-size: 3vw;
+  }
 }
 
 /* Advancement */

@@ -1,18 +1,117 @@
-import React from 'react';
-import { random, EQUIPMENT } from '../dndb-tables';
+import React, { useState, useEffect } from 'react';
+import { random, EQUIPMENT, STARTING_ITEMS, WEAPONS, ELEMENTS, VERBS, GERUNDS, randomAnimal, randomMagicItem, SONGS, ELEMENTS_OF, BASES, FORMS } from '../dndb-tables';
 
 export default function Inventory(props) {
+    const [startingChoices, setStartingChoices] = useState([])
 
-    function randomizeInventory() {
-        let count = 0;
-        let newInventory = Object.assign({}, props.inventory);
-        for (let i = 3; count < 6 && i < 12; i++) {
-            if (!props.inventory[i]) {
-                newInventory[i] = random(EQUIPMENT);
-                count += 1;
+    useEffect(() => {
+        if (props.cClass) {
+            const itemPackage = STARTING_ITEMS[props.cClass]
+            let startChoiceArr = [];
+            for (let i = 0; i < itemPackage.length; i++) {
+                if (itemPackage[i].length === 1) {
+                    startChoiceArr.push(itemPackage[i][0])
+                } else {
+                    startChoiceArr.push(undefined)
+                }
             }
+            setStartingChoices(startChoiceArr)
         }
-        props.updateState("inventory", newInventory);
+    }, [props.cClass])
+
+    function startingEquipmentDisp() {
+        if (props.cClass && JSON.stringify(props.inventory) === JSON.stringify(["", "", "", "", "", "", "", "", "", "", "", ""])) {
+            const itemPackage = STARTING_ITEMS[props.cClass];
+            return (
+                <>
+                <h3>Starting Inventory Choices</h3>
+                <ul>
+                    {itemPackage.map((choices, i) => {
+                        return (
+                            <div key={i} style={{display: 'flex', justifyContent: 'center'}}>
+                            {choiceField(choices, i)}
+                            </div>
+                        )
+                    })}
+                </ul>
+                <div>Plus {8 - itemPackage.length} standard items</div>
+                <button 
+                // disabled={startingChoices.length === itemPackage.length}
+                onClick={createStartingInv}
+                >
+                    Accept
+                </button>
+                </>
+            )
+        }
+    }
+
+    function choiceField(choices, ind) {
+        return (
+            <>
+            {choices.map((choice, i) => {
+                return (
+                    <div key={i} 
+                    onClick={() => startingChoice(choice, ind)}
+                    className={`starting-items-choice${startingChoices[ind] === choice ? ' selected' : ''}`}>
+                        {choice}
+                    </div>
+                )
+            })}
+            </>
+        )
+    }
+
+    function startingChoice(choice, ind) {
+        let newChoices = startingChoices;
+        newChoices[ind] = choice;
+        setStartingChoices([...newChoices]);
+    }
+
+    function createStartingInv() {
+        console.log(`createStartingInv`)
+        let newInv = [];
+        for (let i = 0; i < startingChoices.length; i++) {
+            let item;
+            switch(startingChoices[i]) {
+                case "Melee Weapon":
+                    item = random(WEAPONS.slice(0, 18));
+                    break;
+                case "Ranged Weapon":
+                    item = random(WEAPONS.slice(19, 36));
+                    break;
+                case "Weapon Oil":
+                    item = `${random(random([ELEMENTS, GERUNDS]))} Weapon Oil`;
+                    break;
+                case "Animal Totem":
+                    item = `${randomAnimal()} Totem`;
+                case "Magic Item":
+                    item = randomMagicItem();
+                    break;
+                case "Songbook":
+                    item = random([
+                        `${random(SONGS)} of ${ELEMENTS_OF}`,
+                        `${random(GERUNDS)} ${random(SONGS)}`
+                    ]);
+                    break;
+                case "Magic Potion":
+                    item = `${random(random([ELEMENTS, GERUNDS]))} Potion`;
+                    break;
+                case "2 Alchemical Ingredients":
+                    item = `${random(BASES)} Base + ${random(random([ELEMENTS, VERBS]))} Catalyst`;
+                    break;
+                case "Scroll of Power":
+                    item = `Scroll of ${random(random([ELEMENTS, GERUNDS, FORMS]))}`
+                    break;
+                default:
+                    item = startingChoices[i];
+            }
+            newInv.push(item);
+        }
+        while (newInv.length < 8) {
+            newInv.push(random(EQUIPMENT));
+        }
+        props.updateState('inventory', newInv);
     }
 
     function moveToStash(num) {
@@ -54,7 +153,7 @@ export default function Inventory(props) {
     return (
         <>
         <h2>Inventory</h2>
-        <button onClick={randomizeInventory}>Purchase Random Items</button>
+        {startingEquipmentDisp()}
         <h3>Carried Gear</h3>
         <div className="sheet-row">
             <input className="inventory-space" onChange={handleChange} name="0" type="text" id="carried-1" value={props.inventory[0] || ""}></input>
