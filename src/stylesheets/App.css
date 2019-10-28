@@ -236,7 +236,7 @@ h1, h2, h3 {
 }
 
 .class-info {
-  width: 30vw;
+  width: 35vw;
 }
 
 .class-desc {
@@ -247,23 +247,46 @@ h1, h2, h3 {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 70vw;
+  width: 64vw;
 }
 
 .ability-main {
   display: flex;
+  justify-content: space-around;
+  margin: 2vh 1vw;
 }
 
 .ability-main input {
-  height: 40px;
-  font-size: 30px;
+  height: 5vh;
+  width: 55vw;
+  font-size: 5vw;
   text-align: center;
+  padding: 2%;
 }
 
-#battlebro-charges button {
-  font-size: 30px;
+.ability-desc {
+    box-shadow: inset 0px -10px 5px 0px lightgrey;
+    overflow: auto;
+    max-height: 30vh
 }
 
+.class-radio-container button {
+  font-size: 8vw;
+  border: none;
+  background-color: white;
+}
+
+.ability-randomize-button {
+  font-size: 3vw;
+  padding: 2%;
+  width: 29vw;
+  border: 1px solid black;
+  border-radius: 5px;
+  background-color: white;
+  margin: 1vh 1vw;
+}
+
+/* Class-specific */
 #ammo-lists {
   display: flex;
   justify-content: space-around;
@@ -301,6 +324,27 @@ h1, h2, h3 {
 .zoomaster-ability-section {
   display: flex;
   flex-direction: column;
+}
+
+@media screen and (min-width: 600px) {
+  .ability-main input {
+    font-size: 3vw;
+    width: 40vw;
+  }
+
+  .ability-desc {
+    max-height: 40vh
+  }
+  
+  .class-radio-container button {
+      font-size: 4vw;
+  }
+
+  .ability-randomize-button {
+    font-size: 1.5vw;
+    width: 14vw;
+    margin: 0.5vh 0.5vw
+  }
 }
 
 /* Inventory */

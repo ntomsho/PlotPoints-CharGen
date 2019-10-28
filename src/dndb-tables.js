@@ -274,7 +274,7 @@ export const ELEMENTS_OF = [
     "Gold",
     "Goop",
     "Ice",
-    "Laser",
+    "Lasers",
     "Life",
     "Light",
     "Lightning",
