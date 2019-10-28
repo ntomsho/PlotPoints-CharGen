@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { CLASS_SKILLS, SKILLS, SKILL_USES, random } from '../dndb-tables';
+import { CLASS_SKILLS, CLASS_COLORS, SKILLS, SKILL_USES, random } from '../dndb-tables';
 import SkillButton from './skill_button';
 
 export default function Skills(props) {
@@ -27,7 +27,7 @@ export default function Skills(props) {
     function remainingClassSkills() {
         if (numClassSkills === 0) {
             return (
-                <span>Choose a <strong style={{ border: '3px solid black' }}>Class Skill</strong></span>
+                <span>Choose a <strong style={{ border: `3px solid ${CLASS_COLORS[props.cClass]}` }}>Class Skill</strong></span>
             )
         }
     }
@@ -45,7 +45,7 @@ export default function Skills(props) {
             return (
                 <>
                 <span>{maxRegSkills} Random Skill{numRegSkills > 1 ? "s" : ""} Remaining</span>
-                <button onClick={() => selectSkill(randomSkill())}>Random ⚀</button>
+                <button className="randomize-button" onClick={() => selectSkill(randomSkill())}>🎲</button>
                 </>
             )
         }
@@ -54,10 +54,10 @@ export default function Skills(props) {
     function skillDesc() {
         if (highlightedSkill) {
             return (
-                <div style={{ width: '33%' }}>
-                    <h3>{highlightedSkill}</h3>
-                    <div>{SKILL_USES[highlightedSkill]}</div>
-                    <button onClick={() => selectSkill(highlightedSkill)}>{props.trainedSkills.includes(highlightedSkill) ? 'Remove Skill' : 'Add Skill'}</button>
+                <div style={{ width: '25%' }}>
+                    <h3 className="skill-desc-headline">{highlightedSkill}</h3>
+                    <div className="skill-desc-content">{SKILL_USES[highlightedSkill]}</div>
+                    <button className="select-skill-button" onClick={() => selectSkill(highlightedSkill)}>{props.trainedSkills.includes(highlightedSkill) ? 'Remove Skill' : 'Add Skill'}</button>
                 </div>
             )
         }
@@ -91,6 +91,7 @@ export default function Skills(props) {
                     selected={props.trainedSkills.includes(skill)}
                     setHighlightedSkill={setHighlightedSkill}
                     selectSkill={selectSkill}
+                    classColor={CLASS_COLORS[props.cClass]}
                 />
             )
         })
@@ -98,11 +99,13 @@ export default function Skills(props) {
 
     return (
         <>
-        <h2>Skills</h2>
+        <h2 style={{marginBottom: 0}}>Skills</h2>
             <div style={{display: 'flex'}}>
-            <div id="skills-container" style={{width: '66%'}}>
+            <div id="skills-container">
+                <div className="remaining-skills">
                 {remainingSkills()}
                 {remainingClassSkills()}
+                </div>
                 <div className="sheet-row">
                     {createSkillRow(0)}
                 </div>

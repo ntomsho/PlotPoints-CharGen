@@ -66,7 +66,7 @@ export default function Neerdowell(props) {
                     {itemsDisp()}
                 </div>
                 <div>
-                    <button className="randomize-button" onClick={createItems}>Generate Random Items</button>
+                    <button className="ability-randomize-button" onClick={createItems}>Generate Random Items</button>
                     <span>Add Item: </span><input type="text" ref={input}></input><button onClick={addCustomItem}>+</button>
                 </div>
             </div>

@@ -82,7 +82,7 @@ export default function Ragesmasher(props) {
                     {rageOverflow()}
                 </div>
                 <div>
-                    <button className="randomize-button" onClick={setTotem}>Randomize Totem</button>
+                    <button className="ability-randomize-button" onClick={setTotem}>Randomize Totem</button>
                     <span>Change Totem: </span><input type="text" ref={input}></input><button onClick={setCustomTotem}>+</button>
                 </div>
             </div>

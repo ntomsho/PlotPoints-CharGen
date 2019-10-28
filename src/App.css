@@ -24,17 +24,8 @@ button {
   border-radius: 3%;
 }
 
-/* Dndb Main */
-
-#dndb-main {
-  display: flex;
-  align-items: center;
-}
-
-.heart-container {
-  width: 5%;
-  padding: 0 1%;
-  cursor: pointer;
+#dndb-sheet-container {
+  padding: 0 2% 0 2%;
 }
 
 /* Char Select */
@@ -50,22 +41,143 @@ button {
   border: 1px solid black;
 }
 
-/* Skills */
+/* Dndb Main */
+
+h1, h2, h3 {
+  font-family: 'Grenze', serif;
+}
+
+.color-header {
+  color: orangered;
+  text-align: center;
+}
+
+#dndb-main {
+  display: flex;
+  align-items: center;
+}
+
+#main-button-row {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 2%;
+}
+
+#main-button-row button {
+  font-family: 'Grenze', serif;
+  font-size: 3vw;
+  width: 20vw;
+  border: 1px solid black;
+  border-radius: 3px;
+  padding: 1%;
+  background-color: white;
+  box-shadow: darkgray 0.5vw 0.4vh;
+}
+
 .sheet-row {
   display: flex;
   justify-content: space-around;
+  margin: 1% 0 1% 0;
+}
+
+.field-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 8vh;
+  width: 30vw;
+}
+
+.field-container input, select {
+  border: 1px solid black;
+  height: 3vh;
+  width: 80%;
+  border-radius: 5px;
+  font-size: 2.4vw
+}
+
+.field-header {
+  font-family: 'grenze', serif;
+  font-size: 3.5vw
+}
+
+.sub-field {
+  white-space: nowrap;
+}
+
+.randomize-button {
+  font-size: 4vw;
+  border: none;
+  background: transparent;
+}
+
+.health-tracker {
+  width: 70vw;
+}
+
+.heart-container {
+  width: 90%;
+  padding: 0 1%;
+  cursor: pointer;
+}
+
+.pp-container {
+  font-size: 8vw;
+  cursor: pointer;
+}
+
+@media screen and (min-width: 600px) {
+  #main-button-row button {
+    font-size: 1.5vw;
+    width: 15vw;
+  }
+
+  .randomize-button {
+    font-size: 2vw;
+  }
+  
+  .field-container input, select {
+    font-size: 1.5vw;
+  }
+
+  .field-header {
+    font-family: 'grenze', serif;
+    font-size: 1.5vw
+  }
+
+  .heart-container {
+    width: 55%;
+  }
+
+  .pp-container {
+    width: 5vw;
+  }
+}
+
+/* Skills */
+#skills-container {
+  width: 73%;
+}
+
+.remaining-skills {
+  margin: 0 0 1vh 0;
+  height: 3.5vh;
 }
 
 .skill-button {
-  height: 30px;
-  width: 30%;
+  height: 6vh;
+  width: 23vw;
+  margin: 0.25vh 0 0.25vh 0;
+  font-size: 3vw;
+  font-family: 'grenze', serif;
   border: 1px solid gray;
   cursor: pointer;
   outline: none;
+  line-height: 1.1em;
 }
 
 .skill-button.class-skill {
-  border: 3px solid black;
+  border: 3px solid;
 }
 
 .skill-button.selected {
@@ -74,11 +186,49 @@ button {
   font-weight: bold;
 }
 
+.skill-desc-headline {
+  margin-bottom: 1%;
+  font-size: 4vw;
+}
+
+.skill-desc-content {
+  margin: 1vh 0 2vh 0;
+}
+
+.select-skill-button {
+  font-size: 3.5vw;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+@media screen and (min-width: 600px) {
+  #skills-container {
+    width: 60%;
+  }
+  
+  .skill-button {
+    height: 5vh;
+    width: 17vw;
+    font-size: 2vw;
+  }
+  
+  .skill-desc-headline {
+    font-size: 3vw;
+  }
+  
+  .select-skill-button {
+    font-size: 1.5vw;
+  }
+}
+
 /* Classes */
 
 #class-headline {
+  position: relative;
+  right: 5vw;
   color: white;
   width: 100vw;
+  padding: 1.5% 0 1.5% 7%;
 }
 
 .class-ability-container {
@@ -167,7 +317,7 @@ button {
 #exp-bar {
   display: flex;
   width: 50vw;
-  height: 30px;
+  height: 4.5vh;
   background: linear-gradient(to left, white 50%, gold 50%);
   background-size: 200% 100%;
   overflow: hidden;
@@ -176,7 +326,6 @@ button {
 
 .exp-bar-segment {
   width: 5vw;
-  height: 30px;
   background: transparent;
   border: 1px solid black;
 }

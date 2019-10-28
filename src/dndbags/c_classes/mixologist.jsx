@@ -140,7 +140,7 @@ export default function Mixologist(props) {
                     {componentsList()}
                 </div>
                 <div>
-                    <button className="randomize-button" onClick={() => createComponents()}>Generate New Components</button>
+                    <button className="ability-randomize-button" onClick={() => createComponents()}>Generate New Components</button>
                     <div>
                         <span>Add Base: </span>
                         <select ref={input1}>

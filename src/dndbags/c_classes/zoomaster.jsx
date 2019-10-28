@@ -56,7 +56,7 @@ export default function Zoomaster(props) {
             <div className="class-ability-display">
                 {companionDisp()}
                 <div>
-                    <button className="randomize-button" onClick={createNewCompanion}>Randomize Companion</button>
+                    <button className="ability-randomize-button" onClick={createNewCompanion}>Randomize Companion</button>
                 </div>
             </div>
         </div>

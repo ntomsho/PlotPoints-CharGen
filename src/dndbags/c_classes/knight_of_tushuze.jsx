@@ -70,7 +70,7 @@ export default function KnightOfTushuze(props) {
                     {blessingsDisplay()}
                 </div>
                 <div>
-                    <button className="randomize-button" onClick={createBlessings}>Randomize Blessings</button>
+                    <button className="ability-randomize-button" onClick={createBlessings}>Randomize Blessings</button>
                     <span>Add Blessing: </span>
                     <select ref={input}>
                         <option value="Believe in Yourself">Believe in Yourself (Bravery)</option>

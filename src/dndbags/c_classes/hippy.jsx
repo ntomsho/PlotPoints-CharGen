@@ -86,7 +86,7 @@ export default function Hippy(props) {
                     {formsDisp()}
                 </div>
                 <div>
-                    <button className="randomize-button" onClick={createForms}>Randomize Animal Forms</button>
+                    <button className="ability-randomize-button" onClick={createForms}>Randomize Animal Forms</button>
                     <span>Add Animal Form: </span><input type="text" ref={input}></input><button onClick={addCustomForm}>+</button>
                 </div>
             </div>

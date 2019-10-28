@@ -112,7 +112,7 @@ export default function Bowslinger(props) {
                     </div>
                 </div>
                 <div>
-                    <button className="randomize-button" onClick={createAmmo}>Randomize Ammo</button>
+                    <button className="ability-randomize-button" onClick={createAmmo}>Randomize Ammo</button>
                     <span>Add Ammo: </span><input type="text" ref={input}></input><button onClick={addCustomAmmo}>+</button>
                 </div>
             </div>

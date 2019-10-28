@@ -187,7 +187,7 @@ export default function Wizcaster(props) {
                     {wordsListDisp()}
                 </div>
                 <div>
-                    <button className="randomize-button" onClick={createWords}>Generate New Words</button>
+                    <button className="ability-randomize-button" onClick={createWords}>Generate New Words</button>
                     <span>Add Word of Power: </span>
                     <select ref={input1}>
                         <option value="Form">Form</option>

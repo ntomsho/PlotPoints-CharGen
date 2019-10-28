@@ -76,7 +76,7 @@ export default function Verbpriest(props) {
                     {wordsDisp()}
                 </div>
                 <div>
-                    <button className="randomize-button" onClick={createWords}>Generate Random Words</button>
+                    <button className="ability-randomize-button" onClick={createWords}>Generate Random Words</button>
                     <span>Add Word: </span><input type="text" ref={input}></input><button onClick={addCustomWord}>+</button>
                 </div>
             </div>

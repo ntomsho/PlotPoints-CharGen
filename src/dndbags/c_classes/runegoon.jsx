@@ -97,7 +97,7 @@ export default function Runegoon(props) {
                     </div>
                 </div>
                 <div>
-                    <button className="randomize-button" onClick={createRunes}>Generate Random Runes</button>
+                    <button className="ability-randomize-button" onClick={createRunes}>Generate Random Runes</button>
                     <span>Add Rune: </span><input type="text" ref={input}></input><button onClick={addCustomRune}>+</button>
                 </div>
             </div>

@@ -54,7 +54,7 @@ export default function Inventory(props) {
     return (
         <>
         <h2>Inventory</h2>
-        <button onClick={randomizeInventory}>Randomize Inventory</button>
+        <button onClick={randomizeInventory}>Purchase Random Items</button>
         <h3>Carried Gear</h3>
         <div className="sheet-row">
             <input className="inventory-space" onChange={handleChange} name="0" type="text" id="carried-1" value={props.inventory[0] || ""}></input>

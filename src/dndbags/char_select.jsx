@@ -120,6 +120,7 @@ export default function CharSelect(props) {
     function charSelectDisp() {
         return (
             <div className="char-select-menu">
+                <h1 className="color-header">Dungeons & Douchebags</h1>
                 <div className="random-character">
                     <h2 className="char-select-link" onClick={randomChar}>Generate New<br/>Random Character</h2>
                 </div>

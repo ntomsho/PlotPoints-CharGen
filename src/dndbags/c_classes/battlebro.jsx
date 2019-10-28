@@ -84,11 +84,11 @@ export default function Battlebro(props) {
                     <button onClick={() => setChargeNum(3)}>{charge >= 3 ? "⦿" : "⦾"}</button>
                 </div>
                 <div>
-                    <button className="randomize-button" onClick={randomizeWeapon}>Randomize Weapon</button>
+                    <button className="ability-randomize-button" onClick={randomizeWeapon}>Randomize Weapon</button>
                 </div>
                 <div>
-                    <button className="randomize-button" onClick={randomizeWeaponType}>Randomize Weapon Type</button>
-                    <button className="randomize-button" onClick={randomizeWeaponSpecial}>Randomize Weapon Special Quality</button>
+                    <button className="ability-randomize-button" onClick={randomizeWeaponType}>Randomize Weapon Type</button>
+                    <button className="ability-randomize-button" onClick={randomizeWeaponSpecial}>Randomize Weapon Special Quality</button>
                 </div>
             </div>
         </div>
