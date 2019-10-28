@@ -25,9 +25,9 @@ export default function Advancement(props) {
         <div id="advancement-container">
             <h3>Experience</h3>
             <div id="exp-tracker">
-                <button onClick={() => changeExp(false)}>-</button>
+                <button className="exp-button" onClick={() => changeExp(false)}>-</button>
                 {expBar()}
-                <button onClick={() => changeExp(true)}>+</button>
+                <button className="exp-button" onClick={() => changeExp(true)}>+</button>
             </div>
             <div id="advancements">
                 <div>Whenever you mark 10 Experience, clear it and gain an Advancement.</div>

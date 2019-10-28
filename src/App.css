@@ -423,3 +423,15 @@ h1, h2, h3 {
   background: transparent;
   border: 1px solid black;
 }
+
+.exp-button {
+  border: 1px solid black;
+  width: 8%;
+}
+
+@media screen and (min-width: 600px) {
+  .exp-button {
+    width: 5%;
+    background-color: lightgray;
+  }
+}
