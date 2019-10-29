@@ -36,15 +36,13 @@ export default function KnightOfTushuze(props) {
     function blessingsDisplay() {
         if (currentSpecials.blessings) {
             return (
-                <ul style={{ listStyle: 'none' }}>
+                <ul className="resource-list">
                     {currentSpecials.blessings.map((blessing, i) => {
                         return (
-                            <div key={i}>
-                                <li>
-                                    <div>Blessing of {blessing}</div>
-                                </li>
+                            <li key={i} className="resource-list-entry">
+                                <div>Blessing of <strong>{blessing}</strong></div>
                                 <button onClick={() => consumeBlessing(i)}>Use</button>
-                            </div>
+                            </li>
                         )
                     })}
                 </ul>
@@ -57,33 +55,41 @@ export default function KnightOfTushuze(props) {
             <div className="class-info">
                 <div className="class-desc">A knight of a righteous and goodly order, doing good deeds and providing nice blessings.</div>
                 <br />
-                <div>Magic Ability:<br /><strong>Blessings of Tushuze</strong></div>
-                <div>Members of the order gain four blessings per day, and can gain more by doing good deeds. You can spend a Blessing to:</div>
-                <ul>
-                    <li>Give yourself or an ally Magic Advantage on an action using the listed Skill</li>
-                    <li>Create an intensely bright light that evil things hate for the duration of the scene</li>
-                    <li>Heal yourself or an ally for 1d6 Health</li>
-                </ul>
+                <div className="ability-desc">
+                    <div>Magic Ability:<br /><strong>Blessings of Tushuze</strong></div>
+                    <div>Members of the order gain four blessings per day, and can gain more by doing good deeds. You can spend a Blessing to:</div>
+                    <ul>
+                        <li>Give yourself or an ally Magic Advantage on an action using the listed Skill</li>
+                        <li>Create an intensely bright light that evil things hate for the duration of the scene</li>
+                        <li>Heal yourself or an ally for 1d6 Health</li>
+                    </ul>
+                </div>
             </div>
             <div className="class-ability-display">
-                <div id="blessing-list">
+                <div className="resource-lists-container" id="blessing-list">
                     {blessingsDisplay()}
                 </div>
-                <div>
+                <div className="ability-management-container">
+                    <div className="custom-add-row">
+                        <div className="custom-add-row">
+                            <div>Add Blessing: </div>
+                            <div className="custom-add-field">
+                                <select ref={input}>
+                                    <option value="Believe in Yourself">Believe in Yourself (Bravery)</option>
+                                    <option value="Brute Force">Brute Force (Bravery)</option>
+                                    <option value="Cardio">Cardio (Bravery)</option>
+                                    <option value="Creepin'">Creepin' (Honor)</option>
+                                    <option value="Macgyver">Macgyver (Charity)</option>
+                                    <option value="Man vs. Wild">Man vs. Wild (Honor)</option>
+                                    <option value="Rad Moves">Rad Moves (Honor)</option>
+                                    <option value="Spottin'">Spottin' (Charity)</option>
+                                    <option value="Thinkiness">Thinkiness (Charity)</option>
+                                </select>
+                            <button onClick={addCustomBlessing}>+</button>
+                            </div>
+                        </div>
+                    </div>
                     <button className="ability-randomize-button" onClick={createBlessings}>Randomize Blessings</button>
-                    <span>Add Blessing: </span>
-                    <select ref={input}>
-                        <option value="Believe in Yourself">Believe in Yourself (Bravery)</option>
-                        <option value="Brute Force">Brute Force (Bravery)</option>
-                        <option value="Cardio">Cardio (Bravery)</option>
-                        <option value="Creepin'">Creepin' (Honor)</option>
-                        <option value="Macgyver">Macgyver (Charity)</option>
-                        <option value="Man vs. Wild">Man vs. Wild (Honor)</option>
-                        <option value="Rad Moves">Rad Moves (Honor)</option>
-                        <option value="Spottin'">Spottin' (Charity)</option>
-                        <option value="Thinkiness">Thinkiness (Charity)</option>
-                    </select>
-                    <button onClick={addCustomBlessing}>+</button>
                 </div>
             </div>
         </div>

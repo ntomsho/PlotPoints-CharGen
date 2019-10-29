@@ -60,7 +60,7 @@ export default function Bowslinger(props) {
                     {currentSpecials.ammo.map((shot, i) => {
                         return (
                             <li key={i} className="resource-list-entry">
-                                <div>{shot} Ammo</div>
+                                <div><strong>{shot}</strong> Ammo</div>
                                 <button onClick={() => consumeAmmo(i)}>Use</button>
                             </li>
                         )
@@ -79,7 +79,7 @@ export default function Bowslinger(props) {
                     {savableAmmo.map((shot, i) => {
                         return (
                             <li key={i} className="resource-list-entry">
-                                <div>{shot} Ammo</div>
+                                <div><strong>{shot}</strong> Ammo</div>
                                 <button onClick={() => recoverAmmo(shot, i)}>+</button>
                                 <button onClick={() => loseAmmo(i)}>-</button>
                             </li>

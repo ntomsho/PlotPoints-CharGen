@@ -325,6 +325,14 @@ h1, h2, h3 {
   border-radius: 5px;
 }
 
+.custom-add-field select {
+  height: 5vh;
+  font-size: 4vw;
+  padding: 1.5%;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
 .custom-add-field button {
   border: 1px solid black;
   background-color: white;
@@ -389,6 +397,11 @@ h1, h2, h3 {
   }
 
   .custom-add-field input {
+    font-size: 2vw;
+    padding: 1%;
+  }
+
+  .custom-add-field select {
     font-size: 2vw;
     padding: 1%;
   }
