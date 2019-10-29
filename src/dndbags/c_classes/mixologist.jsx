@@ -64,7 +64,7 @@ export default function Mixologist(props) {
     function consumeButton() {
         if (selectedBase !== null && selectedCatalyst !== null) {
             return (
-                <button onClick={consumeCurrentConcoction}>Use Concoction</button>
+                <button onClick={consumeCurrentConcoction}>Use</button>
             )
         }
     }
@@ -90,15 +90,15 @@ export default function Mixologist(props) {
     }
     
     function componentsList() {
-        if (bases && catalysts) {
+        if (bases && catalysts && bases.length > 0 && catalysts.length > 0) {
             return (
                 <>
                 <div>
                     <h3>Bases</h3>
-                    <ul style={{listStyle: 'none'}}>
+                    <ul className="resource-list">
                         {bases.map((b, i) => {
                             return (
-                                <li key={i}>
+                                <li key={i} className="resource-list-entry">
                                     <div className={`comp${selectedBase === i ? ' selected' : ''}`} onClick={() => setSelectedBase(selectedBase === i ? null : i)}>{b}</div>
                                 </li>
                             )
@@ -107,10 +107,10 @@ export default function Mixologist(props) {
                 </div>
                 <div>
                     <h3>Catalysts</h3>
-                    <ul style={{ listStyle: 'none' }}>
+                    <ul className="resource-list">
                         {catalysts.map((c, i) => {
                             return (
-                                <li key={i}>
+                                <li key={i} className="resource-list-entry">
                                     <div className={`comp${selectedCatalyst === i ? ' selected' : ''}`} onClick={() => setSelectedCatalyst(selectedCatalyst === i ? null : i)}>{c.comp}</div>
                                 </li>
                             )
@@ -127,38 +127,52 @@ export default function Mixologist(props) {
             <div className="class-info">
                 <div className="class-desc">An alchemist and apothecary who can craft a variety of useful concoctions.</div>
                 <br />
-                <div>Magic Ability:<br /><strong>Alchemical Concoctions</strong></div>
-                <div>You carry with you a supply of 5 alchemical Bases and 5 Catalysts with you that inexplicably replenishes itself when you rest.</div>
-                <div>Combine a Base and a Catalyst to create a Concoction you can use immediately.</div>
+                <div className="ability-desc">
+                    <div>Magic Ability:<br /><strong>Alchemical Concoctions</strong></div>
+                    <div>You carry with you a supply of 5 alchemical Bases and 5 Catalysts with you that inexplicably replenishes itself when you rest.</div>
+                    <div>Combine a Base and a Catalyst to create a Concoction you can use immediately.</div>
+                </div>
             </div>
             <div className="class-ability-display">
                 <div className="ability-main">
-                    {currentConcoctionDisp()}
+                    <div>
+                        {currentConcoctionDisp()}
+                    </div>
                     {consumeButton()}
                 </div>
-                <div className="components-list">
+                {/* <div className="components-list"> */}
+                <div style={{display: 'flex'}}>
                     {componentsList()}
                 </div>
                 <div>
-                    <button className="ability-randomize-button" onClick={() => createComponents()}>Generate New Components</button>
-                    <div>
-                        <span>Add Base: </span>
-                        <select ref={input1}>
-                            {BASES.map((base, i) => {
-                                return (
-                                    <option key={i} value={base}>{base}</option>
-                                )
-                            })}
-                        </select>
-                        <button onClick={() => addCustomComponent('base')}>+</button>
-                        <span>Add Catalyst: </span>
-                        <input type="text" ref={input2}></input>
-                        <select ref={input3}>
-                            <option value="Form">Form</option>
-                            <option value="Element">Element</option>
-                            <option value="Verb">Verb</option>
-                        </select>
-                        <button onClick={() => addCustomComponent('catalyst')}>+</button>
+                    <div className="ability-management-container">
+                        <div className="custom-add-row">
+                            <div>Add Base: </div>
+                            <div className="custom-add-field">
+                                <select ref={input1}>
+                                    {BASES.map((base, i) => {
+                                        return (
+                                            <option key={i} value={base}>{base}</option>
+                                            )
+                                        })}
+                                </select>
+                                <button onClick={() => addCustomComponent('base')}>+</button>
+                            </div>
+                        </div>
+                        <br/>
+                        <div className="custom-add-row">
+                            <div>Add Catalyst: </div>
+                            <div className="custom-add-field">
+                                <input style={{width: '30vw'}} type="text" ref={input2}></input>
+                                <select ref={input3}>
+                                    <option value="Form">Form</option>
+                                    <option value="Element">Element</option>
+                                    <option value="Verb">Verb</option>
+                                </select>
+                                <button onClick={() => addCustomComponent('catalyst')}>+</button>
+                            </div>
+                        </div>
+                        <button className="ability-randomize-button" onClick={() => createComponents()}>Generate New Components<br/>(On rest)</button>
                     </div>
                 </div>
             </div>

@@ -105,7 +105,7 @@ export default function Minstrel(props) {
                             <input type="text" ref={input}></input><button onClick={addCustomSong}>+</button>
                         </div>
                     </div>
-                    <button className="ability-randomize-button" onClick={createSongs}>Randomize Songs</button>
+                    <button className="ability-randomize-button" onClick={createSongs}>Generate New Songs<br/>(On rest)</button>
                 </div>
             </div>
         </div>
