@@ -27,18 +27,18 @@ export default function Zoomaster(props) {
     function companionDisp() {
         if (currentSpecials.companion || currentSpecials.mutation) {
             return (
-                <div style={{display: 'flex'}}>
+                <>
                     <div className="zoomaster-ability-section">
-                        Mutation
+                        <div style={{fontWeight: 'normal'}}>Mutation</div>
                         <input type="text" onChange={handleMutationChange} value={props.currentSpecials.mutation} />
                         <button onClick={() => randomMutation()}>Randomize Mutation</button>
                     </div>
                     <div className="zoomaster-ability-section">
-                        Animal
+                        <div style={{ fontWeight: 'normal' }}>Animal</div>
                         <input type="text" onChange={handleCompanionChange} value={props.currentSpecials.companion} />
                         <button onClick={() => randomCompanion()}>Randomize Animal</button>
                     </div>
-                </div>
+                </>
             )
         }
     }
@@ -48,14 +48,20 @@ export default function Zoomaster(props) {
             <div className="class-info">
                 <div className="class-desc">A tamer of beasts with a shapeshifting chimera as an animal companion.</div>
                 <br />
-                <div>Magic Ability:<br /><strong>Chimeric Companion</strong></div>
-                <div>Your best friend is a Chimera that shifts between the shapes of various creatures. Whenever you rest, it assumes a new animal form and mutation.</div>
-                <div>If you feed your Chimera a hearty meal of whatever its current form eat, you can change its mutation, animal form, or both.</div>
-                <div>You and your Chimera share Health. Any damage or healing done to one of you is done to the other.</div>
+                <div className="ability-desc">
+                    <div>Magic Ability:<br /><strong>Chimeric Companion</strong></div>
+                    <div>Your best friend is a Chimera that shifts between the shapes of various creatures. Whenever you rest, it assumes a new animal form and mutation.</div>
+                    <div>If you feed your Chimera a hearty meal of whatever its current form eat, you can change its mutation, animal form, or both.</div>
+                    <div>You and your Chimera share Health. Any damage or healing done to one of you is done to the other.</div>
+                </div>
             </div>
             <div className="class-ability-display">
-                {companionDisp()}
-                <div>
+                <div className="ability-main">
+                    <div style={{display: 'flex', flexDirection: 'column'}}>
+                        {companionDisp()}
+                    </div>
+                </div>
+                <div className="ability-management-container">
                     <button className="ability-randomize-button" onClick={createNewCompanion}>Randomize Companion</button>
                 </div>
             </div>

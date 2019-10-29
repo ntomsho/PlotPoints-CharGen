@@ -513,10 +513,10 @@ h1, h2, h3 {
   background-color: gold;
 }
 
-.zoomaster-ability-section {
+/* .zoomaster-ability-section {
   display: flex;
   flex-direction: column;
-}
+} */
 
 /* Inventory */
 
