@@ -46,23 +46,23 @@ export default function Bowslinger(props) {
     }
 
     function addCustomAmmo() {
-        let newAmmo = currentSpecials.ammo;
-        newAmmo.push(input.current.value);
-        props.updateState('currentSpecials', { 'ammo': newAmmo })
+        if (input.current.value) {
+            let newAmmo = currentSpecials.ammo;
+            newAmmo.push(input.current.value);
+            props.updateState('currentSpecials', { 'ammo': newAmmo })
+        }
     }
 
     function ammoDisp() {
         if (currentSpecials.ammo) {
             return (
-                <ul style={{listStyle: 'none'}}>
+                <ul className="resource-list">
                     {currentSpecials.ammo.map((shot, i) => {
                         return (
-                            <div key={i}>
-                                <li>
-                                    <div>{shot} Ammo</div>
-                                </li>
+                            <li key={i} className="resource-list-entry">
+                                <div>{shot} Ammo</div>
                                 <button onClick={() => consumeAmmo(i)}>Use</button>
-                            </div>
+                            </li>
                         )
                     })}
                 </ul>
@@ -75,16 +75,14 @@ export default function Bowslinger(props) {
             return (
                 <>
                 <h3>Fired Ammo</h3>
-                <ul style={{ listStyle: 'none' }}>
+                <ul className="resource-list">
                     {savableAmmo.map((shot, i) => {
                         return (
-                            <div key={i}>
-                                <li>
-                                    <div>{shot} Ammo</div>
-                                </li>
-                                <button onClick={() => recoverAmmo(shot, i)}>Recovered</button>
-                                <button onClick={() => loseAmmo(i)}>Lost</button>
-                            </div>
+                            <li key={i} className="resource-list-entry">
+                                <div>{shot} Ammo</div>
+                                <button onClick={() => recoverAmmo(shot, i)}>+</button>
+                                <button onClick={() => loseAmmo(i)}>-</button>
+                            </li>
                         )
                     })}
                 </ul>
@@ -98,12 +96,14 @@ export default function Bowslinger(props) {
             <div className="class-info">
                 <div className="class-desc">A sharpshooting bounty hunter who constructs special ammunition for their ranged weapon.</div>
                 <br />
-                <div>Magic Ability:<br /><strong>Magic Ammo</strong></div>
-                <div>You are skilled in adding magical properties to arrows, bullets, and throwing weapons. Whenever you rest, you construct five shots of magic ammo, each with a magical property that activates when fired</div>
-                <div>After firing a piece of ammo, you can make a roll to try to recover it intact, but any unused ammo becomes inert when you rest</div>
+                <div className="ability-desc">
+                    <div>Magic Ability:<br /><strong>Magic Ammo</strong></div>
+                    <div>You are skilled in adding magical properties to arrows, bullets, and throwing weapons. Whenever you rest, you construct five shots of magic ammo, each with a magical property that activates when fired</div>
+                    <div>After firing a piece of ammo, you can make a roll to try to recover it intact, but any unused ammo becomes inert when you rest</div>
+                </div>
             </div>
             <div className="class-ability-display">
-                <div id="ammo-lists">
+                <div className="resource-lists-container">
                     <div id="bowslinger-ammo">
                         {ammoDisp()}
                     </div>
@@ -111,9 +111,16 @@ export default function Bowslinger(props) {
                         {savableAmmoDisp()}
                     </div>
                 </div>
-                <div>
-                    <button className="ability-randomize-button" onClick={createAmmo}>Randomize Ammo</button>
-                    <span>Add Ammo: </span><input type="text" ref={input}></input><button onClick={addCustomAmmo}>+</button>
+                <div className="ability-management-container">
+                    <button className="ability-randomize-button" onClick={createAmmo}>Create Ammo<br/>(On rest)</button>
+                    <div className="custom-add-row">
+                        <div className="custom-add-row">
+                            <div>Add Ammo: </div>
+                            <div className="custom-add-field">
+                                <input type="text" ref={input}></input><button onClick={addCustomAmmo}>+</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

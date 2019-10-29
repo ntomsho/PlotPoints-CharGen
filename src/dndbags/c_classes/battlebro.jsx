@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import '../../stylesheets/battlebro.css'
 import { random, WEAPONS, GERUNDS, ELEMENTS_OF } from '../../dndb-tables';
 
 export default function Battlebro(props) {
