@@ -268,7 +268,7 @@ h1, h2, h3 {
 }
 
 .ability-main div {
-  height: 5vh;
+  height: auto;
   width: 55vw;
   font-size: 5vw;
   font-weight: bold;
