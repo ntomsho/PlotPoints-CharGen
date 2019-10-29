@@ -236,6 +236,7 @@ h1, h2, h3 {
 }
 
 .class-info {
+  height: 100%;
   width: 35vw;
 }
 
@@ -260,6 +261,18 @@ h1, h2, h3 {
   height: 5vh;
   width: 55vw;
   font-size: 5vw;
+  font-weight: bold;
+  font-family: 'grenze', serif;
+  text-align: center;
+  padding: 2%;
+}
+
+.ability-main div {
+  height: 5vh;
+  width: 55vw;
+  font-size: 5vw;
+  font-weight: bold;
+  font-family: 'grenze', serif;
   text-align: center;
   padding: 2%;
 }
@@ -267,7 +280,7 @@ h1, h2, h3 {
 .ability-desc {
     box-shadow: inset 0px -10px 5px 0px lightgrey;
     overflow: auto;
-    max-height: 30vh
+    height: 100%;
 }
 
 .class-radio-container button {
@@ -356,8 +369,9 @@ h1, h2, h3 {
     width: 40vw;
   }
 
-  .ability-desc {
-    max-height: 40vh
+  .ability-main div {
+    font-size: 3vw;
+    width: 40vw;
   }
   
   .class-radio-container button {
