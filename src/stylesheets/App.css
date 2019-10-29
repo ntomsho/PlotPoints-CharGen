@@ -371,6 +371,14 @@ h1, h2, h3 {
   width: 8vw;
 }
 
+.rune-on-input {
+  font-size: 3.5vw;
+  border: 1px solid black;
+  width: 21vw;
+  padding: 2%;
+  border-radius: 5px;
+}
+
 @media screen and (min-width: 600px) {
   .ability-main input {
     font-size: 3vw;
@@ -433,13 +441,14 @@ h1, h2, h3 {
     width: 5vw;
     font-size: 2vw;
   }
+
+  .rune-on-input {
+    width: 15vw;
+    font-size: 2vw;
+  }
 }
 
 /* Class-specific */
-/* #ammo-lists {
-  display: flex;
-  justify-content: space-around;
-} */
 
 .form.selected {
   background-color: gold;
