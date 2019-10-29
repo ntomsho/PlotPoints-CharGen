@@ -80,7 +80,7 @@ export default function Mixologist(props) {
             } else {
                 return random([
                     catalysts[selectedCatalyst].comp + " " + bases[selectedBase],
-                    bases[selectedBase] + " of " + ELEMENTS_OF[ELEMENTS_OF.indexOf(catalysts[selectedCatalyst].comp)]
+                    bases[selectedBase] + " of " + ELEMENTS_OF[ELEMENTS.indexOf(catalysts[selectedCatalyst].comp)]
                 ])
             }
         }

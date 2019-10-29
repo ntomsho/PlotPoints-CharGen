@@ -85,7 +85,7 @@ export default function KnightOfTushuze(props) {
                                     <option value="Spottin'">Spottin' (Charity)</option>
                                     <option value="Thinkiness">Thinkiness (Charity)</option>
                                 </select>
-                            <button onClick={addCustomBlessing}>+</button>
+                                <button onClick={addCustomBlessing}>+</button>
                             </div>
                         </div>
                     </div>

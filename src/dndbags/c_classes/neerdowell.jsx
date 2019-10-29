@@ -32,15 +32,13 @@ export default function Neerdowell(props) {
     function itemsDisp() {
         if (currentSpecials.items) {
             return (
-                <ul style={{ listStyle: 'none' }}>
+                <ul className="resource-list">
                     {currentSpecials.items.map((item, i) => {
                         return (
-                            <div key={i}>
-                                <li>
-                                    <div>{item}</div>
-                                </li>
+                            <li key={i} className="resource-list-entry">
+                                <div><strong>{item}</strong></div>
                                 <button onClick={() => consumeItem(i)}>Use</button>
-                            </div>
+                            </li>
                         )
                     })}
                 </ul>
@@ -53,21 +51,28 @@ export default function Neerdowell(props) {
             <div className="class-info">
                 <div className="class-desc">A roguish thief with a vast collection of stolen trinkets and devices.</div>
                 <br />
-                <div>Magic Ability:<br /><strong>Bag of Tricks</strong></div>
-                <div>The Ne'erdowell never leaves home without a seemingly bottomless bag of single-use magic items of dubious provenance.</div>
-                <div>Whenever you rest, a new set of five magic items is available for use from the bag.</div>
-                <ul>
-                    <li>Activate its magical property for one action</li>
-                    <li>Change its weapon type or its magical property</li>
-                </ul>
+                <div className="ability-desc">
+                    <div>Magic Ability:<br /><strong>Bag of Tricks</strong></div>
+                    <div>The Ne'erdowell never leaves home without a seemingly bottomless bag of single-use magic items of dubious provenance.</div>
+                    <div>Whenever you rest, a new set of five magic items is available for use from the bag.</div>
+                    <ul>
+                        <li>Activate its magical property for one action</li>
+                        <li>Change its weapon type or its magical property</li>
+                    </ul>
+                </div>
             </div>
             <div className="class-ability-display">
-                <div id="item-list">
+                <div className="resource-lists-container" id="item-list">
                     {itemsDisp()}
                 </div>
-                <div>
+                <div className="ability-management-container">
+                    <div className="custom-add-row">
+                        <div>Add Item: </div>
+                        <div className="custom-add-field">
+                            <input type="text" ref={input}></input><button onClick={addCustomItem}>+</button>
+                        </div>
+                    </div>
                     <button className="ability-randomize-button" onClick={createItems}>Generate Random Items</button>
-                    <span>Add Item: </span><input type="text" ref={input}></input><button onClick={addCustomItem}>+</button>
                 </div>
             </div>
         </div>
