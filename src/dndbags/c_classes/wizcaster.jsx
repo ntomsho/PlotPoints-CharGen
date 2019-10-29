@@ -84,17 +84,18 @@ export default function Wizcaster(props) {
     function wordsListDisp() {
         if (words) {
             return (
-                <>
-                {words.map((word, i) => {
-                    return (
-                        <li key={i} 
-                        className={`wizcaster-word${selectedWordInd === i ? ' selected' : ''}`} 
-                        onClick={() => selectedWordInd === i ? setSelectedWordInd(null) : setSelectedWordInd(i)}>
-                            <strong>{word.word}</strong> {word.wordCat}
-                        </li>
-                    )
-                })}
-                </>
+                <ul className="resource-list">
+                    {words.map((word, i) => {
+                        return (
+                            <li key={i} 
+                            className={`resource-list-entry wizcaster-word${selectedWordInd === i ? ' selected' : ''}`} 
+                            style={{width: '22vw'}}
+                            onClick={() => selectedWordInd === i ? setSelectedWordInd(null) : setSelectedWordInd(i)}>
+                                <div><strong>{word.word}</strong> {word.wordCat}</div>
+                            </li>
+                        )
+                    })}
+                </ul>
             )
         }
     }
@@ -125,7 +126,7 @@ export default function Wizcaster(props) {
                 return (<></>)
             } else {
                 return (
-                    <button onClick={() => addWordToSpell(true, selectedWordInd)}>+</button>
+                    <button className="ability-main-button" onClick={() => addWordToSpell(true, selectedWordInd)}>+</button>
                 )
             }
         }
@@ -137,7 +138,7 @@ export default function Wizcaster(props) {
                 return (<></>)
             } else {
                 return (
-                    <button onClick={() => addWordToSpell(false, selectedWordInd)}>+</button>
+                    <button className="ability-main-button" onClick={() => addWordToSpell(false, selectedWordInd)}>+</button>
                 )
             }
         }
@@ -145,26 +146,26 @@ export default function Wizcaster(props) {
 
     function currentSpellDisp() {
         return (
-            <>
-            {spellAddButtonLeft()}
-            {currentSpell.map((wordInd, spellInd) => {
-                return (
-                    <div key={spellInd}>
-                        <div>{currentSpellWord(words[wordInd], spellInd)}</div>
-                        <button onClick={() => removeWordFromSpell(spellInd)}>-</button>
-                        <button className={`keepword${keepWordInd === spellInd ? ' selected' : ''}`} onClick={() => setKeepWordInd(spellInd)}>Keep?</button>
-                    </div>
-                )
-            })}
-            {spellAddButtonRight()}
-            </>
+            <div style={{display: 'flex'}}>
+                {spellAddButtonLeft()}
+                {currentSpell.map((wordInd, spellInd) => {
+                    return (
+                        <div className="wizcaster-spell-word" key={spellInd}>
+                            <div className="wizcaster-spell-word">{currentSpellWord(words[wordInd], spellInd)}</div>
+                            <button onClick={() => removeWordFromSpell(spellInd)}>Remove</button>
+                            <button className={`keepword${keepWordInd === spellInd ? ' selected' : ''}`} onClick={() => setKeepWordInd(spellInd)}>Keep?</button>
+                        </div>
+                    )
+                })}
+                {spellAddButtonRight()}
+            </div>
         )
     }
 
     function castSpellButton() {
         if (currentSpell.length > 1 && keepWordInd !== null) {
             return (
-                <button onClick={castSpell}>Cast Spell</button>
+                <button className="ability-main-button" onClick={castSpell}>Cast Spell</button>
             )
         }
     }
@@ -174,28 +175,36 @@ export default function Wizcaster(props) {
             <div className="class-info">
                 <div className="class-desc">A sorcerer who combines ancient words of power to cast powerful spells.</div>
                 <br />
-                <div>Magic Ability:<br /><strong>Words of Power</strong></div>
-                <div>The Wizcaster creates magic spells by combining Words of Power. Whenever you rest, you are given six words and you can combine two or three to create that effect.</div>
-                <div>Whenever you cast a spell, you can choose one Word to keep. Any others used in the spell are lost.</div>
+                <div className="ability-desc">
+                    <div>Magic Ability:<br /><strong>Words of Power</strong></div>
+                    <div>The Wizcaster creates magic spells by combining Words of Power. Whenever you rest, you are given six words and you can combine two or three to create that effect.</div>
+                    <div>Whenever you cast a spell, you can choose one Word to keep. Any others used in the spell are lost.</div>
+                </div>
             </div>
             <div className="class-ability-display">
                 <div className="ability-main">
-                    {currentSpellDisp()}
-                    {castSpellButton()}
+                    <div style={{display: 'flex', flexDirection: 'column'}}>
+                        {currentSpellDisp()}
+                        {castSpellButton()}
+                    </div>
                 </div>
-                <div className="words-list">
+                <div className="resource-lists-container">
                     {wordsListDisp()}
                 </div>
-                <div>
+                <div className="ability-management-container">
+                    <div className="custom-add-row">
+                        <div>Add Word of Power: </div>
+                        <div className="custom-add-field">
+                            <select ref={input1}>
+                                <option value="Form">Form</option>
+                                <option value="Element">Element</option>
+                                <option value="Verb">Verb</option>
+                            </select>
+                            <input style={{width: '30vw'}} type="text" ref={input2}></input>
+                            <button onClick={addCustomWord}>+</button>
+                        </div>
+                    </div>
                     <button className="ability-randomize-button" onClick={createWords}>Generate New Words</button>
-                    <span>Add Word of Power: </span>
-                    <select ref={input1}>
-                        <option value="Form">Form</option>
-                        <option value="Element">Element</option>
-                        <option value="Verb">Verb</option>
-                    </select>
-                    <input type="text" ref={input2}></input>
-                    <button onClick={addCustomWord}>+</button>
                 </div>
             </div>
         </div>

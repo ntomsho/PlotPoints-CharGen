@@ -371,11 +371,30 @@ h1, h2, h3 {
   width: 8vw;
 }
 
+.ability-main-button {
+  font-size: 6vw;
+  background-color: white;
+  border: 1px solid black;
+}
+
 .rune-on-input {
   font-size: 3.5vw;
   border: 1px solid black;
   width: 21vw;
   padding: 2%;
+  border-radius: 5px;
+}
+
+.wizcaster-spell-word {
+  width: 18vw !important;
+  display: flex;
+  flex-direction: column;
+}
+
+.wizcaster-spell-word button {
+  font-size: 3vw;
+  margin: 1vh 0;
+  border: 1px solid black;
   border-radius: 5px;
 }
 
@@ -442,9 +461,24 @@ h1, h2, h3 {
     font-size: 2vw;
   }
 
+  .ability-main-button {
+    font-size: 3vw;
+  }
+
   .rune-on-input {
     width: 15vw;
     font-size: 2vw;
+  }
+
+  .wizcaster-spell-word {
+    width: 10vw !important;
+  }
+
+  .wizcaster-spell-word button {
+    font-size: 1.5vw;
+    margin: 0.5vh 0;
+    border: 1px solid black;
+    border-radius: 5px;
   }
 }
 
