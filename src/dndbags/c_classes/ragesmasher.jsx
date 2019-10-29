@@ -32,21 +32,21 @@ export default function Ragesmasher(props) {
     function totemDisp() {
         if (currentSpecials.totem) {
             return (
-                <div>
-                    <div>{currentSpecials.totem} Totem</div>
+                <>
+                    <div><strong>{currentSpecials.totem}</strong> Totem</div>
                     <button onClick={() => rageOut(false)}>Rage Out!</button>
-                </div>
+                </>
             )
         }
     }
 
     function rageDisp() {
         return (
-            <div>
+            <>
                 <strong>RAGING!</strong>
-                <div>Gain Magic Advantage on all rolls to fight, smash, punch, or break stuff<br/>Take +1 Difficulty on anything else</div>
+                <span style={{fontWeight: 'normal', fontFamily: 'auto', fontSize: '2.5vw'}}>Gain Magic Advantage on all rolls to fight, smash, punch, or break stuff<br/>Take +1 Difficulty on anything else</span>
                 <button onClick={() => setRaging(false)}>End Rage</button>
-            </div>
+            </>
         )
     }
 
@@ -75,17 +75,26 @@ export default function Ragesmasher(props) {
                 </div>
             </div>
             <div className="class-ability-display">
-                {raging ? rageDisp() : totemDisp()}
-                <div id="rage-counter">
-                    <div>Rage</div>
-                    <button onClick={() => setRageNum(1)}>{rage >= 1 ? "⦿" : "⦾"}</button>
-                    <button onClick={() => setRageNum(2)}>{rage >= 2 ? "⦿" : "⦾"}</button>
-                    <button onClick={() => setRageNum(3)}>{rage >= 3 ? "⦿" : "⦾"}</button>
-                    {rageOverflow()}
+                <div className="ability-main">
+                    <div style={{display: 'flex', flexDirection: 'column'}}>
+                        {raging ? rageDisp() : totemDisp()}
+                        <div id="rage-counter">
+                            <div>Rage</div>
+                            <button onClick={() => setRageNum(1)}>{rage >= 1 ? "⦿" : "⦾"}</button>
+                            <button onClick={() => setRageNum(2)}>{rage >= 2 ? "⦿" : "⦾"}</button>
+                            <button onClick={() => setRageNum(3)}>{rage >= 3 ? "⦿" : "⦾"}</button>
+                            {rageOverflow()}
+                        </div>
+                    </div>
                 </div>
-                <div>
+                <div className="ability-management-container">
+                    <div className="custom-add-row">
+                        <div>Change Totem: </div>
+                        <div className="custom-add-field">
+                            <input type="text" ref={input}></input><button onClick={setCustomTotem}>+</button>
+                        </div>
+                    </div>
                     <button className="ability-randomize-button" onClick={setTotem}>Randomize Totem</button>
-                    <span>Change Totem: </span><input type="text" ref={input}></input><button onClick={setCustomTotem}>+</button>
                 </div>
             </div>
         </div>
