@@ -64,6 +64,7 @@ export default function Ragesmasher(props) {
                 <div className="class-desc">A primal barbarian warrior who channels animal spirits when they aren’t flipping out.</div>
                 <br />
                 <div className="ability-desc">
+                    {/* This is a mess, fix */}
                     <div>Magic Ability:<br /><strong>Animal Totems and Barbaric Rage</strong></div>
                     <div>You can channel one Animal Totem at a time to gain Magic Advantage on any action associated with that animal.</div>
                     <div>You can spend a point of Rage to Rage Out, losing your Totem for the rest of the scene (roll a new one next scene), but gaining Magic Advantage on all rolls to fight, smash, or break stuff, but taking +1 Difficulty on anything else.</div>

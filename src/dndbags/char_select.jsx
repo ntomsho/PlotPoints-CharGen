@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import Amplify, { Storage, API, Auth } from 'aws-amplify';
+import { API, Auth } from 'aws-amplify';
 import { CLASSES, CLASS_COLORS, SKILLS, ALTRACES, random, randomRace, BACKGROUNDS, APPEARANCES, DERPS } from '../dndb-tables';
 import Dndb from './Dndb';
+import ModalManager from '../modal_manager';
 
 let currentUser;
 Auth.currentAuthenticatedUser().then(user => {
@@ -11,6 +12,7 @@ Auth.currentAuthenticatedUser().then(user => {
 export default function CharSelect(props) {
     const [charsList, setCharsList] = useState([]);
     const [char, setChar] = useState({});
+    const [modalOut, setModalOut] = useState(false);
 
     const defaultSheet = {
         name: "",
@@ -41,14 +43,8 @@ export default function CharSelect(props) {
         response.data.forEach(loadChar => {
             if (loadChar.playerName === currentUser) {
                 myChars.push(loadChar);
-            } else {
-                otherChars.push(loadChar);
             }
         })
-        // console.log(`My characters:`)
-        // console.log(myChars)
-        // console.log(`Other characters:`)
-        // console.log(otherChars)
         return(myChars);
     }
 
@@ -148,7 +144,15 @@ export default function CharSelect(props) {
 
     if (JSON.stringify(char) !== JSON.stringify({})) {
         return (
-            <Dndb loadedChar={char} clearChar={clearChar} saveChar={saveChar} />
+            <div id="dndb-main-container">
+                <Dndb
+                    loadedChar={char} 
+                    clearChar={clearChar} 
+                    saveChar={saveChar} 
+                    setModalOut={setModalOut} 
+                />
+                <ModalManager modalOut={modalOut} setModalOut={setModalOut} />
+            </div>
         )
     } else {
         return charSelectDisp()

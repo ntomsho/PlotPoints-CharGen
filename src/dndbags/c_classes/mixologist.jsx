@@ -131,6 +131,8 @@ export default function Mixologist(props) {
                     <div>Magic Ability:<br /><strong>Alchemical Concoctions</strong></div>
                     <div>You carry with you a supply of 5 alchemical Bases and 5 Catalysts with you that inexplicably replenishes itself when you rest.</div>
                     <div>Combine a Base and a Catalyst to create a Concoction you can use immediately.</div>
+                    <div>Resource Item:<br/><strong>Alchemical Ingredients</strong></div>
+                    <div>Spend an alchemical ingredient to add it your current lists of Bases or Catalysts.</div>
                 </div>
             </div>
             <div className="class-ability-display">

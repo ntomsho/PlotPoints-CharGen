@@ -1,20 +1,12 @@
 import React from 'react';
-import { random, VERBS, COMMANDS } from '../../dndb-tables';
+import { random, COMMANDS } from '../../dndb-tables';
 
 export default function Verbpriest(props) {
     const { currentSpecials } = props;
     const input = React.createRef();
 
     function randomWord() {
-        const wordCatName = random(["Verb", "Command"]);
-        switch(wordCatName) {
-            case "Verb":
-                return random(VERBS);
-            case "Command":
-                return random(COMMANDS);
-            default:
-                return
-        }
+        return random(COMMANDS);
     }
 
     function createWords() {
@@ -69,6 +61,8 @@ export default function Verbpriest(props) {
                         <li>Add additional words (targets, conditions, etc.) to the command</li>
                         <li>Control particularly large, heavy, or magical objects</li>
                     </ul>
+                    <div>Resource Item:<br/><strong>Command Scrolls</strong></div>
+                    <div>Spend a Command Scroll to gain a Command with that word.</div>
                 </div>
             </div>
             <div className="class-ability-display">

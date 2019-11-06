@@ -787,24 +787,51 @@ export const RUNES = [
 ]
 
 export const COMMANDS = [
+    "Attack",
+    "Begone",
+    "Burn",
+    "Collapse",
+    "Cooperate",
     "Cower",
     "Dance",
     "Defend",
-    "Dream",
-    "Drop",
-    "Fall",
+    "Disappear",
+    "Flail",
+    "Float",
+    "Fly",
+    "Follow",
     "Forget",
     "Freeze",
     "Give",
-    "Ignite",
-    "Kill",
+    "Grow",
+    "Help",
     "Move",
+    "Open",
+    "Pose",
+    "Protect",
     "Run",
+    "Scream",
+    "Shake",
+    "Shoot",
+    "Shrink",
+    "Silence",
     "Sing",
     "Sleep",
+    "Speak",
     "Stop",
-    "Vogue",
-    "Yell"
+    "Surrender",
+    "Take",
+    "Throw",
+    "Wallop"
+]
+
+export const RESOURCE_ITEMS = [
+    "Weapon Oil",
+    "Animal Totem",
+    "Scroll of Power",
+    "Command Scroll",
+    "Songbook/Sheet Music",
+    "Alchemical Ingredient"
 ]
 
 export const STARTING_ITEMS = {

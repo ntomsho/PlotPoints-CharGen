@@ -56,6 +56,7 @@ export default function KnightOfTushuze(props) {
                 <div className="class-desc">A knight of a righteous and goodly order, doing good deeds and providing nice blessings.</div>
                 <br />
                 <div className="ability-desc">
+                    {/* Change this to new blessing system */}
                     <div>Magic Ability:<br /><strong>Blessings of Tushuze</strong></div>
                     <div>Members of the order gain four blessings per day, and can gain more by doing good deeds. You can spend a Blessing to:</div>
                     <ul>

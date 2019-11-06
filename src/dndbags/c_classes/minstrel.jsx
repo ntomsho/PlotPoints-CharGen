@@ -89,6 +89,8 @@ export default function Minstrel(props) {
                         <li>Create a blast of sound and force from your instrument or voice</li>
                         <li>Give yourself or an ally Magic Advantage on an action</li>
                     </ul>
+                    <div>Resource Item:<br/><strong>Songbooks and Sheet Music</strong></div>
+                    <div>Spend a songbook or sheet music to add its song to your current repertoire.</div>
                 </div>
             </div>
             <div className="class-ability-display">

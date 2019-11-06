@@ -11,7 +11,7 @@ export default function Neerdowell(props) {
 
     function createItems() {
         let items = [];
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < 3; i++) {
             items.push(randomMagicItem());
         };
         props.updateState('currentSpecials', { 'items': items })
@@ -51,6 +51,7 @@ export default function Neerdowell(props) {
             <div className="class-info">
                 <div className="class-desc">A roguish thief with a vast collection of stolen trinkets and devices.</div>
                 <br />
+                {/* Add stealing system for adding to bag of tricks*/}
                 <div className="ability-desc">
                     <div>Magic Ability:<br /><strong>Bag of Tricks</strong></div>
                     <div>The Ne'erdowell never leaves home without a seemingly bottomless bag of single-use magic items of dubious provenance.</div>

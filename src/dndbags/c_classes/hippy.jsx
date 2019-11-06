@@ -76,6 +76,8 @@ export default function Hippy(props) {
                     <div>Magic Ability:<br /><strong>Animal Forms</strong></div>
                     <div>Whenever you rest, you are given a set of three animal forms that you can shift in and out of at will. When in an animal form, you gain Magic Advantage on any actions the form is well suited for.</div>
                     <div>You can give up one of your forms to add a mutation that applies to any other form (including your base form) for the rest of the scene.</div>
+                    <div>Resource Item:<br/><strong>Animal Totems</strong></div>
+                    <div>Spend an Animal Totem to gain a form that is the totem's animal.</div>
                 </div>
             </div>
             <div className="class-ability-display">

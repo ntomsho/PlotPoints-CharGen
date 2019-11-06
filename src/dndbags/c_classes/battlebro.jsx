@@ -74,6 +74,8 @@ export default function Battlebro(props) {
                         <li>Activate its magical property for one action</li>
                         <li>Change its weapon type or its magical property</li>
                     </ul>
+                    <div>Resource Item:<br/><strong>Weapon Oil</strong></div>
+                    <div>Use a Weapon Oil to change your weapon's property to the oil's property or to randomize your weapon's form.</div> 
                 </div>
             </div>
             <div className="class-ability-display">

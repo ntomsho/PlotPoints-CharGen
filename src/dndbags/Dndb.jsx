@@ -1,6 +1,5 @@
 import React from 'react';
-import Amplify, { Storage, API, Auth } from 'aws-amplify';
-import { CLASSES, SKILLS, ALTRACES, random, randomRace, BACKGROUNDS, APPEARANCES, DERPS } from '../dndb-tables';
+import { CLASSES, ALTRACES, random, randomRace, BACKGROUNDS, APPEARANCES, DERPS } from '../dndb-tables';
 import Skills from './skills';
 import ClassMain from './class_main';
 import Inventory from './inventory';
@@ -124,6 +123,14 @@ class Dndb extends React.Component {
         )
     }
 
+    rulesModal() {
+        return (
+            <div className="rules-modal hidden" style={{display: 'fixed'}}>
+                <embed src="dndb_onesheet.pdf" style={{width: '90vw', height: '90vh'}}/>
+            </div>
+        )
+    }
+
     render() {
         return (
             <div id="dndb-main">
@@ -135,6 +142,9 @@ class Dndb extends React.Component {
                         <button onClick={this.props.randomChar}>Randomize New Character</button>
                         <button disabled={this.state.name === ""} onClick={() => this.props.saveChar(this.state)}>Save Character</button>
                         <button onClick={this.props.clearChar}>Load Char<br/>(Save first!)</button>
+                    </div>
+                    <div>
+                        <button onClick={() => this.props.setModalOut(true)}>Rules</button>
                     </div>
                     <div id="main-section">
                         <div className="sheet-row">

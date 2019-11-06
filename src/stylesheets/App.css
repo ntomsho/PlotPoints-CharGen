@@ -51,6 +51,17 @@ h1, h2, h3 {
   font-family: 'Grenze', serif;
 }
 
+.rules-modal {
+  position: absolute;
+  height: 90vh;
+  width: 90vw;
+}
+
+.rules-modal iframe {
+  height: 100%;
+  width: 100%;
+}
+
 .color-header {
   color: orangered;
   text-align: center;
