@@ -89,13 +89,15 @@ export default function Battlebro(props) {
                 <div className="class-desc">A graduate of Fighter College; a skilled combatant with a transforming magical weapon.</div>
                 <br/>
                 <div className="ability-desc">
-                    <div>Magic Ability:<br/><strong>Graduate Weapon</strong></div>
-                    <div>Your capstone project from Fighter College is a shapechanging weapon. You can spend a point of Charge to change its shape and imbue it with a magical property.</div>
-                    <div>When you use that property for a bonus on an action, it is exhausted until you recharge it (though you can continue to use it as a normal weapon).</div>
-                    <div>Whenever you rest, the weapon gains a random type and magic property, but resets to 0 Charge. You gain 1 charge anytime you defeat an enemy in battle.</div>
-                    <br/>
-                    <div>Resource Item:<br/><strong>Weapon Oil</strong></div>
-                    <div>Use a Weapon Oil to charge your weapon with the oil's property.</div> 
+                    <div className="ability-desc-scrollbox">
+                        <div>Magic Ability:<br/><strong>Graduate Weapon</strong></div>
+                        <div>Your capstone project from Fighter College is a shapechanging weapon. You can spend a point of Charge to change its shape and imbue it with a magical property.</div>
+                        <div>When you use that property for a bonus on an action, it is exhausted until you recharge it (though you can continue to use it as a normal weapon).</div>
+                        <div>Whenever you rest, the weapon gains a random type and magic property, but resets to 0 Charge. You gain 1 charge anytime you defeat an enemy in battle.</div>
+                        <br/>
+                        <div>Resource Item:<br/><strong>Weapon Oil</strong></div>
+                        <div>Use a Weapon Oil to charge your weapon with the oil's property.</div> 
+                    </div>
                 </div>
             </div>
             <div className="class-ability-display">

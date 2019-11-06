@@ -251,7 +251,7 @@ h1, h2, h3 {
 }
 
 .class-info {
-  height: 100%;
+  max-height: 45vh;
   width: 35vw;
 }
 
@@ -294,8 +294,12 @@ h1, h2, h3 {
 
 .ability-desc {
     box-shadow: inset 0px -10px 5px 0px lightgrey;
-    overflow: auto;
-    height: 100%;
+    max-height: 30vh;
+}
+
+.ability-desc-scrollbox {
+  overflow: auto;
+  max-height: 30vh;
 }
 
 .class-radio-container button {
