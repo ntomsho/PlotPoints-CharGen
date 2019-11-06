@@ -97,11 +97,14 @@ export default function Bowslinger(props) {
                 <div className="class-desc">A sharpshooting bounty hunter who constructs special ammunition for their ranged weapon.</div>
                 <br />
                 <div className="ability-desc">
-                    <div>Magic Ability:<br /><strong>Magic Ammo</strong></div>
-                    <div>You are skilled in adding magical properties to arrows, bullets, and throwing weapons. Whenever you rest, you construct five shots of magic ammo, each with a magical property that activates when fired</div>
-                    <div>After firing a piece of ammo, you can make a roll to try to recover it intact, but any unused ammo becomes inert when you rest</div>
-                    <div>Resource Item:<br/><strong>Weapon Oil</strong></div>
-                    <div>Spend a Weapon Oil to create ammo with the oil's property.</div>
+                    <div className="ability-desc-scrollbox">
+                        <div>Magic Ability:<br /><strong>Magic Ammo</strong></div>
+                        <div>You are skilled in adding magical properties to arrows, bullets, and throwing weapons. Whenever you rest, you construct five shots of magic ammo, each with a magical property that activates when fired</div>
+                        <div>After firing a piece of ammo, you can make a roll to try to recover it intact, but any unused ammo becomes inert when you rest</div>
+                        <br/>
+                        <div>Resource Item:<br/><strong>Weapon Oil</strong></div>
+                        <div>Spend a Weapon Oil to create ammo with the oil's property.</div>
+                    </div>
                 </div>
             </div>
             <div className="class-ability-display">

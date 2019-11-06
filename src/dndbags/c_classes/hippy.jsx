@@ -5,25 +5,29 @@ export default function Hippy(props) {
     const { currentSpecials } = props;
     const [currentForm, setCurrentForm] = useState(null);
     const [currentMutation, setCurrentMutation] = useState(null);
-    const input = React.createRef();
+    const input1 = React.createRef();
+    const input2 = React.createRef();
 
     if (!currentSpecials.forms) {
-        props.updateState('currentSpecials', { 'forms': [] })
+        props.updateState('currentSpecials', { 'forms': [], 'gifts': [] })
     }
 
-    function createForms() {
+    function createFormsAndGifts() {
         let forms = [];
+        let gifts = [];
         for (let i = 0; i < 3; i++) {
             forms.push(randomAnimal());
+            gifts.push(random(MUTATIONS));
         };
-        props.updateState('currentSpecials', { 'forms': forms });
+        props.updateState('currentSpecials', { 'forms': forms, 'gifts': gifts });
     }
 
     function sacrificeForm(formInd) {
         setCurrentMutation(random(MUTATIONS));
-        let newForms = currentSpecials.forms;
-        newForms.splice(formInd, 1);
-        props.updateState('currentSpecials', { 'forms': newForms })
+        let newResources = Object.assign({}, currentSpecials);
+        newResources.forms.splice(formInd, 1);
+        newResources.gifts.push(random(MUTATIONS));
+        props.updateState('currentSpecials', newResources);
     }
 
     function mutationDisp() {
@@ -39,15 +43,34 @@ export default function Hippy(props) {
         }
     }
 
+    function consumeGift(giftInd) {
+        let newResources = Object.assign({}, currentSpecials);
+        newResources.gifts.splice(giftInd, 1);
+        props.updateState('currentSpecials', newResources)
+    }
+
+    function activateGift(giftInd) {
+        setCurrentMutation(currentSpecials.gifts[giftInd])
+        consumeGift(giftInd);
+    }
+
     function addCustomForm() {
-        let newForms = currentSpecials.forms;
-        newForms.push(input.current.value);
-        props.updateState('currentSpecials', {'forms': newForms})
+        let newResources = currentSpecials;
+        newResources.forms.push(input1.current.value);
+        props.updateState('currentSpecials', newResources)
+    }
+
+    function addCustomGift() {
+        let newResources = currentSpecials;
+        newResources.gifts.push(input2.current.value);
+        props.updateState('currentSpecials', newResources)
     }
 
     function formsDisp() {
-        if (currentSpecials.forms) {
+        if (currentSpecials.forms && currentSpecials.forms.length > 0) {
             return (
+                <>
+                <h3>Animal Forms</h3>
                 <ul className="resource-list">
                     {currentSpecials.forms.map((form, i) => {
                         return (
@@ -63,6 +86,28 @@ export default function Hippy(props) {
                         </li>
                     </div>
                 </ul>
+                </>
+            )
+        }
+    }
+
+    function giftsDisp() {
+        if (currentSpecials.gifts && currentSpecials.gifts.length > 0) {
+            return (
+                <>
+                <h3>Nature's Gifts</h3>
+                <ul className="resource-list">
+                    {currentSpecials.gifts.map((gift, i) => {
+                        return (
+                            <li key={i} className="resource-list-entry">
+                                <div><strong>{gift}</strong></div>
+                                <button onClick={() => activateGift(i)}>Use</button>
+                                <button onClick={() => consumeGift(i)}>X</button>
+                            </li>
+                        )
+                    })}
+                </ul>
+                </>
             )
         }
     }
@@ -73,11 +118,20 @@ export default function Hippy(props) {
                 <div className="class-desc">A totally chill master of nature who can shapeshift into animals.</div>
                 <br />
                 <div className="ability-desc">
-                    <div>Magic Ability:<br /><strong>Animal Forms</strong></div>
-                    <div>Whenever you rest, you are given a set of three animal forms that you can shift in and out of at will. When in an animal form, you gain Magic Advantage on any actions the form is well suited for.</div>
-                    <div>You can give up one of your forms to add a mutation that applies to any other form (including your base form) for the rest of the scene.</div>
-                    <div>Resource Item:<br/><strong>Animal Totems</strong></div>
-                    <div>Spend an Animal Totem to gain a form that is the totem's animal.</div>
+                    <div className="ability-desc-scrollbox">
+                        <div>Magic Ability:<br /><strong>Nature's Gifts & Animal Forms</strong></div>
+                        <div>Whenever you rest, you are given a set of three animal forms that you can shift between at will and three Gifts associated with a mutation.</div>
+                        <div>When in an animal form, you gain Magic Advantage on any actions the form is well suited for. You cna give up one of your animal forms to gain a new random Gift.</div>
+                        <div>You can spend a Gift to: </div>
+                        <ul>
+                            <li>Apply that mutation to any of your forms for the duration of the scene.</li>
+                            <li>Change one of your forms to a new random animal.</li>
+                            <li>Produce 1d6 healing Goodberries. Eating one within a day of its creation restores 1 Health.</li>
+                        </ul>
+                        <br/>
+                        <div>Resource Item:<br/><strong>Animal Totems</strong></div>
+                        <div>Spend an Animal Totem to gain a form that is the totem's animal.</div>
+                    </div>
                 </div>
             </div>
             <div className="class-ability-display">
@@ -85,16 +139,27 @@ export default function Hippy(props) {
                     {mutationDisp()}
                 </div>
                 <div className="resource-lists-container" id="form-list">
-                    {formsDisp()}
+                    <div id="gifts-display">
+                        {giftsDisp()}
+                    </div>
+                    <div id="forms-display">
+                        {formsDisp()}
+                    </div>
                 </div>
                 <div className="ability-management-container">
                     <div className="custom-add-row">
                         <div>Add Animal Form: </div>
                         <div className="custom-add-field">
-                            <input type="text" ref={input}></input><button onClick={addCustomForm}>+</button>
+                            <input type="text" ref={input1}></input><button onClick={addCustomForm}>+</button>
                         </div>
                     </div>
-                    <button className="ability-randomize-button" onClick={createForms}>Generate Animal Forms<br/>(On rest)</button>
+                    <div className="custom-add-row">
+                        <div>Add Gift: </div>
+                        <div className="custom-add-field">
+                            <input type="text" ref={input2}></input><button onClick={addCustomGift}>+</button>
+                        </div>
+                    </div>
+                    <button className="ability-randomize-button" onClick={createFormsAndGifts}>Generate Gifts and Forms<br/>(On rest)</button>
                 </div>
             </div>
         </div>
