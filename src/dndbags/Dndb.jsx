@@ -143,9 +143,9 @@ class Dndb extends React.Component {
                         <button disabled={this.state.name === ""} onClick={() => this.props.saveChar(this.state)}>Save Character</button>
                         <button onClick={this.props.clearChar}>Load Char<br/>(Save first!)</button>
                     </div>
-                    <div>
+                    {/* <div>
                         <button onClick={() => this.props.setModalOut(true)}>Rules</button>
-                    </div>
+                    </div> */}
                     <div id="main-section">
                         <div className="sheet-row">
                             <div className="field-container">
