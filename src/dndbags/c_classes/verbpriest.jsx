@@ -52,17 +52,20 @@ export default function Verbpriest(props) {
                 <div className="class-desc">A speaker of sacred words that command both living and inanimate things.</div>
                 <br />
                 <div className="ability-desc">
-                    <div>Magic Ability:<br /><strong>Sacred Words</strong></div>
-                    <div>Whenever you rest, you recall 6 Words of Power in the ancient language of the gods.</div>
-                    <div>When you speak one of the Words at a creature or object, it is compelled to perform the action until completed or at least attempt to for a few minutes</div>
-                    <div>Simple safe commands work automatically but you may have to roll to:</div>
-                    <ul>
-                        <li>Make a dangerous or self-destructive command of a living creature</li>
-                        <li>Add additional words (targets, conditions, etc.) to the command</li>
-                        <li>Control particularly large, heavy, or magical objects</li>
-                    </ul>
-                    <div>Resource Item:<br/><strong>Command Scrolls</strong></div>
-                    <div>Spend a Command Scroll to gain a Command with that word.</div>
+                    <div className="ability-desc-scrollbox">
+                        <div>Magic Ability:<br /><strong>Sacred Words</strong></div>
+                        <div>Whenever you rest, you recall 6 Words of Power in the ancient language of the gods.</div>
+                        <div>When you speak one of the Words at a creature or object, it is compelled to perform the action until completed or at least attempt to for a few minutes</div>
+                        <div>Simple safe commands work automatically but you may have to roll to:</div>
+                        <ul>
+                            <li>Make a dangerous or self-destructive command of a living creature</li>
+                            <li>Add additional words (targets, conditions, etc.) to the command</li>
+                            <li>Control particularly large, heavy, or magical objects</li>
+                        </ul>
+                        <br/>
+                        <div>Resource Item:<br/><strong>Command Scrolls</strong></div>
+                        <div>Spend a Command Scroll to gain a Command with that word.</div>
+                    </div>
                 </div>
             </div>
             <div className="class-ability-display">

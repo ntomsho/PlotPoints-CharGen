@@ -176,11 +176,15 @@ export default function Wizcaster(props) {
                 <div className="class-desc">A sorcerer who combines ancient words of power to cast powerful spells.</div>
                 <br />
                 <div className="ability-desc">
-                    <div>Magic Ability:<br /><strong>Words of Power</strong></div>
-                    <div>The Wizcaster creates magic spells by combining Words of Power. Whenever you rest, you are given six words and you can combine two or three to create that effect.</div>
-                    <div>Whenever you cast a spell, you can choose one Word to keep. Any others used in the spell are lost.</div>
-                    <div>Resource Item:<br/><strong>Scrolls of Power</strong></div>
-                    <div>Spend a Scroll of Power to add its word to your current Words of Power.</div>
+                    <div className="ability-desc-scrollbox">
+                        <div>Magic Ability:<br /><strong>Words of Power</strong></div>
+                        <div>The Wizcaster creates magic spells by combining Words of Power. Whenever you rest, you are given six words and you can combine two or three to create that effect.</div>
+                        <div>Whenever you cast a spell, you can choose one Word to keep. Any others used in the spell are lost.</div>
+                        <br/>
+                        <div>Resource Item:<br/><strong>Scrolls of Power</strong></div>
+                        <div>Spend a Scroll of Power to add its word to your current Words of Power.</div>
+                    </div>
+
                 </div>
             </div>
             <div className="class-ability-display">

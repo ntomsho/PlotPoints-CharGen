@@ -80,11 +80,14 @@ export default function Runegoon(props) {
                 <div className="class-desc">A crafter of magical runes that invoke an ancient arcane language.</div>
                 <br />
                 <div className="ability-desc">
-                    <div>Magic Ability:<br /><strong>Arcane Runes</strong></div>
-                    <div>Whenever you rest, you gain access to a set of four ancient runes. You can activate any of them by writing, painting, or inscribing the associated rune onto something.</div>
-                    <div>Whatever you draw the rune on is infused with the properties of the runic word for the rest of the scene.</div>
-                    <div>Resource Item:<br/><strong>Scrolls of Power</strong></div>
-                    <div>Spend a Scroll of Power to gain a rune for its word.</div>
+                    <div className="ability-desc-scrollbox">
+                        <div>Magic Ability:<br /><strong>Arcane Runes</strong></div>
+                        <div>Whenever you rest, you gain access to a set of four ancient runes. You can activate any of them by writing, painting, or inscribing the associated rune onto something.</div>
+                        <div>Whatever you draw the rune on is infused with the properties of the runic word for the rest of the scene.</div>
+                        <br/>
+                        <div>Resource Item:<br/><strong>Scrolls of Power</strong></div>
+                        <div>Spend a Scroll of Power to gain a rune for its word.</div>
+                    </div>
                 </div>
             </div>
             <div className="class-ability-display">
