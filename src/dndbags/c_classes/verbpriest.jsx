@@ -79,7 +79,7 @@ export default function Verbpriest(props) {
                             <input type="text" ref={input}></input><button onClick={addCustomWord}>+</button>
                         </div>
                     </div>
-                    <button className="ability-randomize-button" onClick={createWords}>Generate Random Words</button>
+                    <button className="ability-randomize-button" onClick={createWords}>Generate Random Words<br/>(On rest)</button>
                 </div>
             </div>
         </div>

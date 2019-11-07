@@ -91,7 +91,6 @@ export default function Runegoon(props) {
                 </div>
             </div>
             <div className="class-ability-display">
-                {/* <div id="rune-lists" style={{display: 'flex', flexDirection: 'column'}}> */}
                 <div className="resource-lists-container">
                     <div id="active-runes">
                         {activeRunesDisp()}
@@ -107,7 +106,7 @@ export default function Runegoon(props) {
                             <input type="text" ref={input}></input><button onClick={addCustomRune}>+</button>
                         </div>
                     </div>
-                    <button className="ability-randomize-button" onClick={createRunes}>Generate Random Runes</button>
+                    <button className="ability-randomize-button" onClick={createRunes}>Generate Random Runes<br/>(On rest)</button>
                 </div>
             </div>
         </div>

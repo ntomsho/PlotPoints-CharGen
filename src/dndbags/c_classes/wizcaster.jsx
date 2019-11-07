@@ -210,7 +210,7 @@ export default function Wizcaster(props) {
                             <button onClick={addCustomWord}>+</button>
                         </div>
                     </div>
-                    <button className="ability-randomize-button" onClick={createWords}>Generate New Words</button>
+                    <button className="ability-randomize-button" onClick={createWords}>Generate New Words<br/>(On rest)</button>
                 </div>
             </div>
         </div>

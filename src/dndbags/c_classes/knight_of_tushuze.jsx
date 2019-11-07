@@ -128,7 +128,7 @@ export default function KnightOfTushuze(props) {
                             </div>
                         </div>
                     </div>
-                    <button className="ability-randomize-button" onClick={createBlessings}>Randomize Blessings</button>
+                    <button className="ability-randomize-button" onClick={createBlessings}>Generate Blessings<br/>(On rest)</button>
                 </div>
             </div>
         </div>
