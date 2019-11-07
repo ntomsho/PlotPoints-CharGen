@@ -83,14 +83,17 @@ export default function Minstrel(props) {
                 <div className="class-desc">A rockin’ magical songsmith and all-around entertainer.</div>
                 <br />
                 <div className="ability-desc">
-                    <div>Magic Ability:<br /><strong>Bard Songs</strong></div>
-                    <div>Your music is magic! Whenever you start playing one of your songs, you can use its magical effects in any action for the rest of the scene. You can sacrifice a song you aren't playing or end one you are playing to create a Crescendo:</div>
-                    <ul>
-                        <li>Create a blast of sound and force from your instrument or voice</li>
-                        <li>Give yourself or an ally Magic Advantage on an action</li>
-                    </ul>
-                    <div>Resource Item:<br/><strong>Songbooks and Sheet Music</strong></div>
-                    <div>Spend a songbook or sheet music to add its song to your current repertoire.</div>
+                    <div className="ability-desc-scrollbox">
+                        <div>Magic Ability:<br /><strong>Bard Songs</strong></div>
+                        <div>Your music is magic! Whenever you start playing one of your songs, you can use its magical effects in any action for the rest of the scene. You can sacrifice a song you aren't playing or end one you are playing to create a Crescendo:</div>
+                        <ul>
+                            <li>Create a blast of sound and force from your instrument or voice</li>
+                            <li>Give yourself or an ally Magic Advantage on an action</li>
+                        </ul>
+                        <br/>
+                        <div>Resource Item:<br/><strong>Songbooks and Sheet Music</strong></div>
+                        <div>Spend a songbook or sheet music to add its song to your current repertoire.</div>
+                    </div>
                 </div>
             </div>
             <div className="class-ability-display">

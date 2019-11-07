@@ -53,13 +53,15 @@ export default function Neerdowell(props) {
                 <br />
                 {/* Add stealing system for adding to bag of tricks*/}
                 <div className="ability-desc">
-                    <div>Magic Ability:<br /><strong>Bag of Tricks</strong></div>
-                    <div>The Ne'erdowell never leaves home without a seemingly bottomless bag of single-use magic items of dubious provenance.</div>
-                    <div>Whenever you rest, a new set of five magic items is available for use from the bag.</div>
-                    <ul>
-                        <li>Activate its magical property for one action</li>
-                        <li>Change its weapon type or its magical property</li>
-                    </ul>
+                    <div className="ability-desc-scrollbox">
+                        <div>Magic Ability:<br /><strong>Bag of Tricks</strong></div>
+                        <div>The Ne'erdowell never leaves home without a seemingly bottomless bag of single-use magic items of dubious provenance.</div>
+                        <div>Whenever you rest, a new set of five magic items is available for use from the bag.</div>
+                        <ul>
+                            <li>Activate its magical property for one action</li>
+                            <li>Change its weapon type or its magical property</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
             <div className="class-ability-display">

@@ -5,57 +5,81 @@ export default function Ragesmasher(props) {
     const { currentSpecials } = props;
     const [raging, setRaging] = useState(false);
     const [rage, setRage] = useState(1);
+    const [totemLost, setTotemLost] = useState(true);
     const input = React.createRef();
 
-    function setTotem() {
-        setRaging(false);
-        props.updateState('currentSpecials', { 'totem': randomAnimal() })
+    if (!currentSpecials.totems) {
+        props.updateState('currentSpecials', { 'totems': [] })
     }
 
-    function setCustomTotem() {
-        setRaging(false);
-        props.updateState('currentSpecials', { 'totem': input.current.value });
+    function createTotems() {
+        let totems = [];
+        while (totems.length < 3) {
+            totems.push(randomAnimal());
+        };
+        props.updateState('currentSpecials', { 'totems': totems })
     }
 
-    function rageOut(overRage) {
-        if (rage > 0) {
-            setRaging(true);
-            if (!overRage) setRage(rage - 1)
-            props.updateState('currentSpecials', { 'totem': "" })
-        }
+    function addCustomTotem() {
+        setRaging(false);
+        let newTotems = Object.assign({}, currentSpecials.totems);
+        newTotems.push(input.current.value);
+        props.updateState('currentSpecials', { 'totems': newTotems });
     }
 
     function setRageNum(num) {
-        rage === num ? setRage(rage - 1) : setRage(num);
+        let newRage = rage;
+        newRage === num ? newRage = (rage - 1) : newRage = (num);
+        if (newRage === 3) {
+            setRaging(true);
+            setTotemLost(false);
+        }
+        setRage(newRage);
+     }
+
+    function rageOut(totemInd) {
+        if (raging) {
+            setTotemLost(true);
+        } else {
+            setRaging(true);
+        }
+        let newTotems = currentSpecials.totems;
+        newTotems.splice(totemInd, 1);
+        props.updateState('currentSpecials', { 'totems': newTotems });
     }
 
-    function totemDisp() {
-        if (currentSpecials.totem) {
+    function endRage() {
+        setRage(0);
+        setRaging(false);
+    }
+
+    function totemsDisp() {
+        if (currentSpecials.totems && currentSpecials.totems.length > 0) {
             return (
-                <>
-                    <div><strong>{currentSpecials.totem}</strong> Totem</div>
-                    <button onClick={() => rageOut(false)}>Rage Out!</button>
-                </>
+                <ul className="resource-list">
+                    {currentSpecials.totems.map((totem, i) => {
+                        return (
+                            <li key={i} className="resource-list-entry">
+                                <div><strong>{totem}</strong> Totem</div>
+                                <button onClick={() => rageOut(i)}>X</button>
+                            </li>
+                        )
+                    })}
+                </ul>
             )
         }
     }
 
     function rageDisp() {
+        let endRageButton = <button onClick={endRage}>End Scene</button>
+        let endRageInfo = <div style={{fontWeight: 'normal', fontSize: '2.5vw'}}>Lose a totem, Rage ends at end of scene</div>
         return (
             <>
                 <strong>RAGING!</strong>
-                <span style={{fontWeight: 'normal', fontFamily: 'auto', fontSize: '2.5vw'}}>Gain Magic Advantage on all rolls to fight, smash, punch, or break stuff<br/>Take +1 Difficulty on anything else</span>
-                <button onClick={() => setRaging(false)}>End Rage</button>
+                <div style={{fontWeight: 'normal', fontFamily: 'auto', fontSize: '2.5vw'}}>Gain Magic Advantage on all rolls to fight, smash, punch, or break stuff<br/>Take +1 Difficulty on anything else</div>
+                {totemLost ? endRageButton : endRageInfo}
             </>
         )
-    }
-
-    function rageOverflow() {
-        if (rage >= 3) {
-            return (
-                <button onClick={() => rageOut(true)}>Rage Overflow</button>
-            )
-        }
     }
 
     return (
@@ -64,38 +88,44 @@ export default function Ragesmasher(props) {
                 <div className="class-desc">A primal barbarian warrior who channels animal spirits when they aren’t flipping out.</div>
                 <br />
                 <div className="ability-desc">
-                    {/* This is a mess, fix */}
-                    <div>Magic Ability:<br /><strong>Animal Totems and Barbaric Rage</strong></div>
-                    <div>You can channel one Animal Totem at a time to gain Magic Advantage on any action associated with that animal.</div>
-                    <div>You can spend a point of Rage to Rage Out, losing your Totem for the rest of the scene (roll a new one next scene), but gaining Magic Advantage on all rolls to fight, smash, or break stuff, but taking +1 Difficulty on anything else.</div>
-                    <div>If your Rage would go above 3, you automatically Rage Out instead of gaining the point. You gain Rage whenever you:</div>
-                    <ul>
-                        <li>Take Damage</li>
-                        <li>Are made particularly mad by something</li>
-                    </ul>
+                    <div className="ability-desc-scrollbox">
+                        <div>Magic Ability:<br /><strong>Totem Spirits and Barbaric Rage</strong></div>
+                        <div>Whenever you rest, you have a set of three Totem Spirits. You gain Magic Advantage on any action associated with one of those animals.</div>
+                        <div>You gain a point of Rage whenever you take a Consequence. You can also take a point of Rage to gain Magic Advantage on an aggressive or destructive action.</div>
+                        <div>Whenever your Rage reaches 3, you Rage Out, losing a Totem and gaining Magic Advantage on aggressive or destructive actions and +1 Difficulty on any other actions for the duration fo the scene.</div>
+                        <div>At the end of every scene, your Rage goes back to 0.</div>
+                        <br/>
+                        <div>Resource Item:<br/><strong>Animal Totems</strong></div>
+                        <div>Spend an Animal Totem to gain a Totem Spirit of its animal type.</div>
+                    </div>
                 </div>
             </div>
             <div className="class-ability-display">
                 <div className="ability-main">
                     <div style={{display: 'flex', flexDirection: 'column'}}>
-                        {raging ? rageDisp() : totemDisp()}
+                        {raging ? rageDisp() : null}
                         <div id="rage-counter">
                             <div>Rage</div>
-                            <button onClick={() => setRageNum(1)}>{rage >= 1 ? "⦿" : "⦾"}</button>
-                            <button onClick={() => setRageNum(2)}>{rage >= 2 ? "⦿" : "⦾"}</button>
-                            <button onClick={() => setRageNum(3)}>{rage >= 3 ? "⦿" : "⦾"}</button>
-                            {rageOverflow()}
+                            <div className="class-radio-container">
+                                <button onClick={() => setRageNum(1)}>{rage >= 1 ? "⦿" : "⦾"}</button>
+                                <button onClick={() => setRageNum(2)}>{rage >= 2 ? "⦿" : "⦾"}</button>
+                                <button onClick={() => setRageNum(3)}>{rage >= 3 ? "⦿" : "⦾"}</button>
+                            </div>
+                            <button onClick={() => setRageNum(0)}>Clear Rage</button>
                         </div>
                     </div>
                 </div>
+                <div className="resource-lists-container">
+                    {totemsDisp()}
+                </div>
                 <div className="ability-management-container">
                     <div className="custom-add-row">
-                        <div>Change Totem: </div>
+                        <div>Add Totem Spirit: </div>
                         <div className="custom-add-field">
-                            <input type="text" ref={input}></input><button onClick={setCustomTotem}>+</button>
+                            <input type="text" ref={input}></input><button onClick={addCustomTotem}>+</button>
                         </div>
                     </div>
-                    <button className="ability-randomize-button" onClick={setTotem}>Randomize Totem</button>
+                    <button className="ability-randomize-button" onClick={createTotems}>Randomize Totems</button>
                 </div>
             </div>
         </div>

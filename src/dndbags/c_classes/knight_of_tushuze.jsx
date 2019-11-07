@@ -94,9 +94,11 @@ export default function KnightOfTushuze(props) {
                         <div>Magic Ability:<br /><strong>Blessings of Tushuze</strong></div>
                         <div>Members of the order gain four blessings per day, and can gain more by doing good deeds.</div>
                         <br/>
-                        <div>Gain a Blessing of Bravery by facing physical harm or other danger on someone else's behalf.</div>
-                        <div>Gain a Blessing of Compassion by giving away your belongings or resources to help someone else for no reward.</div>
-                        <div>Gain a Blessing of Honor by declining an unfair advantage over an enemy or refusing to lie when it might benefit you.</div>
+                        <ul>
+                            <li>Gain a Blessing of Bravery by facing physical harm or other danger on someone else's behalf.</li>
+                            <li>Gain a Blessing of Compassion by giving away your belongings or resources to help someone else for no reward.</li>
+                            <li>Gain a Blessing of Honor by declining an unfair advantage over an enemy or refusing to lie when it might benefit you.</li>
+                        </ul>
                         <br/>
                         <div>You can spend a Blessing to:</div>
                         <ul>
