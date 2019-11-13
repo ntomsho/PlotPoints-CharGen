@@ -47,9 +47,9 @@ export default function Minstrel(props) {
         }
     }
 
-    function addCustomSong() {
+    function addCustomSong(randomize) {
         let newSongs = currentSpecials.songs;
-        newSongs.push(input.current.value);
+        newSongs.push(randomize ? randomSong() : input.current.value);
         props.updateState('currentSpecials', { 'songs': newSongs });
     }
 
@@ -107,7 +107,9 @@ export default function Minstrel(props) {
                     <div className="custom-add-row">
                         <div>Add Song: </div>
                         <div className="custom-add-field">
-                            <input type="text" ref={input}></input><button onClick={addCustomSong}>+</button>
+                            <input type="text" ref={input}></input>
+                            <button onClick={() => addCustomSong(false)}>+</button>
+                            <button onClick={() => addCustomSong(true)}>🎲</button>
                         </div>
                     </div>
                     <button className="ability-randomize-button" onClick={createSongs}>Generate New Songs<br/>(On rest)</button>
