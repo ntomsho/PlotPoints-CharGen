@@ -1,5 +1,6 @@
 import React from 'react';
 import { CLASSES, ALTRACES, random, randomRace, BACKGROUNDS, APPEARANCES, DERPS } from '../dndb-tables';
+import RulesModal from './rules_modal';
 import Skills from './skills';
 import ClassMain from './class_main';
 import Inventory from './inventory';
@@ -29,7 +30,6 @@ class Dndb extends React.Component {
     }
 
     componentDidMount() {
-        console.log(`loadedChar: ${this.props.loadedChar}`)
         if (this.props.loadedChar) {
             this.setState(this.props.loadedChar);
         }
@@ -40,25 +40,6 @@ class Dndb extends React.Component {
         newState[key] = val;
         this.setState(newState);
     };
-
-    // clearSheet() {
-    //     this.setState({
-    //         name: "",
-    //         cClass: "",
-    //         race: "Human",
-    //         background: "",
-    //         appearance: "",
-    //         derp: "",
-    //         health: 7,
-    //         plotPoints: 1,
-    //         trainedSkills: [],
-    //         currentSpecials: {},
-    //         inventory: ["", "", "", "", "", "", "", "", "", "", "", ""],
-    //         level: 1,
-    //         experience: 0,
-    //         regulation: true
-    //     })
-    // }
 
     handleChange(event) {
         if (event.target.name === "cClass") {
@@ -134,6 +115,8 @@ class Dndb extends React.Component {
     render() {
         return (
             <div id="dndb-main">
+                <RulesModal setModalOut={this.props.setModalOut} extended={this.props.modalOut} />
+                <button id="modal-button" onClick={() => this.props.setModalOut(true)}>Show Rules</button>
                 <div id="dndb-sheet-container">
                     <div id="sheet-header">
                         <h1 className="color-header">Dungeons & Douchebags</h1>

@@ -45,21 +45,107 @@ button {
   border: 1px solid black;
 }
 
+/* Rules Modal */
+.rules-modal-container.hidden {
+  display: none;
+}
+
+.rules-modal-container {
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(100, 100, 100, 0.2);
+  top: 0;
+  left: 0;
+  z-index: 10;
+}
+
+.rules-modal-main {
+  position: absolute;
+  height: 90vh;
+  width: 90vw;
+  background-color: white;
+  border: 1px solid black;
+  top: 5vh;
+  left: 5vw;
+  z-index: 11;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 1.3vw;
+}
+
+.rules-modal-main ul {
+  margin: 0;
+  padding-left: 7%;
+}
+
+.rules-modal-header {
+  margin: 0;
+  align-self: center;
+}
+
+.rules-modal-row {
+  display: flex;
+  width: 60%;
+}
+
+.rules-modal-left-tab {
+  width: 15%;
+}
+
+.rules-modal-columns-container {
+  display: flex;
+  justify-content: space-around;
+  width: 80vw;
+}
+
+.rules-modal-single-column {
+  width: 30%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.rules-modal-column {
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  font-size: 1vw;
+}
+
+.rules-modal-column > h3 {
+  font-size: 1.6vw;
+}
+
+@media screen and (max-width: 600px) {
+  .rules-modal-main {
+    font-size: 1.9vw;
+  }
+
+  .rules-modal-column {
+    font-size: 1.8vw;
+  }
+
+  .rules-modal-column > h3 {
+    font-size: 2.5vw;
+    height: 5vh;
+  }
+}
+
 /* Dndb Main */
 
 h1, h2, h3 {
   font-family: 'Grenze', serif;
 }
 
-.rules-modal {
+#modal-button {
   position: absolute;
-  height: 90vh;
-  width: 90vw;
-}
-
-.rules-modal iframe {
-  height: 100%;
-  width: 100%;
+  top: 10vh;
+  left: 5vw;
+  height: 5vh;
+  width: 10vw;
+  border: 1px solid black;
 }
 
 .color-header {
@@ -142,6 +228,13 @@ h1, h2, h3 {
 }
 
 @media screen and (min-width: 600px) {
+  #modal-button {
+    top: 14vh;
+    left: 2vw;
+    height: 5vh;
+    width: 10vw;
+  }
+  
   #main-button-row button {
     font-size: 1.5vw;
     width: 15vw;
@@ -372,7 +465,7 @@ h1, h2, h3 {
 
 .resource-list-entry {
   display: flex;
-  width: 30vw;
+  width: 50vw;
   margin: 1vh 0;
 }
 
@@ -382,7 +475,6 @@ h1, h2, h3 {
   border-radius: 5px;
   padding: 5%;
   width: 22vw;
-  font-size: 4vw;
 }
 
 .resource-list-entry button {

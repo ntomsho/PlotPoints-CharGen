@@ -75,7 +75,7 @@ export default function Hippy(props) {
                     {currentSpecials.forms.map((form, i) => {
                         return (
                                 <li key={i} className="resource-list-entry">
-                                <div onClick={() => setCurrentForm(form)} className={`form${currentForm === form ? ' selected' : ''}`}><strong>{form}</strong> Form</div>
+                                    <div onClick={() => setCurrentForm(form)} className={`form${currentForm === form ? ' selected' : ''}`}><span><strong>{form}</strong> Form</span></div>
                                     <button onClick={() => sacrificeForm(i)}>X</button>
                                 </li>
                         )

@@ -149,6 +149,7 @@ export default function CharSelect(props) {
                     loadedChar={char} 
                     clearChar={clearChar} 
                     saveChar={saveChar} 
+                    modalOut={modalOut}
                     setModalOut={setModalOut} 
                 />
                 <ModalManager modalOut={modalOut} setModalOut={setModalOut} />
