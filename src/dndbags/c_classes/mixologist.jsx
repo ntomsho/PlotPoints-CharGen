@@ -39,14 +39,18 @@ export default function Mixologist(props) {
         props.updateState('currentSpecials', { 'bases': newBases, 'catalysts': newCatalysts });
     }
 
-    function addCustomComponent(compCat) {
+    function addCustomComponent(randomize, compCat) {
         if (compCat === "base") {
             let newBases = bases;
-            newBases.push(input1.current.value);
+            newBases.push(randomize ? randomBase() : input1.current.value);
             props.updateState('currentSpecials', { 'bases': newBases, 'catalysts': catalysts });
         } else {
             let newCatalysts = catalysts;
-            newCatalysts.push({'comp': input2.current.value, 'compCat': input3.current.value});
+            if (randomize) {
+                newCatalysts.push(randomCatalyst());
+            } else {
+                newCatalysts.push({'comp': input2.current.value, 'compCat': input3.current.value});
+            }
             props.updateState('currentSpecials', { 'bases': bases, 'catalysts': newCatalysts });
         }
     }
@@ -80,6 +84,7 @@ export default function Mixologist(props) {
             } else {
                 return random([
                     catalysts[selectedCatalyst].comp + " " + bases[selectedBase],
+                    //This breaks on custom elements
                     bases[selectedBase] + " of " + ELEMENTS_OF[ELEMENTS.indexOf(catalysts[selectedCatalyst].comp)]
                 ])
             }
@@ -90,7 +95,7 @@ export default function Mixologist(props) {
     }
     
     function componentsList() {
-        if (bases && catalysts && bases.length > 0 && catalysts.length > 0) {
+        if ((bases && bases.length > 0) || (catalysts && catalysts.length > 0)) {
             return (
                 <>
                 <div>
@@ -161,7 +166,8 @@ export default function Mixologist(props) {
                                             )
                                         })}
                                 </select>
-                                <button onClick={() => addCustomComponent('base')}>+</button>
+                                <button onClick={() => addCustomComponent(false, 'base')}>+</button>
+                                <button onClick={() => addCustomComponent(true, 'base')}>🎲</button>
                             </div>
                         </div>
                         <br/>
@@ -170,11 +176,11 @@ export default function Mixologist(props) {
                             <div className="custom-add-field">
                                 <input style={{width: '30vw'}} type="text" ref={input2}></input>
                                 <select ref={input3}>
-                                    <option value="Form">Form</option>
                                     <option value="Element">Element</option>
                                     <option value="Verb">Verb</option>
                                 </select>
-                                <button onClick={() => addCustomComponent('catalyst')}>+</button>
+                                <button onClick={() => addCustomComponent(false, 'catalyst')}>+</button>
+                                <button onClick={() => addCustomComponent(true, 'catalyst')}>🎲</button>
                             </div>
                         </div>
                         <button className="ability-randomize-button" onClick={() => createComponents()}>Generate New Components<br/>(On rest)</button>
