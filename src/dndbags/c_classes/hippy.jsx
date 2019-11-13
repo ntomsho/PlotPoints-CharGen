@@ -54,15 +54,15 @@ export default function Hippy(props) {
         consumeGift(giftInd);
     }
 
-    function addCustomForm() {
+    function addCustomForm(randomize) {
         let newResources = currentSpecials;
-        newResources.forms.push(input1.current.value);
+        newResources.forms.push(randomize ? randomAnimal() : input1.current.value);
         props.updateState('currentSpecials', newResources)
     }
 
-    function addCustomGift() {
+    function addCustomGift(randomize) {
         let newResources = currentSpecials;
-        newResources.gifts.push(input2.current.value);
+        newResources.gifts.push(randomize ? random(MUTATIONS) : input2.current.value);
         props.updateState('currentSpecials', newResources)
     }
 
@@ -150,13 +150,17 @@ export default function Hippy(props) {
                     <div className="custom-add-row">
                         <div>Add Animal Form: </div>
                         <div className="custom-add-field">
-                            <input type="text" ref={input1}></input><button onClick={addCustomForm}>+</button>
+                            <input type="text" ref={input1}></input>
+                            <button onClick={() => addCustomForm(false)}>+</button>
+                            <button onClick={() => addCustomForm(true)}>🎲</button>
                         </div>
                     </div>
                     <div className="custom-add-row">
                         <div>Add Gift: </div>
                         <div className="custom-add-field">
-                            <input type="text" ref={input2}></input><button onClick={addCustomGift}>+</button>
+                            <input type="text" ref={input2}></input>
+                            <button onClick={() => addCustomGift(false)}>+</button>
+                            <button onClick={() => addCustomGift(true)}>🎲</button>
                         </div>
                     </div>
                     <button className="ability-randomize-button" onClick={createFormsAndGifts}>Generate Gifts and Forms<br/>(On rest)</button>
