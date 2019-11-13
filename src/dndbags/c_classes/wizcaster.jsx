@@ -31,9 +31,13 @@ export default function Wizcaster(props) {
         return { 'word': random(wordCat), 'wordCat': wordCatName }
     }
 
-    function addCustomWord() {
+    function addCustomWord(randomize) {
         let newWords = words;
-        newWords.push({ 'word': input2.current.value, 'wordCat': input1.current.value })
+        if (randomize) {
+            newWords.push(randomWord());
+        } else {
+            newWords.push({ 'word': input2.current.value, 'wordCat': input1.current.value })
+        }
         props.updateState('currentSpecials', newWords);
     }
 
@@ -90,7 +94,7 @@ export default function Wizcaster(props) {
                             <li key={i} 
                             className={`resource-list-entry wizcaster-word${selectedWordInd === i ? ' selected' : ''}`} 
                             style={{width: '22vw'}}
-                            onClick={() => selectedWordInd === i ? setSelectedWordInd(null) : setSelectedWordInd(i)}>
+                                onClick={() => setSelectedWordInd(selectedWordInd === i ? null : i)}>
                                 <div><strong>{word.word}</strong> {word.wordCat}</div>
                             </li>
                         )
@@ -207,7 +211,8 @@ export default function Wizcaster(props) {
                                 <option value="Verb">Verb</option>
                             </select>
                             <input style={{width: '30vw'}} type="text" ref={input2}></input>
-                            <button onClick={addCustomWord}>+</button>
+                            <button onClick={() => addCustomWord(false)}>+</button>
+                            <button onClick={() => addCustomWord(true)}>🎲</button>
                         </div>
                     </div>
                     <button className="ability-randomize-button" onClick={createWords}>Generate New Words<br/>(On rest)</button>

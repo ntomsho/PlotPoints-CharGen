@@ -5,6 +5,10 @@ export default function Verbpriest(props) {
     const { currentSpecials } = props;
     const input = React.createRef();
 
+    if (!currentSpecials.words) {
+        props.updateState('currentSpecials', { 'words': [] });
+    }
+
     function randomWord() {
         return random(COMMANDS);
     }
@@ -17,9 +21,10 @@ export default function Verbpriest(props) {
         props.updateState('currentSpecials', { 'words': words });
     }
 
-    function addCustomWord() {
+    function addCustomWord(randomize) {
         let newWords = currentSpecials.words;
-        newWords.push(input.current.value);
+        console.log(newWords)
+        newWords.push(randomize ? randomWord() : input.current.value);
         props.updateState('currentSpecials', { 'words': newWords });
     }
 
@@ -76,7 +81,9 @@ export default function Verbpriest(props) {
                     <div className="custom-add-row">
                         <div>Add Word: </div>
                         <div className="custom-add-field">
-                            <input type="text" ref={input}></input><button onClick={addCustomWord}>+</button>
+                            <input type="text" ref={input}></input>
+                            <button onClick={() => addCustomWord(false)}>+</button>
+                            <button onClick={() => addCustomWord(true)}>🎲</button>
                         </div>
                     </div>
                     <button className="ability-randomize-button" onClick={createWords}>Generate Random Words<br/>(On rest)</button>

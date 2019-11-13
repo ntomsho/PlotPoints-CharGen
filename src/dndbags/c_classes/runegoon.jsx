@@ -14,9 +14,13 @@ export default function Runegoon(props) {
         return {'rune': random(RUNES), 'word': random(random([VERBS, ELEMENTS]))};
     }
 
-    function addCustomRune() {
+    function addCustomRune(randomize) {
         let newRunes = currentSpecials.runes;
-        newRunes.push({'rune': random(RUNES), 'word': input.current.value});
+        if (randomize) {
+            newRunes.push(randomRune());
+        } else {
+            newRunes.push({'rune': random(RUNES), 'word': input.current.value});
+        }
         props.updateState('currentSpecials', { 'runes': newRunes })
     }
 
@@ -103,7 +107,9 @@ export default function Runegoon(props) {
                     <div className="custom-add-row">
                         <div>Add Rune: </div>
                         <div className="custom-add-field">
-                            <input type="text" ref={input}></input><button onClick={addCustomRune}>+</button>
+                            <input type="text" ref={input}></input>
+                            <button onClick={() => addCustomRune(false)}>+</button>
+                            <button onClick={() => addCustomRune(true)}>🎲</button>
                         </div>
                     </div>
                     <button className="ability-randomize-button" onClick={createRunes}>Generate Random Runes<br/>(On rest)</button>
