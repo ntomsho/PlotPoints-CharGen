@@ -32,13 +32,13 @@ export default function Wizcaster(props) {
     }
 
     function addCustomWord(randomize) {
-        let newWords = words;
+        let newWords = [...currentSpecials.words];
         if (randomize) {
             newWords.push(randomWord());
         } else {
             newWords.push({ 'word': input2.current.value, 'wordCat': input1.current.value })
         }
-        props.updateState('currentSpecials', newWords);
+        props.updateState('currentSpecials', {'words': newWords});
     }
 
     function createWords() {
