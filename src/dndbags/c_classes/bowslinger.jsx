@@ -45,11 +45,17 @@ export default function Bowslinger(props) {
         setSavableAmmo([...newSavable]);
     }
 
-    function addCustomAmmo() {
-        if (input.current.value) {
+    function addCustomAmmo(randomize) {
+        if (randomize) {
             let newAmmo = currentSpecials.ammo;
-            newAmmo.push(input.current.value);
+            newAmmo.push(randomAmmo());
             props.updateState('currentSpecials', { 'ammo': newAmmo })
+        } else {
+            if (input.current.value) {
+                let newAmmo = currentSpecials.ammo;
+                newAmmo.push(input.current.value);
+                props.updateState('currentSpecials', { 'ammo': newAmmo })
+            }
         }
     }
 
@@ -121,7 +127,9 @@ export default function Bowslinger(props) {
                         <div className="custom-add-row">
                             <div>Add Ammo: </div>
                             <div className="custom-add-field">
-                                <input type="text" ref={input}></input><button onClick={addCustomAmmo}>+</button>
+                                <input type="text" ref={input}></input>
+                                <button onClick={() => addCustomAmmo(false)}>+</button>
+                                <button onClick={() => addCustomAmmo(true)}>🎲</button>
                             </div>
                         </div>
                     </div>

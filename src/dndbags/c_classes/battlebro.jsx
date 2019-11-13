@@ -10,9 +10,6 @@ export default function Battlebro(props) {
     const input3 = React.createRef();
 
     if (!currentSpecials.weaponType) {
-        // let newSpecials = Object.assign({}, currentSpecials);
-        // newSpecials.weaponType = random(WEAPONS.slice(0, 18));
-        // props.updateState("currentSpecials", newSpecials);
         props.updateState('currentSpecials', { 'weaponType': random(WEAPONS.slice(0, 18)) });
     }
 
@@ -74,7 +71,6 @@ export default function Battlebro(props) {
         if (currentSpecials.weaponSpecial) activateButton = <button onClick={activateWeaponSpecial}>Activate Weapon Special</button>
 
         return (
-            // <input type="text" onChange={handleChange} value={weaponString} />
             <>
             <div><strong>{weaponString}</strong></div>
             {activateButton}
@@ -131,7 +127,7 @@ export default function Battlebro(props) {
                                 <option value="Element">Element</option>
                             </select>
                             <input style={{ width: '30vw' }} type="text" ref={input2}></input>
-                            <button onClick={changeWeaponSpecial}>+</button>
+                            <button onClick={() => changeWeaponSpecial(false)}>+</button>
                             <button onClick={() => changeWeaponSpecial(true)}>🎲</button>
                         </div>
                     </div>
@@ -139,7 +135,7 @@ export default function Battlebro(props) {
                         <div>Change Weapon Type: </div>
                         <div className="custom-add-field">
                             <input style={{ width: '30vw' }} type="text" ref={input3}></input>
-                            <button onClick={changeWeaponType}>+</button>
+                            <button onClick={() => changeWeaponType(false)}>+</button>
                             <button onClick={() => changeWeaponType(true)}>🎲</button>
                         </div>
                     </div>
