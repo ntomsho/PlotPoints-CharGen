@@ -34,18 +34,27 @@ export default function Battlebro(props) {
         }
     }
 
-    function changeWeaponType() {
+    function changeWeaponType(randomize) {
         let newSpecials = Object.assign({}, currentSpecials);
-        newSpecials.weaponType = ` ${input3.current.value}`;
+        newSpecials.weaponType = randomize ? 
+        ` ${random(WEAPONS.slice(0,18))}` : 
+        ` ${input3.current.value}`;
         props.updateState("currentSpecials", newSpecials);
     }
 
-    function changeWeaponSpecial() {
+    function changeWeaponSpecial(randomize) {
         let newSpecials = Object.assign({}, currentSpecials);
-        if (input1.current.value === "Verb") {
-            newSpecials.weaponSpecial = { "verb": `${input2.current.value} ` };
+        if (randomize) {
+            const specialCat = random(["verb", "element"]);
+            newSpecials.weaponSpecial = {[specialCat]: specialCat === "verb" ? 
+                `${random(GERUNDS)} ` :
+                ` of ${random(ELEMENTS_OF)}`}
         } else {
-            newSpecials.weaponSpecial = { "element": ` of ${input2.current.value}` };
+            if (input1.current.value === "Verb") {
+                newSpecials.weaponSpecial = { "verb": `${input2.current.value} ` };
+            } else {
+                newSpecials.weaponSpecial = { "element": ` of ${input2.current.value}` };
+            }
         }
         props.updateState("currentSpecials", newSpecials);
     }
@@ -123,6 +132,7 @@ export default function Battlebro(props) {
                             </select>
                             <input style={{ width: '30vw' }} type="text" ref={input2}></input>
                             <button onClick={changeWeaponSpecial}>+</button>
+                            <button onClick={() => changeWeaponSpecial(true)}>🎲</button>
                         </div>
                     </div>
                     <div className="custom-add-row">
@@ -130,6 +140,7 @@ export default function Battlebro(props) {
                         <div className="custom-add-field">
                             <input style={{ width: '30vw' }} type="text" ref={input3}></input>
                             <button onClick={changeWeaponType}>+</button>
+                            <button onClick={() => changeWeaponType(true)}>🎲</button>
                         </div>
                     </div>
                 </div>
