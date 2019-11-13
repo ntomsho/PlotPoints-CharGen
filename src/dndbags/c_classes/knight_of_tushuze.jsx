@@ -27,9 +27,9 @@ export default function KnightOfTushuze(props) {
         props.updateState('currentSpecials', { 'blessings': newBlessings });
     }
 
-    function addCustomBlessing() {
+    function addCustomBlessing(randomize) {
         let newBlessings = currentSpecials.blessings;
-        newBlessings.push(input.current.value);
+        newBlessings.push(randomize ? randomBlessing() : input.current.value);
         props.updateState('currentSpecials', { 'blessings': newBlessings });
     }
 
@@ -124,7 +124,8 @@ export default function KnightOfTushuze(props) {
                                     <option value="Compassion">Compassion</option>
                                     <option value="Honor">Honor</option>
                                 </select>
-                                <button onClick={addCustomBlessing}>+</button>
+                                <button onClick={() => addCustomBlessing(false)}>+</button>
+                                <button onClick={() => addCustomBlessing(true)}>🎲</button>
                             </div>
                         </div>
                     </div>
