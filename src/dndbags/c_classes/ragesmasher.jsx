@@ -20,9 +20,9 @@ export default function Ragesmasher(props) {
         props.updateState('currentSpecials', { 'totems': totems })
     }
 
-    function addCustomTotem() {
+    function addCustomTotem(randomize) {
         let newTotems = currentSpecials.totems;
-        newTotems.push(input.current.value);
+        newTotems.push(randomize ? randomAnimal() : input.current.value);
         props.updateState('currentSpecials', { 'totems': newTotems });
     }
 
@@ -121,7 +121,9 @@ export default function Ragesmasher(props) {
                     <div className="custom-add-row">
                         <div>Add Totem Spirit: </div>
                         <div className="custom-add-field">
-                            <input type="text" ref={input}></input><button onClick={addCustomTotem}>+</button>
+                            <input type="text" ref={input}></input>
+                            <button onClick={() => addCustomTotem(false)}>+</button>
+                            <button onClick={() => addCustomTotem(true)}>🎲</button>
                         </div>
                     </div>
                     <button className="ability-randomize-button" onClick={createTotems}>Generate Random Totems<br/>(On rest)</button>
