@@ -23,9 +23,9 @@ export default function Neerdowell(props) {
         props.updateState('currentSpecials', { 'items': newItems });
     }
 
-    function addCustomItem() {
+    function addCustomItem(randomize) {
         let newItems = currentSpecials.items;
-        newItems.push(input.current.value);
+        newItems.push(randomize ? randomMagicItem() : input.current.value);
         props.updateState('currentSpecials', { 'items': newItems })
     }
 
@@ -72,7 +72,9 @@ export default function Neerdowell(props) {
                     <div className="custom-add-row">
                         <div>Add Item: </div>
                         <div className="custom-add-field">
-                            <input type="text" ref={input}></input><button onClick={addCustomItem}>+</button>
+                            <input type="text" ref={input}></input>
+                            <button onClick={() => addCustomItem(false)}>+</button>
+                            <button onClick={() => addCustomItem(true)}>🎲</button>
                         </div>
                     </div>
                     <button className="ability-randomize-button" onClick={createItems}>Generate Random Items<br/>(On rest)</button>
