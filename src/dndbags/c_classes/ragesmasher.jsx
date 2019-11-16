@@ -4,7 +4,7 @@ import { randomAnimal } from '../../dndb-tables';
 export default function Ragesmasher(props) {
     const { currentSpecials } = props;
     const [raging, setRaging] = useState(false);
-    const [rage, setRage] = useState(1);
+    const [rage, setRage] = useState(0);
     const [totemLost, setTotemLost] = useState(true);
     const input = React.createRef();
 
@@ -14,7 +14,7 @@ export default function Ragesmasher(props) {
 
     function createTotems() {
         let totems = [];
-        while (totems.length < 3) {
+        while (totems.length < 4) {
             totems.push(randomAnimal());
         };
         props.updateState('currentSpecials', { 'totems': totems })
@@ -89,7 +89,7 @@ export default function Ragesmasher(props) {
                 <div className="ability-desc">
                     <div className="ability-desc-scrollbox">
                         <div>Magic Ability:<br /><strong>Totem Spirits and Barbaric Rage</strong></div>
-                        <div>Whenever you rest, you have a set of three Totem Spirits. You gain Magic Advantage on any action associated with one of those animals.</div>
+                        <div>Whenever you rest, you have a set of four Totem Spirits. You gain Magic Advantage on any action associated with one of those animals.</div>
                         <div>You gain a point of Rage whenever you take a Consequence. You can also take a point of Rage to gain Magic Advantage on an aggressive or destructive action.</div>
                         <div>Whenever your Rage reaches 3, you Rage Out, losing a Totem and gaining Magic Advantage on aggressive or destructive actions and +1 Difficulty on any other actions for the duration fo the scene.</div>
                         <div>At the end of every scene, your Rage goes back to 0.</div>

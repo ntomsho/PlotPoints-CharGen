@@ -71,7 +71,7 @@ export default function KnightOfTushuze(props) {
                             <li key={i} className="resource-list-entry">
                                 <div>
                                     Blessing of <strong>{blessing}</strong>
-                                    <ul className="blessing-skills">
+                                    <ul className="resource-subfield">
                                         {blessingSkills(blessing)}
                                     </ul>
                                 </div>

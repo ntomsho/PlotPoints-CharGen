@@ -343,7 +343,7 @@ export const GERUNDS = [
     "Blinding",
     "Charming",
     "Concealing",
-    "Controling",
+    "Controlling",
     "Crushing",
     "Cursing",
     "Deceiving",
@@ -751,18 +751,12 @@ export const MUTATIONS = [
 ]
 
 export const SONGS = [
-    "Aria",
-    "Dirge",
-    "Groove",
-    "Hoedown",
-    "Limerick",
-    "Lullaby",
-    "Jingle",
-    "March",
-    "Power Ballad",
-    "Rap",
-    "Shanty",
-    "Solo"
+    random(["Aria", "Ballad"]),
+    random(["Groove", "Hoedown"]),
+    random(["Jig", "Shanty"]),
+    random(["Dirge", "Lullaby"]),
+    random(["Power Chord", "Solo"]),
+    random(["Limerick", "Rap Battle"])
 ]
 
 export const BASES = [

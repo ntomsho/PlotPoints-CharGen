@@ -1,47 +1,113 @@
 import React, { useState } from 'react';
-import { random, SONGS, ELEMENTS, ELEMENTS_OF, GERUNDS } from '../../dndb-tables';
+import { random, SONGS, ELEMENTS, GERUNDS } from '../../dndb-tables';
 
 export default function Minstrel(props) {
     const { currentSpecials } = props;
-    const [currentSong, setCurrentSong] = useState("");
-    const input = React.createRef();
+    const input1 = React.createRef();
+    const input2 = React.createRef();
 
     if (!currentSpecials.songs) {
-        props.updateState('currentSpecials', { 'songs': [] })
+        props.updateState('currentSpecials', { 'songs': [], 'notes': [] })
     }
 
     function randomSong() {
-        return random([
-            `${random(ELEMENTS)} ${random(SONGS)}`,
-            `${random(SONGS)} of ${random(ELEMENTS_OF)}`,
-            `${random(GERUNDS)} ${random(SONGS)}`,
-            `${random(SONGS)} of ${random(GERUNDS)} ${random(ELEMENTS_OF)}`
-        ])
+        let song = random(SONGS);
+        while (currentSpecials.songs.includes(song)) {
+            song = random(SONGS);
+        }
+        return song;
+    }
+    
+    function randomNote() {
+        return random([random(ELEMENTS), random(GERUNDS)])
     }
 
-    function createSongs() {
+    function createSongsAndNotes() {
         let songs = [];
-        for (let i = 0; i < 4; i++) {
+        let notes = [];
+        for (let i = 0; i < 3; i++) {
             songs.push(randomSong());
         };
-        props.updateState('currentSpecials', { 'songs': songs });
+        for (let i = 0; i < 6; i++) {
+            notes.push(randomNote());
+        };
+        props.updateState('currentSpecials', { 'songs': songs.sort(), 'notes': notes });
     }
 
-    function playSong(songInd) {
-        setCurrentSong(currentSpecials.songs[songInd]);
+    function removeSong(songInd) {
         let newSongs = currentSpecials.songs;
         newSongs.splice(songInd, 1);
-        props.updateState('currentSpecials', { 'songs': newSongs });
+        props.updateState('currentSpecials', { 'songs': newSongs, 'notes': currentSpecials.notes });
     }
 
-    function currentSongDisp() {
-        if (currentSong) {
+    function spendNote(noteInd) {
+        let newNotes = currentSpecials.notes;
+        newNotes.splice(noteInd, 1);
+        props.updateState('currentSpecials', { 'songs': currentSpecials.songs, 'notes': newNotes });
+    }
+
+    function songEffects(song) {
+        switch (song) {
+            case "Aria":
+            case "Ballad":
+                return "Infuse with strength/inspiration";
+            case "Groove":
+            case "Hoedown":
+                return "Enthrall or mesmerize";
+            case "Jig":
+            case "Shanty":
+                return "Speed up movement";
+            case "Dirge":
+            case "Lullaby":
+                return "Pacify or put listeners to sleep";
+            case "Power Chord":
+            case "Solo":
+                return "Create a blast of sound and force";
+            default:
+                return "Challenge or enrage listener";
+        }
+    }
+
+    function songsDisp() {
+        if (currentSpecials.songs && currentSpecials.songs.length > 0) {
             return (
                 <>
-                    <div>
-                        Currently Playing:<br /><strong>{currentSong}</strong>
-                    </div>
-                    <button onClick={() => setCurrentSong(null)}>End Song</button>
+                <h3>Songs</h3>
+                <ul className="resource-list">
+                    {currentSpecials.songs.map((song, i) => {
+                        return (
+                            <li key={i} className="resource-list-entry">
+                                <div>
+                                    <strong>{song}</strong>
+                                    <ul className="resource-subfield">
+                                        {songEffects(song)}
+                                    </ul>
+                                </div>
+                                <button onClick={() => removeSong(i)}>X</button>
+                            </li>
+                        )
+                    })}
+                </ul>
+                </>
+            )
+        }
+    }
+
+    function notesDisp() {
+        if (currentSpecials.notes && currentSpecials.notes.length > 0) {
+            return (
+                <>
+                <h3>Notes</h3>
+                <ul className="resource-list">
+                    {currentSpecials.notes.map((note, i) => {
+                        return (
+                            <li key={i} className="resource-list-entry">
+                                <div><strong>{note}</strong> Note</div>
+                                <button onClick={() => spendNote(i)}>🎵</button>
+                            </li>
+                        )
+                    })}
+                </ul>
                 </>
             )
         }
@@ -49,32 +115,14 @@ export default function Minstrel(props) {
 
     function addCustomSong(randomize) {
         let newSongs = currentSpecials.songs;
-        newSongs.push(randomize ? randomSong() : input.current.value);
-        props.updateState('currentSpecials', { 'songs': newSongs });
+        newSongs.push(randomize ? randomSong() : input1.current.value);
+        props.updateState('currentSpecials', { 'songs': newSongs, 'notes': currentSpecials.notes });
     }
 
-    function sacrificeSong(songInd) {
-        let newSongs = currentSpecials.songs;
-        newSongs.splice(songInd, 1);
-        props.updateState('currentSpecials', { 'songs': newSongs })
-    }
-
-    function songsDisp() {
-        if (currentSpecials.songs) {
-            return (
-                <ul className="resource-list">
-                    {currentSpecials.songs.map((song, i) => {
-                        return (
-                            <li key={i} className="resource-list-entry">
-                                <div className={`song${currentSong === song ? ' selected' : ''}`}>{song}</div>
-                                <button onClick={() => playSong(i)}>🎵</button>
-                                <button onClick={() => sacrificeSong(i)}>X</button>
-                            </li>
-                        )
-                    })}
-                </ul>
-            )
-        }
+    function addCustomNote(randomize) {
+        let newNotes = currentSpecials.notes;
+        newNotes.push(randomize ? randomNote() : input2.current.value);
+        props.updateState('currentSpecials', { 'songs': currentSpecials.songs, 'notes': newNotes });
     }
     
     return (
@@ -85,34 +133,41 @@ export default function Minstrel(props) {
                 <div className="ability-desc">
                     <div className="ability-desc-scrollbox">
                         <div>Magic Ability:<br /><strong>Bard Songs</strong></div>
-                        <div>Your music is magic! Whenever you start playing one of your songs, you can use its magical effects in any action for the rest of the scene. You can sacrifice a song you aren't playing or end one you are playing to create a Crescendo:</div>
-                        <ul>
-                            <li>Create a blast of sound and force from your instrument or voice</li>
-                            <li>Give yourself or an ally Magic Advantage on an action</li>
-                        </ul>
+                        <div>Your music is magic! Whenever you rest, you recall a selection of three song genres and six magic notes.</div>
+                        <div>Spend one of your notes to play a song as an action, performing the song's effect modified by the effect of the note used.</div>
                         <br/>
                         <div>Resource Item:<br/><strong>Songbooks and Sheet Music</strong></div>
-                        <div>Spend a songbook or sheet music to add its song to your current repertoire.</div>
+                        <div>Spend a songbook or sheet music to add its song or note to your day's repertoire.</div>
                     </div>
                 </div>
             </div>
             <div className="class-ability-display">
-                <div className="ability-main">
-                    {currentSongDisp()}
-                </div>
                 <div className="resource-lists-container" id="form-list">
-                    {songsDisp()}
+                    <div id="songs-list">
+                        {songsDisp()}
+                    </div>
+                    <div id="notes-disp">
+                        {notesDisp()}
+                    </div>
                 </div>
                 <div className="ability-management-container">
                     <div className="custom-add-row">
                         <div>Add Song: </div>
                         <div className="custom-add-field">
-                            <input type="text" ref={input}></input>
+                            <input type="text" ref={input1}></input>
                             <button onClick={() => addCustomSong(false)}>+</button>
                             <button onClick={() => addCustomSong(true)}>🎲</button>
                         </div>
                     </div>
-                    <button className="ability-randomize-button" onClick={createSongs}>Generate New Songs<br/>(On rest)</button>
+                    <div className="custom-add-row">
+                        <div>Add Note: </div>
+                        <div className="custom-add-field">
+                            <input type="text" ref={input2}></input>
+                            <button onClick={() => addCustomNote(false)}>+</button>
+                            <button onClick={() => addCustomNote(true)}>🎲</button>
+                        </div>
+                    </div>
+                    <button className="ability-randomize-button" onClick={createSongsAndNotes}>Generate New Songs<br/>(On rest)</button>
                 </div>
             </div>
         </div>
