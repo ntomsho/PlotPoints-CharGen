@@ -6,6 +6,10 @@ button {
   cursor: pointer;
 }
 
+.pointer {
+  cursor: pointer;
+}
+
 /* Home */
 
 #home-container {
@@ -467,6 +471,10 @@ h1, h2, h3 {
   display: flex;
   width: 50vw;
   margin: 1vh 0;
+}
+
+.selected {
+  background-color: gold;
 }
 
 .resource-list-entry div {

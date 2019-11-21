@@ -4,76 +4,100 @@ import { random, WEAPONS, GERUNDS, ELEMENTS_OF } from '../../dndb-tables';
 export default function Battlebro(props) {
     let { currentSpecials } = props;
     //When possible, take this off the local state and move it up to main state
+    const [currentWeaponType, setCurrentWeaponType] = useState(null);
+    const [currentWeaponSpecial, setCurrentWeaponSpecial] = useState(null);
     const [charge, setCharge] = useState(currentSpecials.charge || 1);
     const input1 = React.createRef();
     const input2 = React.createRef();
     const input3 = React.createRef();
 
-    if (!currentSpecials.weaponType) {
-        props.updateState('currentSpecials', { 'weaponType': random(WEAPONS.slice(0, 18)) });
+    if (!currentSpecials.weaponTypes || !currentSpecials.weaponSpecials) {
+        props.updateState('currentSpecials', { 
+            'weaponTypes': currentSpecials.weaponTypes ? currentSpecials.weaponTypes : [],
+            'weaponSpecials': currentSpecials.weaponSpecials ? currentSpecials.weaponSpecials : []
+        });
     }
 
-    function randomizeWeapon() {
-        if (charge > 0) {
-            let newSpecials = Object.assign({}, currentSpecials);
-            delete newSpecials.weaponString;
-            newSpecials.weaponType = ` ${random(WEAPONS.slice(0, 18))}`;
-            let newWeaponSpecial;
-            const useVerb = random([true, false]);
-            if (useVerb) {
-                newWeaponSpecial = {"verb": `${random(GERUNDS)} `};
-            } else {
-                newWeaponSpecial = {"element": ` of ${random(ELEMENTS_OF)}`};
-            }
-            newSpecials.weaponSpecial = newWeaponSpecial;
-            setCharge(charge - 1);
-            props.updateState("currentSpecials", newSpecials);
-        }
+    function randomWeaponType() {
+        return random(WEAPONS.slice(0,18));
     }
 
-    function changeWeaponType(randomize) {
-        let newSpecials = Object.assign({}, currentSpecials);
-        newSpecials.weaponType = randomize ? 
-        ` ${random(WEAPONS.slice(0,18))}` : 
-        ` ${input3.current.value}`;
-        props.updateState("currentSpecials", newSpecials);
+    function randomWeaponSpecial() {
+        return random([
+                {'category': "Verb", 'special': random(GERUNDS)},
+                {'category': "Element", 'special': random(ELEMENTS_OF)}
+            ])
     }
 
-    function changeWeaponSpecial(randomize) {
-        let newSpecials = Object.assign({}, currentSpecials);
+    function addCustomWeaponType(randomize) {
+        let newWeaponTypes = currentSpecials.weaponTypes;
         if (randomize) {
-            const specialCat = random(["verb", "element"]);
-            newSpecials.weaponSpecial = {[specialCat]: specialCat === "verb" ? 
-                `${random(GERUNDS)} ` :
-                ` of ${random(ELEMENTS_OF)}`}
+            newWeaponTypes.push(randomWeaponType());
         } else {
-            if (input1.current.value === "Verb") {
-                newSpecials.weaponSpecial = { "verb": `${input2.current.value} ` };
-            } else {
-                newSpecials.weaponSpecial = { "element": ` of ${input2.current.value}` };
-            }
+            newWeaponTypes.push(input3.current.value)
         }
-        props.updateState("currentSpecials", newSpecials);
+        props.updateState('currentSpecials', { 'weaponTypes': newWeaponTypes, 'weaponSpecials': currentSpecials.weaponSpecials })
+    }
+
+    function addCustomWeaponSpecial(randomize) {
+        let newWeaponSpecials = currentSpecials.weaponSpecials;
+        if (randomize) {
+            newWeaponSpecials.push(randomWeaponSpecial());
+        } else {
+            newWeaponSpecials.push({ 'category': input1.current.value, 'special': input2.current.value })
+        }
+        props.updateState('currentSpecials', { 'weaponTypes': currentSpecials.weaponTypes, 'weaponSpecials': newWeaponSpecials })
+    }
+
+    function removeWeaponType(typeInd) {
+        let newWeaponTypes = currentSpecials.weaponTypes;
+        newWeaponTypes.splice(typeInd, 1);
+        props.updateState('currentSpecials', { 'weaponTypes': newWeaponTypes, 'weaponSpecials': currentSpecials.weaponSpecials });
+    }
+
+    function activateWeaponSpecial(specialInd) {
+        if (currentWeaponType !== null) {
+            let newWeaponSpecials = [...currentSpecials.weaponSpecials];
+            newWeaponSpecials.splice(specialInd, 1);
+            setCurrentWeaponSpecial(currentSpecials.weaponSpecials[specialInd]);
+            props.updateState('currentSpecials', { 'weaponTypes': currentSpecials.weaponTypes, 'weaponSpecials': newWeaponSpecials });
+        }
+    }
+
+    function createTypesAndSpecials() {
+        let weaponTypes = [];
+        let weaponSpecials = [];
+        for (let i = 0; i < 3; i++) {
+            let newType = randomWeaponType();
+            while (weaponTypes.includes(newType)) {
+                newType = randomWeaponType();
+            }
+            weaponTypes.push(newType);
+        };
+        for (let i = 0; i < 4; i++) {
+            weaponSpecials.push(randomWeaponSpecial());
+        };
+        props.updateState('currentSpecials', { 'weaponTypes': weaponTypes, 'weaponSpecials': weaponSpecials});
     }
 
     function weaponName() {
         let weaponString;
-        let activateButton;
-        if (currentSpecials.weaponType && currentSpecials.weaponSpecial) {
-            if (Object.keys(currentSpecials.weaponSpecial)[0] === "verb") {
-                weaponString = currentSpecials.weaponSpecial["verb"] + currentSpecials.weaponType;
+        let endSceneButton;
+        if (currentWeaponType !== null && currentWeaponSpecial !== null) {
+            if (currentWeaponSpecial.category === "Verb") {
+                weaponString = currentWeaponSpecial.special + " " + currentSpecials.weaponTypes[currentWeaponType];
             } else {
-                weaponString = currentSpecials.weaponType + currentSpecials.weaponSpecial["element"];
+                weaponString = currentSpecials.weaponTypes[currentWeaponType] + " of " + currentWeaponSpecial.special;
             }
-        } else if (currentSpecials.weaponType) {
-            weaponString = currentSpecials.weaponType;
+        } else if (currentWeaponType !== null) {
+            weaponString = currentSpecials.weaponTypes[currentWeaponType];
         }
-        if (currentSpecials.weaponSpecial) activateButton = <button onClick={activateWeaponSpecial}>Activate Weapon Special</button>
+        if (currentWeaponSpecial !== null) endSceneButton = <button onClick={() => setCurrentWeaponSpecial(null)}>End Scene</button>
 
         return (
             <>
             <div><strong>{weaponString}</strong></div>
-            {activateButton}
+            {endSceneButton}
             </>
         )
     }
@@ -82,11 +106,66 @@ export default function Battlebro(props) {
         charge === num ? setCharge(charge - 1) : setCharge(num);
     }
 
-    function activateWeaponSpecial() {
-        let newSpecials = Object.assign({}, currentSpecials);
-        newSpecials.weaponSpecial = { "verb": `` };
-        props.updateState("currentSpecials", newSpecials)
+    function chargeDisp() {
+        return (
+            <>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <div>Weapon Charge</div>
+            <div className="class-radio-container">
+                <button onClick={() => setChargeNum(1)}>{charge >= 1 ? "⦿" : "⦾"}</button>
+                <button onClick={() => setChargeNum(2)}>{charge >= 2 ? "⦿" : "⦾"}</button>
+                <button onClick={() => setChargeNum(3)}>{charge >= 3 ? "⦿" : "⦾"}</button>
+            </div>
+            </div>
+            <button className="ability-randomize-button" onClick={''}>Charge Weapon<br />(-1 Charge)</button>
+            </>
+        )
     }
+
+    function weaponTypesDisp() {
+        if (currentSpecials.weaponTypes) {
+            return (
+                <>
+                <h3>Weapon Forms</h3>
+                <ul className="resource-list">
+                    {currentSpecials.weaponTypes.map((wt, i) => {
+                        return (
+                            <li onClick={() => setCurrentWeaponType(i)} key={i} className="resource-list-entry pointer">
+                                <div className={`weaponType${currentWeaponType === i ? ' selected' : ''}`} onClick={() => setCurrentWeaponType(i)}><strong>{wt}</strong></div>
+                            </li>
+                        )
+                    })}
+                </ul>
+                </>
+            )
+        }
+    }
+
+    function weaponSpecialsDisp() {
+        if (currentSpecials.weaponSpecials && currentSpecials.weaponSpecials.length > 0) {
+            return (
+                <>
+                    <h3>Weapon Effects</h3>
+                    <ul className="resource-list">
+                        {currentSpecials.weaponSpecials.map((ws, i) => {
+                            return (
+                                <li key={i} className="resource-list-entry">
+                                    <div><strong>{ws.special}</strong></div>
+                                    <button onClick={() => activateWeaponSpecial(i)}>Use</button>
+                                </li>
+                            )
+                        })}
+                    </ul>
+                </>
+            )
+        }
+    }
+
+    // function activateWeaponSpecial() {
+    //     let newSpecials = Object.assign({}, currentSpecials);
+    //     newSpecials.weaponSpecial = { "verb": `` };
+    //     props.updateState("currentSpecials", newSpecials)
+    // }
 
     return (
         <div className="class-ability-container">
@@ -96,12 +175,13 @@ export default function Battlebro(props) {
                 <div className="ability-desc">
                     <div className="ability-desc-scrollbox">
                         <div>Magic Ability:<br/><strong>Graduate Weapon</strong></div>
-                        <div>Your capstone project from Fighter College is a shapechanging weapon. You can spend a point of Charge to change its shape and imbue it with a magical property.</div>
-                        <div>When you use that property for a bonus on an action, it is exhausted until you recharge it (though you can continue to use it as a normal weapon).</div>
-                        <div>Whenever you rest, the weapon gains a random type and magic property, but resets to 0 Charge. You gain 1 charge anytime you defeat an enemy in battle.</div>
+                        <div>Your capstone project from Fighter College is a shapechanging weapon. Whenever you rest, it generates a set of three weapon types and three magical properties.</div>
+                        <div>You can change the Graduate Weapon between any of the three weapon types at will, gaining circumstance Advantage where appropriate.</div>
+                        <div>When you activate one of the magical properties, your weapon is imbued with that effect in any form for the duration fo the scene or until you activate another property.</div>
                         <br/>
                         <div>Resource Item:<br/><strong>Weapon Oil</strong></div>
                         <div>Use a Weapon Oil to charge your weapon with the oil's property.</div> 
+                        <br/>
                     </div>
                 </div>
             </div>
@@ -109,16 +189,15 @@ export default function Battlebro(props) {
                 <div className="ability-main" style={{flexDirection: 'column'}}>
                     {weaponName()}
                 </div>
-                <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-                    <div>Weapon Charge</div>
-                    <div className="class-radio-container">
-                        <button onClick={() => setChargeNum(1)}>{charge >= 1 ? "⦿" : "⦾"}</button>
-                        <button onClick={() => setChargeNum(2)}>{charge >= 2 ? "⦿" : "⦾"}</button>
-                        <button onClick={() => setChargeNum(3)}>{charge >= 3 ? "⦿" : "⦾"}</button>
+                <div className="resource-lists-container" id="weapon-list">
+                    <div id="specials-display">
+                        {weaponSpecialsDisp()}
+                    </div>
+                    <div id="types-display">
+                        {weaponTypesDisp()}
                     </div>
                 </div>
                 <div className="ability-management-container">
-                    <button className="ability-randomize-button" onClick={randomizeWeapon}>Charge Weapon<br/>(-1 Charge)</button>
                     <div className="custom-add-row">
                         <div>Change Weapon Property: </div>
                         <div className="custom-add-field">
@@ -127,18 +206,19 @@ export default function Battlebro(props) {
                                 <option value="Element">Element</option>
                             </select>
                             <input style={{ width: '30vw' }} type="text" ref={input2}></input>
-                            <button onClick={() => changeWeaponSpecial(false)}>+</button>
-                            <button onClick={() => changeWeaponSpecial(true)}>🎲</button>
+                            <button onClick={() => addCustomWeaponSpecial(false)}>+</button>
+                            <button onClick={() => addCustomWeaponSpecial(true)}>🎲</button>
                         </div>
                     </div>
                     <div className="custom-add-row">
                         <div>Change Weapon Type: </div>
                         <div className="custom-add-field">
                             <input style={{ width: '30vw' }} type="text" ref={input3}></input>
-                            <button onClick={() => changeWeaponType(false)}>+</button>
-                            <button onClick={() => changeWeaponType(true)}>🎲</button>
+                            <button onClick={() => addCustomWeaponType(false)}>+</button>
+                            <button onClick={() => addCustomWeaponType(true)}>🎲</button>
                         </div>
                     </div>
+                    <button className="ability-randomize-button" onClick={createTypesAndSpecials}>Generate Weapon Types and Specials<br />(On rest)</button>
                 </div>
             </div>
         </div>

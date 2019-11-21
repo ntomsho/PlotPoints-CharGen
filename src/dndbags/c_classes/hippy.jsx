@@ -16,7 +16,11 @@ export default function Hippy(props) {
         let forms = [];
         let gifts = [];
         for (let i = 0; i < 3; i++) {
-            forms.push(randomAnimal());
+            let newForm = randomAnimal();
+            while (forms.includes(newForm)) {
+                newForm = randomAnimal();
+            }
+            forms.push(newForm);
             gifts.push(random(MUTATIONS));
         };
         props.updateState('currentSpecials', { 'forms': forms, 'gifts': gifts });
