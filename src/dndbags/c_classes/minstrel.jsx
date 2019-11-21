@@ -138,6 +138,7 @@ export default function Minstrel(props) {
                         <br/>
                         <div>Resource Item:<br/><strong>Songbooks and Sheet Music</strong></div>
                         <div>Spend a songbook or sheet music to add its song or note to your day's repertoire.</div>
+                        <br />
                     </div>
                 </div>
             </div>

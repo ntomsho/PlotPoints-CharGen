@@ -70,6 +70,7 @@ export default function Verbpriest(props) {
                         <br/>
                         <div>Resource Item:<br/><strong>Command Scrolls</strong></div>
                         <div>Spend a Command Scroll to gain a Command with that word.</div>
+                        <br />
                     </div>
                 </div>
             </div>

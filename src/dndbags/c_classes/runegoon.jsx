@@ -91,6 +91,7 @@ export default function Runegoon(props) {
                         <br/>
                         <div>Resource Item:<br/><strong>Scrolls of Power</strong></div>
                         <div>Spend a Scroll of Power to gain a rune for its word.</div>
+                        <br />
                     </div>
                 </div>
             </div>

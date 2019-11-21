@@ -110,6 +110,7 @@ export default function Bowslinger(props) {
                         <br/>
                         <div>Resource Item:<br/><strong>Weapon Oil</strong></div>
                         <div>Spend a Weapon Oil to create ammo with the oil's property.</div>
+                        <br/>
                     </div>
                 </div>
             </div>

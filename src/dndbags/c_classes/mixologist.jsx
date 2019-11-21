@@ -140,6 +140,7 @@ export default function Mixologist(props) {
                         <br/>
                         <div>Resource Item:<br/><strong>Alchemical Ingredients</strong></div>
                         <div>Spend an alchemical ingredient to add it your current lists of Bases or Catalysts.</div>
+                        <br />
                     </div>
                 </div>
             </div>

@@ -135,6 +135,7 @@ export default function Hippy(props) {
                         <br/>
                         <div>Resource Item:<br/><strong>Animal Totems</strong></div>
                         <div>Spend an Animal Totem to gain a form that is the totem's animal.</div>
+                        <br />
                     </div>
                 </div>
             </div>

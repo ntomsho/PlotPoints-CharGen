@@ -107,6 +107,7 @@ export default function KnightOfTushuze(props) {
                             <li>(Compassion) Heal yourself or an ally for 1d6 Health</li>
                             <li>(Honor) Create a divine shield to protect yourself or an ally</li>
                         </ul>
+                        <br />
                     </div>
                 </div>
             </div>

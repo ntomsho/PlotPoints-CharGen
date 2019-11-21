@@ -96,6 +96,7 @@ export default function Ragesmasher(props) {
                         <br/>
                         <div>Resource Item:<br/><strong>Animal Totems</strong></div>
                         <div>Spend an Animal Totem to gain a Totem Spirit of its animal type.</div>
+                        <br />
                     </div>
                 </div>
             </div>

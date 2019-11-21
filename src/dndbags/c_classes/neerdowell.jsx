@@ -61,6 +61,7 @@ export default function Neerdowell(props) {
                             <li>Activate its magical property for one action</li>
                             <li>Change its weapon type or its magical property</li>
                         </ul>
+                        <br/>
                     </div>
                 </div>
             </div>

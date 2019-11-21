@@ -54,6 +54,7 @@ export default function Zoomaster(props) {
                         <div>Your best friend is a Chimera that shifts between the shapes of various creatures. Whenever you rest, it assumes a new animal form and mutation.</div>
                         <div>If you feed your Chimera a hearty meal of whatever its current form eat, you can change its mutation, animal form, or both.</div>
                         <div>You and your Chimera share Health. Any damage or healing done to one of you is done to the other.</div>
+                        <br />
                     </div>
                 </div>
             </div>

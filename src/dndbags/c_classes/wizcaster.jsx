@@ -187,6 +187,7 @@ export default function Wizcaster(props) {
                         <br/>
                         <div>Resource Item:<br/><strong>Scrolls of Power</strong></div>
                         <div>Spend a Scroll of Power to add its word to your current Words of Power.</div>
+                        <br />
                     </div>
 
                 </div>
