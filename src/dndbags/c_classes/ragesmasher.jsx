@@ -14,7 +14,7 @@ export default function Ragesmasher(props) {
 
     function createTotems() {
         let totems = [];
-        while (totems.length < 4) {
+        while (totems.length < 3) {
             totems.push(randomAnimal());
         };
         props.updateState('currentSpecials', { 'totems': totems })

@@ -17,12 +17,16 @@ class Dndb extends React.Component {
             appearance: "",
             derp: "",
             health: 7,
+            maxHealth: 7,
             plotPoints: 1,
             trainedSkills: [],
             currentSpecials: {},
             inventory: ["", "", "", "", "", "", "", "", "", "", "", ""],
             level: 1,
             experience: 0,
+            advancements: [],
+            savedTag: "",
+            rerolls: 0,
             regulation: true
         }
         this.updateState = this.updateState.bind(this);

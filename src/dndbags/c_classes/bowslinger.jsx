@@ -17,7 +17,7 @@ export default function Bowslinger(props) {
 
     function createAmmo() {
         let ammo = [];
-        for(let i = 0; i < 5; i++) {
+        for(let i = 0; i < 4; i++) {
             ammo.push(randomAmmo());
         };
         props.updateState('currentSpecials', {'ammo': ammo})
