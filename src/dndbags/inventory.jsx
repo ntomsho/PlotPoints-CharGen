@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { random, EQUIPMENT, STARTING_ITEMS, WEAPONS, ELEMENTS, VERBS, GERUNDS, randomAnimal, randomMagicItem, SONGS, ELEMENTS_OF, BASES, FORMS } from '../dndb-tables';
+import { random, EQUIPMENT, STARTING_ITEMS, WEAPONS, ELEMENTS, VERBS, GERUNDS, randomAnimal, randomMagicItem, SONGS, ELEMENTS_OF, BASES, FORMS, randomResourceItem } from '../dndb-tables';
 
 export default function Inventory(props) {
     const [startingChoices, setStartingChoices] = useState([])
@@ -82,27 +82,15 @@ export default function Inventory(props) {
                     item = random(WEAPONS.slice(19, 36));
                     break;
                 case "Weapon Oil":
-                    item = `${random(random([ELEMENTS, GERUNDS]))} Weapon Oil`;
-                    break;
                 case "Animal Totem":
-                    item = `${randomAnimal()} Totem`;
+                case "Songbook":
+                case "2 Alchemical Ingredients":
+                case "Scroll of Power":
+                case "Holy Symbol":
+                    item = randomResourceItem(startingChoices[i])
+                    break;
                 case "Magic Item":
                     item = randomMagicItem();
-                    break;
-                case "Songbook":
-                    item = random([
-                        `${random(SONGS)} of ${ELEMENTS_OF}`,
-                        `${random(GERUNDS)} ${random(SONGS)}`
-                    ]);
-                    break;
-                case "Magic Potion":
-                    item = `${random(random([ELEMENTS, GERUNDS]))} Potion`;
-                    break;
-                case "2 Alchemical Ingredients":
-                    item = `${random(BASES)} Base + ${random(random([ELEMENTS, VERBS]))} Catalyst`;
-                    break;
-                case "Scroll of Power":
-                    item = `Scroll of ${random(random([ELEMENTS, GERUNDS, FORMS]))}`
                     break;
                 default:
                     item = startingChoices[i];

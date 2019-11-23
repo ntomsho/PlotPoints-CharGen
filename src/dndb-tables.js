@@ -824,7 +824,8 @@ export const RESOURCE_ITEMS = [
     "Animal Totem",
     "Scroll of Power",
     "Command Scroll",
-    "Songbook/Sheet Music",
+    "Songbook",
+    "Holy Symbol",
     "Alchemical Ingredient"
 ]
 
@@ -847,7 +848,7 @@ export const STARTING_ITEMS = {
         ["Melee Weapon", "Ranged Weapon"], ["Musical instrument", "Horn"], ["Lockpicks", "Disguise Kit"], ["Songbook", "Magic Item"]
     ],
     "Mixologist": [
-        ["Melee Weapon", "Ranged Weapon"], ["Alchemist's tools"], ["Vial of acid", "Vial of poison"], ["Magic Potion", "2 Alchemical Ingredients"]
+        ["Melee Weapon", "Ranged Weapon"], ["Alchemist's tools"], ["Vial of acid", "Vial of poison"], ["Potion of Healing", "2 Alchemical Ingredients"]
     ],
     "Ne'erdowell": [
         ["Melee Weapon", "Ranged Weapon"], ["Lockpicks", "Grappling hook"], ["Caltrops", "Crowbar"], ["Magic Item"]
@@ -865,7 +866,7 @@ export const STARTING_ITEMS = {
         ["Staff", "Dagger"], ["Ranged Weapon", "Bookbinder's tools"], ["Scroll of Power", "Magic Item"]
     ],
     "Zoomaster": [
-        ["Melee Weapon", "Ranged Weapon"], ["Shield", "Spare ammo"], ["Potion of Healing", "Creature fodder"]
+        ["Melee Weapon", "Ranged Weapon"], ["Shield", "Spare ammo"], ["Potion of Healing", "Animal Totem"]
     ]
 }
 
@@ -900,4 +901,25 @@ export function randomMagicItem() {
         `${random(GERUNDS)} ${random(BASES)}`,
         `${random(BASES)} of ${random(ELEMENTS_OF)}`
     ])
+}
+
+export function randomResourceItem(resource) {
+    switch (resource) {
+        case "Weapon Oil":
+            return `Weapon Oil of ${random([random(ELEMENTS_OF), random(GERUNDS)])}`;
+        case "Animal Totem":
+            return `${randomAnimal()} with ${random(MUTATIONS)} Totem`
+        case "Scroll of Power":
+            return `Scroll of ${random([random(GERUNDS), random(ELEMENTS)])}`
+        case "Command Scroll":
+            return `Scroll of ${random(COMMANDS)}`
+        case "Songbook":
+            return `Songbook of ${random([random(ELEMENTS_OF), random(GERUNDS)])}`
+        case "Holy Symbol":
+            return `Holy Symbol of ${random(SKILLS)}`
+        case "Alchemical Ingredient":
+            return `${random([random(BASES) + " Base", random(ELEMENTS_OF) + " Catalyst", random(GERUNDS)])}`
+        default:
+            return randomResourceItem(random(RESOURCE_ITEMS))
+    }
 }
