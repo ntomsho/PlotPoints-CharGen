@@ -1,5 +1,5 @@
 import React from 'react';
-import { random } from '../../dndb-tables';
+import { random, SKILLS } from '../../dndb-tables';
 
 export default function KnightOfTushuze(props) {
     let { currentSpecials } = props;
@@ -10,7 +10,7 @@ export default function KnightOfTushuze(props) {
     }
 
     function randomBlessing() {
-        return random(["Bravery", "Compassion", "Honor"]);
+        return random(SKILLS);
     }
 
     function createBlessings() {
@@ -33,30 +33,34 @@ export default function KnightOfTushuze(props) {
         props.updateState('currentSpecials', { 'blessings': newBlessings });
     }
 
-    function blessingSkills(blessing) {
+    function blessingVirtues(blessing) {
+        //Formatting looks bad on desktop, but so does a lot of it
         switch (blessing) {
-            case "Bravery":
+            case "Believe in Yourself":
+            case "Cardio":
+            case "Creepin'":
                 return (
                     <>
-                    <li>Believe in Yourself</li>
-                    <li>Brute Force</li>
-                    <li>Cardio</li>
+                    <li>Bravery</li>
+                    <li>Holy Light</li>
                     </>
                 )
-            case "Compassion":
+            case "Brute Force":
+            case "Rad Moves":
+            case "Spottin'":
                 return (
                     <>
-                    <li>Macgyver</li>
-                    <li>Spottin'</li>
-                    <li>Thinkiness</li>
+                    <li>Compassion</li>
+                    <li>Lay on Hands (1d6 healing)</li>
                     </>
                 )
-            default:
+            case "Macgyver":
+            case "Man vs. Wild":
+            case "Thinkiness":
                 return (
                     <>
-                    <li>Creepin'</li>
-                    <li>Man vs. Wild</li>
-                    <li>Rad Moves</li>
+                    <li>Honor</li>
+                    <li>Divine Shield</li>
                     </>
                 )
         }
@@ -72,7 +76,7 @@ export default function KnightOfTushuze(props) {
                                 <div>
                                     Blessing of <strong>{blessing}</strong>
                                     <ul className="resource-subfield">
-                                        {blessingSkills(blessing)}
+                                        {blessingVirtues(blessing)}
                                     </ul>
                                 </div>
                                 <button onClick={() => consumeBlessing(i)}>Use</button>
@@ -92,19 +96,13 @@ export default function KnightOfTushuze(props) {
                 <div className="ability-desc">
                     <div className="ability-desc-scrollbox">
                         <div>Magic Ability:<br /><strong>Blessings of Tushuze</strong></div>
-                        <div>Members of the order gain four blessings per day, and can gain more by doing good deeds.</div>
-                        <br/>
-                        <ul>
-                            <li>Gain a Blessing of Bravery by facing physical harm or other danger on someone else's behalf.</li>
-                            <li>Gain a Blessing of Compassion by giving away your belongings or resources to help someone else for no reward.</li>
-                            <li>Gain a Blessing of Honor by declining an unfair advantage over an enemy or refusing to lie when it might benefit you.</li>
-                        </ul>
+                        <div>Members of the order gain five blessings per day, each of which is tied to a Skill and a Virtue of Tushuze.</div>
                         <br/>
                         <div>You can spend a Blessing to:</div>
                         <ul>
-                            <li>(Any) Give yourself or an ally Magic Advantage on an action using the listed Skill</li>
+                            <li>(Any) Give yourself or an ally Magic Advantage on an action that uses the listed Skill</li>
                             <li>(Bravery) Create an intensely bright light that evil things hate for the duration of the scene</li>
-                            <li>(Compassion) Heal yourself or an ally for 1d6 Health</li>
+                            <li>(Compassion) Lay hands on yourself or an ally to heal them for 1d6 Health</li>
                             <li>(Honor) Create a divine shield to protect yourself or an ally</li>
                         </ul>
                         <br />
@@ -121,9 +119,15 @@ export default function KnightOfTushuze(props) {
                             <div>Add Blessing: </div>
                             <div className="custom-add-field">
                                 <select ref={input}>
-                                    <option value="Bravery">Bravery</option>
-                                    <option value="Compassion">Compassion</option>
-                                    <option value="Honor">Honor</option>
+                                    <option value="Believe in Yourself">Believe in Yourself (Bravery)</option>
+                                    <option value="Brute Force">Brute Force (Compassion)</option>
+                                    <option value="Cardio">Cardio (Bravery)</option>
+                                    <option value="Creepin'">Creepin' (Bravery)</option>
+                                    <option value="Man vs. Wild">Man vs. Wild (Honor)</option>
+                                    <option value="Macgyver">Macgyver (Honor)</option>
+                                    <option value="Rad Moves">Rad Moves (Compassion) </option>
+                                    <option value="Shootin'">Shootin' (Compassion)</option>
+                                    <option value="Thinkiness">Thinkiness (Honor)</option>
                                 </select>
                                 <button onClick={() => addCustomBlessing(false)}>+</button>
                                 <button onClick={() => addCustomBlessing(true)}>🎲</button>

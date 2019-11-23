@@ -842,7 +842,7 @@ export const STARTING_ITEMS = {
         ["Melee Weapon", "Ranged Weapon"], ["Medicinal Herb", "Vial of poison"], ["Animal Totem", "Magic Item"]
     ],
     "Knight of Tushuze": [
-        ["Melee Weapon"], ["Ranged Weapon", "Shield"], ["Potion of Healing", "Magic Item"]
+        ["Melee Weapon"], ["Ranged Weapon", "Shield"], ["Holy Symbol", "Magic Item"]
     ],
     "Minstrel": [
         ["Melee Weapon", "Ranged Weapon"], ["Musical instrument", "Horn"], ["Lockpicks", "Disguise Kit"], ["Songbook", "Magic Item"]

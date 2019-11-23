@@ -136,8 +136,8 @@ export default function Minstrel(props) {
                         <div>Your music is magic! Whenever you rest, you recall a selection of three song genres and six magic notes.</div>
                         <div>Spend one of your notes to play a song as an action, performing the song's effect modified by the effect of the note used.</div>
                         <br/>
-                        <div>Resource Item:<br/><strong>Songbooks and Sheet Music</strong></div>
-                        <div>Spend a songbook or sheet music to add its song or note to your day's repertoire.</div>
+                        <div>Resource Item:<br/><strong>Songbooks</strong></div>
+                        <div>Spend a songbook to add its song or note to your day's repertoire.</div>
                         <br />
                     </div>
                 </div>

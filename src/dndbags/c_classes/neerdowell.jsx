@@ -11,7 +11,7 @@ export default function Neerdowell(props) {
 
     function createItems() {
         let items = [];
-        for (let i = 0; i < 3; i++) {
+        for (let i = 0; i < 4; i++) {
             items.push(randomMagicItem());
         };
         props.updateState('currentSpecials', { 'items': items })
@@ -56,7 +56,7 @@ export default function Neerdowell(props) {
                     <div className="ability-desc-scrollbox">
                         <div>Magic Ability:<br /><strong>Bag of Tricks</strong></div>
                         <div>The Ne'erdowell never leaves home without a seemingly bottomless bag of single-use magic items of dubious provenance.</div>
-                        <div>Whenever you rest, a new set of five magic items is available for use from the bag.</div>
+                        <div>Whenever you rest, a new set of four magic items is available for use from the bag.</div>
                         <ul>
                             <li>Activate its magical property for one action</li>
                             <li>Change its weapon type or its magical property</li>
