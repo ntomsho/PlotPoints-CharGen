@@ -1,13 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { API, Auth } from 'aws-amplify';
+import { API } from 'aws-amplify';
 import { CLASSES, CLASS_COLORS, SKILLS, ALTRACES, random, randomRace, BACKGROUNDS, APPEARANCES, DERPS } from '../dndb-tables';
 import Dndb from './Dndb';
 import ModalManager from '../modal_manager';
-
-let currentUser;
-Auth.currentAuthenticatedUser().then(user => {
-    currentUser = user.username;
-})
 
 export default function CharSelect(props) {
     const [charsList, setCharsList] = useState([]);
@@ -41,7 +36,7 @@ export default function CharSelect(props) {
         let otherChars = [];
         const response = await API.get('dndb', '/dndb');
         response.data.forEach(loadChar => {
-            if (loadChar.playerName === currentUser) {
+            if (loadChar.playerName === props.currentUser) {
                 myChars.push(loadChar);
             }
         })
@@ -57,7 +52,7 @@ export default function CharSelect(props) {
     function saveChar(char) {
         getChar(char.name).then(response => {
             const existingChar = response[0];
-            if (!existingChar || existingChar.playerName === currentUser) {
+            if (!existingChar || existingChar.playerName === props.currentUser) {
                 put(char);
             } else {
                 alert(`There's already a character named ${char.name}. Don't blame me, blame ${existingChar.playerName}.`);
@@ -68,7 +63,7 @@ export default function CharSelect(props) {
     async function put(char) {
         console.log('calling api post');
         let newChar = Object.assign({}, char);
-        newChar['playerName'] = currentUser;
+        newChar['playerName'] = props.currentUser;
         newChar['trainedSkills'] = JSON.stringify(char.trainedSkills);
         newChar['currentSpecials'] = JSON.stringify(char.currentSpecials);
         newChar['inventory'] = JSON.stringify(char.inventory);

@@ -1,7 +1,7 @@
 import React from 'react';
 import Amplify, {Auth} from 'aws-amplify';
 import awsconfig from './aws-exports';
-import { withAuthenticator } from 'aws-amplify-react';
+import { withAuthenticator, SignIn, SignUp } from 'aws-amplify-react';
 import './stylesheets/App.css';
 import {
   BrowserRouter as Router,
@@ -11,15 +11,22 @@ import {
 // import Dndb from './dndbags/Dndb.jsx';
 import CharSelect from './dndbags/char_select';
 import Home from './Home';
+import MyNavbar from './navbar';
 
 Amplify.configure(awsconfig)
 
+
 function App() {
+  let currentUser;
+  Auth.currentAuthenticatedUser().then(user => {
+    currentUser = user.username;
+  })
   return (
     <Router>
       <Switch>
         <Route path="/dndb">
-          <CharSelect />
+          <MyNavbar currentUser={currentUser} />
+          <CharSelect currentUser={currentUser} />
         </Route>
         <Route exact path="/">
           <Home />
@@ -29,4 +36,7 @@ function App() {
   );
 }
 
-export default withAuthenticator(App, true);
+export default withAuthenticator(App, {
+  includeGreetings: false,
+  authenticatorComponents: [<SignIn />, <SignUp />, MyNavbar]
+});
