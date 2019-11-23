@@ -28,7 +28,7 @@ export default function CharSelect(props) {
 
     useEffect(() => {
         updateChars();
-    }, []);
+    }, [props.currentUser]);
 
     async function get() {
         console.log('calling api get');

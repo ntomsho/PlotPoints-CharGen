@@ -1,5 +1,5 @@
-import React from 'react';
-import Amplify, {Auth} from 'aws-amplify';
+import React, { useState, useEffect } from 'react';
+import Amplify, { Auth } from 'aws-amplify';
 import awsconfig from './aws-exports';
 import { withAuthenticator, SignIn, SignUp } from 'aws-amplify-react';
 import './stylesheets/App.css';
@@ -15,12 +15,14 @@ import MyNavbar from './navbar';
 
 Amplify.configure(awsconfig)
 
-
 function App() {
-  let currentUser;
-  Auth.currentAuthenticatedUser().then(user => {
-    currentUser = user.username;
-  })
+  const [currentUser, setCurrentUser] = useState("");
+  useEffect(() => {
+    Auth.currentAuthenticatedUser().then(user => {
+      setCurrentUser(user.username);
+    });
+  });
+
   return (
     <Router>
       <Switch>
