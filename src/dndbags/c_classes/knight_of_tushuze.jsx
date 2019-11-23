@@ -41,7 +41,7 @@ export default function KnightOfTushuze(props) {
             case "Creepin'":
                 return (
                     <>
-                    <li>Bravery</li>
+                    <li style={{listStyle: 'none'}}>Bravery</li>
                     <li>Holy Light</li>
                     </>
                 )
@@ -50,7 +50,7 @@ export default function KnightOfTushuze(props) {
             case "Spottin'":
                 return (
                     <>
-                    <li>Compassion</li>
+                    <li style={{ listStyle: 'none' }}>Compassion</li>
                     <li>Lay on Hands (1d6 healing)</li>
                     </>
                 )
@@ -59,7 +59,7 @@ export default function KnightOfTushuze(props) {
             case "Thinkiness":
                 return (
                     <>
-                    <li>Honor</li>
+                    <li style={{ listStyle: 'none' }}>Honor</li>
                     <li>Divine Shield</li>
                     </>
                 )

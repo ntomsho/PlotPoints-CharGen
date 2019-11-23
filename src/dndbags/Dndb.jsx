@@ -56,6 +56,15 @@ class Dndb extends React.Component {
         }
     }
 
+    // randomizeTrait(trait) {
+    //     let newState = this.state;
+    //     switch (trait) {
+
+    //     }
+    //     newState.rerolls += 1;
+    //     this.setState(newState);
+    // }
+
     updateHealth(num) {
         this.updateState('health', this.state.health === num ? num - 1 : num);
     }

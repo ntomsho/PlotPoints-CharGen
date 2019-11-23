@@ -443,7 +443,7 @@ export const WEAPONS = [
     "Chakram",
     "Composite bow",
     "Crossbow",
-    "Heavy rock",
+    "Hand crossbow",
     "Hunting bow",
     "Javelins",
     "Longbow",
