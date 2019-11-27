@@ -33,7 +33,6 @@ export default function CharSelect(props) {
     async function get() {
         console.log('calling api get');
         let myChars = [];
-        let otherChars = [];
         const response = await API.get('dndb', '/dndb');
         response.data.forEach(loadChar => {
             if (loadChar.playerName === props.currentUser) {
@@ -67,6 +66,7 @@ export default function CharSelect(props) {
         newChar['trainedSkills'] = JSON.stringify(char.trainedSkills);
         newChar['currentSpecials'] = JSON.stringify(char.currentSpecials);
         newChar['inventory'] = JSON.stringify(char.inventory);
+        newChar['advancements'] = JSON.stringify(char.advancements);
         newChar['regulation'] = char.regulation ? "true" : "false";
         const response = await API.put('dndb', '/dndb', {
             body: {
@@ -90,10 +90,11 @@ export default function CharSelect(props) {
 
     function loadChar(loadChar) {
         let newChar = loadChar;
-        newChar['trainedSkills'] = JSON.parse(newChar['trainedSkills'])
-        newChar['currentSpecials'] = JSON.parse(newChar['currentSpecials'])
-        newChar['inventory'] = JSON.parse(newChar['inventory'])
-        console.log(newChar)
+        newChar['trainedSkills'] = JSON.parse(newChar['trainedSkills']);
+        newChar['currentSpecials'] = JSON.parse(newChar['currentSpecials']);
+        newChar['inventory'] = JSON.parse(newChar['inventory']);
+        newChar['advancements'] = JSON.parse(newChar['advancements']);
+        console.log(newChar);
         setChar(newChar);
     }
 
