@@ -36,6 +36,25 @@ button {
   padding: 0 2% 0 2%;
 }
 
+/* Navbar */
+.amplify-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#navbar-menu{
+  width: 8vw;
+  cursor: pointer;
+}
+
+@media screen and (min-width: 600px) {
+  #navbar-menu {
+    width: 4vw;
+  }
+}
+
+
 /* Char Select */
 
 .char-select-menu {
