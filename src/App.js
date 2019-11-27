@@ -27,7 +27,6 @@ function App() {
     <Router>
       <Switch>
         <Route path="/dndb">
-          <MyNavbar currentUser={currentUser} />
           <CharSelect currentUser={currentUser} />
         </Route>
         <Route exact path="/">

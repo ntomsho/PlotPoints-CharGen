@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { withAuthenticator } from 'aws-amplify-react';
 import { API } from 'aws-amplify';
 import { CLASSES, CLASS_COLORS, SKILLS, ALTRACES, random, randomRace, BACKGROUNDS, APPEARANCES, DERPS } from '../dndb-tables';
 import Dndb from './Dndb';
 import ModalManager from '../modal_manager';
+import MyNavbar from '../navbar';
 
-export default function CharSelect(props) {
+function CharSelect(props) {
     const [charsList, setCharsList] = useState([]);
     const [char, setChar] = useState({});
     const [modalOut, setModalOut] = useState(false);
@@ -111,6 +113,14 @@ export default function CharSelect(props) {
 
     function charSelectDisp() {
         return (
+            <>
+            <MyNavbar currentUser={props.currentUser}
+                currentChar={null}
+                charsList={charsList}
+                clearChar={clearChar}
+                saveChar={saveChar}
+                randomChar={randomChar}
+            />
             <div className="char-select-menu">
                 <h1 className="color-header">Dungeons & Douchebags</h1>
                 <div className="random-character">
@@ -135,12 +145,20 @@ export default function CharSelect(props) {
                     </ul>
                 </div>
             </div>
+            </>
         )
     }
 
     if (JSON.stringify(char) !== JSON.stringify({})) {
         return (
             <div id="dndb-main-container">
+                <MyNavbar currentUser={props.currentUser}
+                    currentChar={char}
+                    charsList={charsList}
+                    clearChar={clearChar}
+                    saveChar={saveChar}
+                    randomChar={randomChar}
+                />
                 <Dndb
                     loadedChar={char} 
                     clearChar={clearChar} 
@@ -155,3 +173,8 @@ export default function CharSelect(props) {
         return charSelectDisp()
     }
 }
+
+export default withAuthenticator(CharSelect, {
+    includeGreetings: false,
+    authenticatorComponents: [MyNavbar]
+});

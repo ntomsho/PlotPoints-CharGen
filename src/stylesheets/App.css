@@ -43,13 +43,29 @@ button {
   align-items: center;
 }
 
-#navbar-menu{
+#navbar-menu-button {
   width: 8vw;
   cursor: pointer;
 }
 
+.navbar-menu {
+  position: absolute;
+  width: 25vw;
+  height: 40vh;
+  transition: height 1s;
+  background-color: white;
+  z-index: 5;
+  overflow: auto;
+}
+
+.navbar-menu.hidden {
+  height: 0px;
+  transition: height 1s;
+  overflow: hidden;
+}
+
 @media screen and (min-width: 600px) {
-  #navbar-menu {
+  #navbar-menu-button {
     width: 4vw;
   }
 }
