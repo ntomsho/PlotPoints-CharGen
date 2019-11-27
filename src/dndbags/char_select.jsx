@@ -10,6 +10,7 @@ function CharSelect(props) {
     const [charsList, setCharsList] = useState([]);
     const [char, setChar] = useState({});
     const [modalOut, setModalOut] = useState(false);
+    const [rollerOut, setRollerOut] = useState(false);
 
     const defaultSheet = {
         name: "",
@@ -164,7 +165,9 @@ function CharSelect(props) {
                     clearChar={clearChar} 
                     saveChar={saveChar} 
                     modalOut={modalOut}
+                    rollerOut={rollerOut}
                     setModalOut={setModalOut} 
+                    setRollerOut={setRollerOut}
                 />
                 <ModalManager modalOut={modalOut} setModalOut={setModalOut} />
             </div>

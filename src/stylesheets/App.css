@@ -178,6 +178,62 @@ button {
   }
 }
 
+/* Dice Roller */
+
+.dice-roller-container.hidden {
+  display: none;
+}
+
+.dice-roller-container {
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(100, 100, 100, 0.2);
+  top: 0;
+  left: 0;
+  z-index: 10;
+}
+
+.dice-roller-main {
+  position: absolute;
+  height: 90vh;
+  width: 90vw;
+  background-color: white;
+  border: 1px solid black;
+  top: 5vh;
+  left: 5vw;
+  z-index: 11;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.d20 {
+  width: 60vw;
+}
+
+.d20-value{
+  position: absolute;
+  top: 17%;
+  font-size: 10vw;
+}
+
+.advantage-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.advantage-die {
+  font-size: 25vw;
+}
+
+.dice-roller-main button {
+  width: 5vw;
+  height: 5vh;
+  font-size: 5vw;
+}
+
 /* Dndb Main */
 
 h1, h2, h3 {

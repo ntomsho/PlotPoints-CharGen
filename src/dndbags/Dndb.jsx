@@ -1,6 +1,7 @@
 import React from 'react';
 import { CLASSES, ALTRACES, random, randomRace, BACKGROUNDS, APPEARANCES, DERPS } from '../dndb-tables';
 import RulesModal from './rules_modal';
+import DiceRoller from './dice_roller';
 import Skills from './skills';
 import ClassMain from './class_main';
 import Inventory from './inventory';
@@ -129,15 +130,14 @@ class Dndb extends React.Component {
         return (
             <div id="dndb-main">
                 <RulesModal setModalOut={this.props.setModalOut} extended={this.props.modalOut} />
-                <button id="modal-button" onClick={() => this.props.setModalOut(true)}>Show Rules</button>
+                <DiceRoller setRollerOut={this.props.setRollerOut} extended={this.props.rollerOut} />
                 <div id="dndb-sheet-container">
                     <div id="sheet-header">
                         <h1 className="color-header">Dungeons & Douchebags</h1>
                     </div>
                     <div id="main-button-row">
-                        <button onClick={this.props.randomChar}>Randomize New Character</button>
-                        <button disabled={this.state.name === ""} onClick={() => this.props.saveChar(this.state)}>Save Character</button>
-                        <button onClick={this.props.clearChar}>Load Char<br/>(Save first!)</button>
+                        <button onClick={() => this.props.setModalOut(true)}>Show Rules</button>
+                        <button onClick={() => this.props.setRollerOut(true)}>Roll Dice</button>
                     </div>
                     {/* <div>
                         <button onClick={() => this.props.setModalOut(true)}>Rules</button>
