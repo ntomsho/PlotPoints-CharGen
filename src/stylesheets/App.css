@@ -50,11 +50,12 @@ button {
 
 .navbar-menu {
   position: absolute;
-  width: 25vw;
-  height: 40vh;
+  width: 45vw;
+  height: 50vh;
   transition: height 1s;
   background-color: white;
   z-index: 5;
+  font-size: 4vw;
   overflow: auto;
 }
 
@@ -67,6 +68,11 @@ button {
 @media screen and (min-width: 600px) {
   #navbar-menu-button {
     width: 4vw;
+  }
+
+  .navbar-menu {
+    width: 35vw;
+    font-size: 2vw;
   }
 }
 
