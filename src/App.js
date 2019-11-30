@@ -39,5 +39,17 @@ function App() {
 
 export default withAuthenticator(App, {
   includeGreetings: false,
-  authenticatorComponents: [<SignIn />, <SignUp />, MyNavbar]
+  authenticatorComponents: [
+    <SignIn />, 
+    <SignUp />,  
+    <ConfirmSignIn />,
+    <RequireNewPassword/>,
+    <SignUp/>,
+    <ConfirmSignUp/>,
+    <VerifyContact/>,
+    <ForgotPassword/>,
+    <TOTPSetup/>,
+    <Loading/>,
+    MyNavbar
+  ]
 });
