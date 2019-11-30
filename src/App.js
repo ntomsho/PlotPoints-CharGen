@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Amplify, { Auth } from 'aws-amplify';
 import awsconfig from './aws-exports';
-import { withAuthenticator, SignIn, SignUp } from 'aws-amplify-react';
+import { withAuthenticator, SignIn, SignUp, ConfirmSignIn, RequireNewPassword, ConfirmSignUp, VerifyContact, TOTPSetup, Loading } from 'aws-amplify-react';
 import './stylesheets/App.css';
 import {
   BrowserRouter as Router,
@@ -44,7 +44,6 @@ export default withAuthenticator(App, {
     <SignUp />,  
     <ConfirmSignIn />,
     <RequireNewPassword/>,
-    <SignUp/>,
     <ConfirmSignUp/>,
     <VerifyContact/>,
     <ForgotPassword/>,
