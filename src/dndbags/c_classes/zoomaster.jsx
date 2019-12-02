@@ -142,27 +142,32 @@ export default function Zoomaster(props) {
                         {naturalFormsDisp()}
                     </div>
                 </div>
-                <div className="ability-management-container">
-                    <div className="custom-add-row">
-                        <div>Add Natural Form: </div>
-                        <div className="custom-add-field">
-                            <input type="text" ref={input1}></input>
-                            <button onClick={() => addCustomForm(false, true)}>+</button>
-                            <button onClick={() => addCustomForm(true, true)}>🎲</button>
+                <div>
+                    <div className="ability-management-container">
+                        <div className="custom-add-row">
+                            <div>Add Natural Form: </div>
+                            <div className="custom-add-field">
+                                <input type="text" ref={input1}></input>
+                                <button onClick={() => addCustomForm(false, true)}>+</button>
+                                <button onClick={() => addCustomForm(true, true)}>🎲</button>
+                            </div>
                         </div>
-                    </div>
-                    <div className="custom-add-row">
-                        <div>Add Chimeric Form: </div>
-                        <div className="custom-add-field">
-                            <span>Base Animal</span>
-                            <input type="text" ref={input2}></input>
-                            <span>Mutation</span>
-                            <input type="text" ref={input3}></input>
-                            <button onClick={() => addCustomForm(false, false)}>+</button>
-                            <button onClick={() => addCustomForm(true, false)}>🎲</button>
+                        <br/>
+                        <div className="custom-add-row">
+                            <div>Add Chimeric Form: </div>
+                            <div>Base Animal</div>
+                            <div className="custom-add-field">
+                                <input type="text" ref={input2}></input>
+                            </div>
+                            <div>Mutation</div>
+                            <div className="custom-add-field">
+                                <input type="text" ref={input3}></input>
+                                <button onClick={() => addCustomForm(false, false)}>+</button>
+                                <button onClick={() => addCustomForm(true, false)}>🎲</button>
+                            </div>
                         </div>
+                        <button className="ability-randomize-button" onClick={createForms}>Generate New Forms<br />(On rest)</button>
                     </div>
-                    <button className="ability-randomize-button" onClick={createForms}>Generate New Forms<br />(On rest)</button>
                 </div>
             </div>
         </div>

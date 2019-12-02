@@ -19,6 +19,7 @@ export default class MyNavbar extends Greetings {
     saveButton() {
         if (this.props.currentChar) {
             const disable = this.props.currentChar.name === "";
+            console.log(disable);
             return (
                 <li style={{cursor: disable ? 'normal' : 'pointer', color: disable ? 'gray' : 'black'}}
                     onClick={disable ? "" : this.props.saveChar}
