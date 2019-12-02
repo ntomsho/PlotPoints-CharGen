@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { randomAnimal, random, MUTATIONS } from '../../dndb-tables';
+import { randomAnimal, random, MUTATIONS, ADJECTIVE_MUTATIONS } from '../../dndb-tables';
 
 export default function Zoomaster(props) {
     const { currentSpecials } = props;
@@ -39,10 +39,22 @@ export default function Zoomaster(props) {
         props.updateState('currentSpecials', newForms);
     }
 
+    function formString(animal, mutation) {
+        let newFormString;
+        console.log(mutation)
+        if (ADJECTIVE_MUTATIONS.includes(mutation)) {
+            newFormString = mutation + " " + animal;
+        } else {
+            newFormString = animal + " with " + mutation;
+        }
+        return newFormString;
+    }
+
     function setChimericForm(formIndex) {
         let newForms = currentSpecials;
-        const newForm = currentSpecials.chimericForms[formIndex]
-        setCurrentForm({'formType': 'chimeric', 'form': newForm.animal + " with " + newForm.mutation });
+        let newForm = currentSpecials.chimericForms[formIndex]
+        const newFormString = formString(newForm.animal, newForm.mutation);
+        setCurrentForm({'formType': 'chimeric', 'form': newFormString });
         newForms.chimericForms.splice(formIndex, 1);
         props.updateState('currentSpecials', newForms);
     }
@@ -100,7 +112,7 @@ export default function Zoomaster(props) {
                             return (
                                 <li key={i} className="resource-list-entry">
                                     <div>
-                                        <strong>{form.animal} with {form.mutation}</strong>
+                                        <strong>{formString(form.animal, form.mutation)}</strong>
                                     </div>
                                     <button onClick={() => setChimericForm(i)}>Use</button>
                                 </li>

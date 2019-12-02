@@ -750,6 +750,18 @@ export const MUTATIONS = [
     `Two-headed`
 ]
 
+export const ADJECTIVE_MUTATIONS = [
+    "Adorable",
+    "Gelatinous",
+    "Ghostly",
+    "Huge",
+    "Nightmarish",
+    "Plantimal",
+    "Shapeshifting",
+    "Stretchy",
+    "Two-headed"
+]
+
 export const SONGS = [
     random(["Aria", "Ballad"]),
     random(["Groove", "Hoedown"]),
