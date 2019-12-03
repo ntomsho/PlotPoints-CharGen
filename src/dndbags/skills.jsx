@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { CLASS_SKILLS, CLASS_COLORS, SKILLS, SKILL_USES, random } from '../dndb-tables';
+import { CLASS_SKILLS, CLASS_COLORS, SKILLS, FIGHTING_SKILLS, CIVILIZED_SKILLS, SKILL_USES, random } from '../dndb-tables';
 import SkillButton from './skill_button';
 
 export default function Skills(props) {
@@ -83,7 +83,8 @@ export default function Skills(props) {
     }
 
     function createSkillRow(i) {
-        return SKILLS.slice(i, i + 3).map((skill, ind) => {
+        const skills = i === 0 ? FIGHTING_SKILLS : CIVILIZED_SKILLS.slice(i - 3, i);        
+        return skills.map((skill, ind) => {
             return (
                 <SkillButton key={ind}
                     skill={skill}
@@ -100,15 +101,17 @@ export default function Skills(props) {
     return (
         <>
         <h2 style={{marginBottom: 0}}>Skills</h2>
-            <div style={{display: 'flex'}}>
+            <div style={{display: 'flex', alignItems: 'center'}}>
             <div id="skills-container">
                 <div className="remaining-skills">
                 {remainingSkills()}
                 {remainingClassSkills()}
                 </div>
+                <h3>Fightin' Skills</h3>
                 <div className="sheet-row">
                     {createSkillRow(0)}
                 </div>
+                <h3>Civilized Skills</h3>
                 <div className="sheet-row">
                     {createSkillRow(3)}
                 </div>

@@ -15,7 +15,7 @@ export const CLASSES = [
 
 export const CLASS_SKILLS = {
     "Battlebro": ["Brute Force", "Rad Moves"],
-    "Bowslinger": ["Creepin'", "Spottin'"],
+    "Bowslinger": ["Creepin'", "Shootin'"],
     "Hippy": ["Cardio", "Man vs. Wild"],
     "Knight of Tushuze": ["Believe in Yourself", "Brute Force"],
     "Minstrel": ["Believe in Yourself", "Creepin'"],
@@ -24,7 +24,7 @@ export const CLASS_SKILLS = {
     "Ragesmasher": ["Brute Force", "Man vs. Wild"],
     "Runegoon": ["Cardio", "Macgyver"],
     "Verbpriest": ["Believe in Yourself", "Rad Moves"],
-    "Wizcaster": ["Spottin'", "Thinkiness"],
+    "Wizcaster": ["Shootin'", "Thinkiness"],
     "Zoomaster": ["Man vs. Wild", "Rad Moves"]
 };
 
@@ -51,19 +51,34 @@ export const SKILLS = [
     "Macgyver",
     "Man vs. Wild",
     "Rad Moves",
-    "Spottin'",
+    "Shootin'",
+    "Thinkiness"
+];
+
+export const FIGHTING_SKILLS = [
+    "Brute Force",
+    "Rad Moves",
+    "Shootin'"
+];
+
+export const CIVILIZED_SKILLS = [
+    "Believe in Yourself",
+    "Cardio",
+    "Creepin'",
+    "Macgyver",
+    "Man vs. Wild",
     "Thinkiness"
 ];
 
 export const SKILL_USES = {
-    "Believe in Yourself": "Charming, leading, willpower, dumb luck",
+    "Believe in Yourself": "Willpower, charming, leading, dumb luck",
     "Brute Force": "Punching, lifting, breaking stuff, being scary",
     "Cardio": "Running, swimming, climbing, stamina, healthiness",
     "Creepin'": "Sneaking, stealing, lying, general skullduggery",
     "Macgyver": "Crafting, building, forging, making stuff",
     "Man vs. Wild": "Surviving, foraging, riding, animal handling, nature knowledge",
     "Rad Moves": "Dodging, running, jumping, acrobatics, balance",
-    "Spottin'": "Shooting, looking, noticing, awareness, precision",
+    "Shootin'": "Shooting, looking, noticing, awareness, precision",
     "Thinkiness": "Knowing, remembering, wits, historical, scientific, and arcane knowledge"
 }
 
