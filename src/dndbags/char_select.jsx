@@ -11,27 +11,50 @@ function CharSelect(props) {
     const [char, setChar] = useState({});
     const [modalOut, setModalOut] = useState(false);
     const [rollerOut, setRollerOut] = useState(false);
-
+//Move char state to here and pass it to Dndb in props?
     const defaultSheet = {
         name: "",
         cClass: "",
-        race: "Human",
+        raceString: "Human",
+        raceTraits: [],
         background: "",
         appearance: "",
         derp: "",
         health: 7,
         plotPoints: 1,
+        selectedFightingSkill: "",
         trainedSkills: [],
         currentSpecials: {},
         inventory: ["", "", "", "", "", "", "", "", "", "", "", ""],
         level: 1,
         experience: 0,
+        advancements: [],
+        savedTag: "",
+        favoriteTags: [],
+        rerolls: 0,
         regulation: true
     }
 
     useEffect(() => {
         updateChars();
     }, [props.currentUser]);
+
+    function updateState(key, val) {
+        let newState = Object.assign({}, char);
+        newState[key] = val;
+        setChar(newState);
+    };
+
+    function handleChange(event) {
+        if (event.target.name === "cClass") {
+            let newState = Object.assign({}, char);
+            newState['currentSpecials'] = {};
+            newState['cClass'] = event.target.value
+            setChar(newState);
+        } else {
+            updateState(event.target.name, event.target.value)
+        }
+    }
 
     async function get() {
         console.log('calling api get');
@@ -46,7 +69,6 @@ function CharSelect(props) {
     }
 
     async function getChar(charName) {
-        console.log('calling api get');
         const response = await API.get('dndb', `/dndb/${charName}`)
         return response;
     }
@@ -66,10 +88,12 @@ function CharSelect(props) {
         console.log('calling api post');
         let newChar = Object.assign({}, char);
         newChar['playerName'] = props.currentUser;
+        newChar['raceTraits'] = JSON.stringify(char.raceTraits);
         newChar['trainedSkills'] = JSON.stringify(char.trainedSkills);
         newChar['currentSpecials'] = JSON.stringify(char.currentSpecials);
         newChar['inventory'] = JSON.stringify(char.inventory);
         newChar['advancements'] = JSON.stringify(char.advancements);
+        newChar['favoriteTags'] = JSON.stringify(char.favoriteTags);
         newChar['regulation'] = char.regulation ? "true" : "false";
         const response = await API.put('dndb', '/dndb', {
             body: {
@@ -93,18 +117,19 @@ function CharSelect(props) {
 
     function loadChar(loadChar) {
         let newChar = loadChar;
+        newChar['raceTraits'] = JSON.parse(newChar['raceTraits']);
         newChar['trainedSkills'] = JSON.parse(newChar['trainedSkills']);
         newChar['currentSpecials'] = JSON.parse(newChar['currentSpecials']);
         newChar['inventory'] = JSON.parse(newChar['inventory']);
         newChar['advancements'] = JSON.parse(newChar['advancements']);
-        console.log(newChar);
+        newChar['favoriteTags'] = JSON.parse(newChar['favoriteTags']);
         setChar(newChar);
     }
 
     function randomChar() {
         let newChar = defaultSheet;
         newChar['cClass'] = random(CLASSES);
-        newChar['race'] = randomRace();
+        // newChar['race'] = randomRace();
         newChar['background'] = random(BACKGROUNDS);
         newChar['appearance'] = random(APPEARANCES);
         newChar['derp'] = random(DERPS);
@@ -168,6 +193,8 @@ function CharSelect(props) {
                     rollerOut={rollerOut}
                     setModalOut={setModalOut} 
                     setRollerOut={setRollerOut}
+                    updateState={updateState}
+                    handleChange={handleChange}
                 />
                 <ModalManager modalOut={modalOut} setModalOut={setModalOut} />
             </div>
