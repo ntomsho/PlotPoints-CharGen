@@ -14,18 +14,18 @@ export const CLASSES = [
 ];
 
 export const CLASS_SKILLS = {
-    "Battlebro": ["Brute Force", "Rad Moves"],
-    "Bowslinger": ["Creepin'", "Shootin'"],
+    "Battlebro": ["Cardio"],
+    "Bowslinger": ["Creepin'"],
     "Hippy": ["Cardio", "Man vs. Wild"],
-    "Knight of Tushuze": ["Believe in Yourself", "Brute Force"],
+    "Knight of Tushuze": ["Believe in Yourself"],
     "Minstrel": ["Believe in Yourself", "Creepin'"],
     "Mixologist": ["Macgyver", "Thinkiness"],
-    "Ne'erdowell": ["Creepin'", "Macgyver"],
-    "Ragesmasher": ["Brute Force", "Man vs. Wild"],
+    "Ne'erdowell": ["Creepin'"],
+    "Ragesmasher": ["Man vs. Wild"],
     "Runegoon": ["Cardio", "Macgyver"],
-    "Verbpriest": ["Believe in Yourself", "Rad Moves"],
-    "Wizcaster": ["Shootin'", "Thinkiness"],
-    "Zoomaster": ["Man vs. Wild", "Rad Moves"]
+    "Verbpriest": ["Believe in Yourself", "Thinkiness"],
+    "Wizcaster": ["Macgyver", "Thinkiness"],
+    "Zoomaster": ["Man vs. Wild"]
 };
 
 export const CLASS_COLORS = {
