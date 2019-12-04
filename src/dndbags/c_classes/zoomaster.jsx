@@ -127,7 +127,7 @@ export default function Zoomaster(props) {
     return (
         <div className="class-ability-container">
             <div className="class-info">
-                <div className="class-desc">A tamer of beasts with a shapeshifting chimera as an animal companion.</div>
+                <div className="class-desc">A tamer of beasts with a collection of chimeric animal companions.</div>
                 <br />
                 <div className="ability-desc">
                     <div className="ability-desc-scrollbox">

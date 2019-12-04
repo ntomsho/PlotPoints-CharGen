@@ -5,13 +5,15 @@ import { CLASSES, CLASS_COLORS, SKILLS, ALTRACES, random, randomRace, BACKGROUND
 import Dndb from './Dndb';
 import ModalManager from '../modal_manager';
 import MyNavbar from '../navbar';
+import CharGen from './char_gen';
 
 function CharSelect(props) {
     const [charsList, setCharsList] = useState([]);
     const [char, setChar] = useState({});
+    const [charGen, setCharGen] = useState(false);
     const [modalOut, setModalOut] = useState(false);
     const [rollerOut, setRollerOut] = useState(false);
-//Move char state to here and pass it to Dndb in props?
+
     const defaultSheet = {
         name: "",
         cClass: "",
@@ -150,7 +152,7 @@ function CharSelect(props) {
             <div className="char-select-menu">
                 <h1 className="color-header">Dungeons & Douchebags</h1>
                 <div className="random-character">
-                    <h2 className="char-select-link" onClick={randomChar}>Generate New<br/>Random Character</h2>
+                    <h2 className="char-select-link" onClick={() => setCharGen(true)}>Generate New<br/>Random Character</h2>
                 </div>
                 <div className="blank-character">
                     <h2 className="char-select-link" onClick={blankSheet}>Blank Character Sheet</h2>
@@ -198,6 +200,21 @@ function CharSelect(props) {
                 />
                 <ModalManager modalOut={modalOut} setModalOut={setModalOut} />
             </div>
+        )
+    } else if (charGen) {
+        return (
+            <>
+            <MyNavbar currentUser={props.currentUser}
+                currentChar={char}
+                charsList={charsList}
+                clearChar={clearChar}
+                saveChar={saveChar}
+                randomChar={randomChar}
+            />
+            <CharGen 
+                setCharGen={setCharGen} 
+            />
+            </>
         )
     } else {
         return charSelectDisp()

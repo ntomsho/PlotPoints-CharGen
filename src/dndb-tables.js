@@ -41,7 +41,22 @@ export const CLASS_COLORS = {
     "Verbpriest": "darkgoldenrod",
     "Wizcaster": "darkmagenta",
     "Zoomaster": "darkgreen"
-}
+};
+
+export const CLASS_DESCRIPTIONS = {
+    "Battlebro": "A graduate of Fighter College; a skilled combatant with a transforming magical weapon.",
+    "Bowslinger": "A sharpshooting bounty hunter who constructs special ammunition for their ranged weapon.",
+    "Hippy": "A totally chill master of nature who can shapeshift into animals.",
+    "Knight of Tushuze": "A knight of a righteous and goodly order, doing good deeds and providing nice blessings.",
+    "Minstrel": "A rockin’ magical songsmith and all-around entertainer.",
+    "Mixologist": "An alchemist and apothecary who can craft a variety of useful concoctions.",
+    "Ne'erdowell": "A roguish thief with a vast collection of stolen trinkets and devices.",
+    "Ragesmasher": "A primal barbarian warrior who channels animal spirits when they aren’t flipping out.",
+    "Runegoon": "A crafter of magical runes that invoke an ancient arcane language.",
+    "Verbpriest": "A speaker of sacred words that command both living and inanimate things.",
+    "Wizcaster": "A sorcerer who combines ancient words of power to cast powerful spells.",
+    "Zoomaster": "A tamer of beasts with a collection of chimeric animal companions."
+};
 
 export const SKILLS = [
     "Believe in Yourself",
