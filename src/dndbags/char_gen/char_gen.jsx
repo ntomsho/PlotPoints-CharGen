@@ -29,8 +29,9 @@ class CharGen extends React.Component {
     updateSelection(field, value, reroll) {
         let newChar = Object.assign({}, this.state.char);
         newChar[field] = value;
-        let newRerolls = this.state.rerolls - 1;
-        this.setState({rerolls: reroll ? newRerolls : this.state.rerolls, char: newChar});
+        let newRerolls = this.state.rerolls;
+        if (reroll) newRerolls -= 1;
+        this.setState({ rerolls: newRerolls, char: newChar});
     }
 
     progress() {

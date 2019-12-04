@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { SKILLS, FIGHTING_SKILLS, CIVILIZED_SKILLS, CLASS_FIGHTING_SKILLS, RACE_TRAITS, randomRace } from '../../dndb-tables';
+import { random, SKILLS, FIGHTING_SKILLS, CIVILIZED_SKILLS, CLASS_FIGHTING_SKILLS, RACE_TRAITS, randomRace } from '../../dndb-tables';
 
 export default function CharGenSkills(props) {
     const [raceFirstRoll, setRaceFirstRoll] = useState(true);
@@ -8,7 +8,6 @@ export default function CharGenSkills(props) {
     function rollRace() {
         if (raceFirstRoll || props.rerolls > 0) {
             const newRaceTraits = randomRace();
-            console.log(newRaceTraits);
             let newRaceString;
             if (newRaceTraits === "Human") {
                 if (!raceFirstRoll) {
@@ -19,17 +18,23 @@ export default function CharGenSkills(props) {
             } else {
                 newRaceString = "";
             }
-            props.updateSelection("raceString", newRaceString, !raceFirstRoll);
-            props.updateSelection("raceTraits", newRaceTraits, false);
+            props.updateSelection("raceString", newRaceString, false);
+            props.updateSelection("raceTraits", newRaceTraits, !raceFirstRoll);
             if (raceFirstRoll) setRaceFirstRoll(false);
         }
+    }
+
+    function randomizeTrait(index) {
+        let newTraits = props.raceTraits;
+        newTraits[index] = random(RACE_TRAITS);
+        props.updateSelection('raceTraits', newTraits, true);
     }
 
     function raceStringDisplay() {
         if (!raceFirstRoll) {
             const stringBox = props.raceTraits === "Human" ? 
-                <span>Human</span> :
-                <><span>er... something else. Name your race: </span><input type="text" value={props.raceString} onChange={(e) => props.updateSelection('raceString', e.value)}></input></>
+                <span>{props.raceString}</span> :
+                <><span>a er... something else. Name your race: </span><input type="text" value={props.raceString} onChange={(event) => props.updateSelection('raceString', event.target.value)}></input></>
             return (
                 <div>You are a {stringBox}</div>
             )
@@ -46,9 +51,9 @@ export default function CharGenSkills(props) {
                 return (
                     <div style={{display: 'flex', flexDirection: 'column'}}>
                         <div>You have the following traits that give you Magic Advantage when relevant:</div>
-                        <div>
-                            <div>{props.raceTraits[0]}</div>
-                            <div>{props.raceTraits[1]}</div>
+                        <div style={{display: 'flex', justifyContent: 'space-around'}}>
+                            <div>{props.raceTraits[0]}<button onClick={() => randomizeTrait(0)}>Reroll</button></div>
+                            <div>{props.raceTraits[1]}<button onClick={() => randomizeTrait(1)}>Reroll</button></div>
                         </div>
                     </div>
                 )
