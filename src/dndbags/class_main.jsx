@@ -63,7 +63,9 @@ export default function ClassMain(props) {
 
     return (
         <>
-        <h2 id="class-headline" style={{backgroundColor: classColor}}>{props.cClass}</h2>
+            <div className="class-headline extend" style={{ backgroundColor: classColor }}>
+            <h2>{props.cClass}</h2>
+        </div>
         <br/>
         {classComp()}
         </>

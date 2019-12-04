@@ -7,7 +7,7 @@ class CharGen extends React.Component {
         this.state = {
             stage: 1,
             rerolls: 4,
-            selected: null,
+            anim: false,
             char: {
                 name: "",
                 cClass: "",
@@ -16,21 +16,19 @@ class CharGen extends React.Component {
                 background: "",
                 appearance: "",
                 derp: "",
-                health: 7,
-                plotPoints: 1,
                 selectedFightingSkill: "",
                 trainedSkills: [],
-                currentSpecials: {},
                 inventory: ["", "", "", "", "", "", "", "", "", "", "", ""],
-                level: 1,
-                experience: 0,
-                advancements: [],
-                savedTag: "",
-                favoriteTags: [],
-                rerolls: 0,
                 regulation: true
             }
         }
+    }
+
+    updateSelection(field, value, reroll) {
+        let newChar = Object.assign({}, this.state.char);
+        newChar[field] = value;
+        let newRerolls = this.state.rerolls - 1;
+        this.setState({rerolls: reroll ? newRerolls : this.state.rerolls, char: newChar});
     }
 
     progress() {
@@ -46,30 +44,42 @@ class CharGen extends React.Component {
 
     selectClass() {
         let classHeadline;
-        if (this.state.selected) {
-            classHeadline = <h2 id="class-headline" style={{ backgroundColor: CLASS_COLORS[this.state.selected] }}>{this.state.selected}</h2>
+        if (this.state.char.cClass) {
+            classHeadline = (
+                <div className={this.state.anim ? "class-headline extend" : "class-headline"}
+                    style={{ backgroundColor: CLASS_COLORS[this.state.char.cClass] }}
+                    onAnimationEnd={() => this.setState({anim: false})}
+                >
+                    <h2>{this.state.char.cClass}</h2>
+                </div>
+            )
         }
         return (
             <>
                 <h1>Class</h1>
-                <div onClick={() => this.setState({selected: random(CLASSES)})}>Random</div>
+                <button onClick={() => {
+                    this.setState({anim: true});
+                    this.updateSelection('cClass', random(CLASSES), true)
+                }}>
+                    Random Class</button>
                 <div className="class-selections">
                     {CLASSES.map((c, i) => {
                         return (
-                            <>
                             <button key={i}
-                                className={`class-button${this.state.selected === c ? " selected" : ""}`}
-                                onClick={() => this.setState({selected: c})}
+                                className={`class-button${this.state.char.cClass === c ? " selected" : ""}`}
+                                onClick={() => {
+                                    this.setState({anim: true});
+                                    this.updateSelection('cClass', c);
+                                }}
                                 style={{backgroundColor: CLASS_COLORS[c]}}>
                                 {c}
                             </button>
-                            </>
                         )
                     })}
                 </div>
                 <div className="selected-class-info">
                     {classHeadline}
-                    <div>{CLASS_DESCRIPTIONS[this.state.selected]}</div>
+                    <div>{CLASS_DESCRIPTIONS[this.state.char.cClass]}</div>
                 </div>
             </>
         )

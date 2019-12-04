@@ -471,11 +471,22 @@ h1, h2, h3 {
 
 /* Classes */
 
-#class-headline {
+@keyframes stretchRight { from { width: 0; } to { width:100vw; } }
+
+.class-headline {
   position: relative;
-  right: 5vw;
+  /* right: 5vw; */
+  /* width: 100vw; */
+  margin: 1.5% 0 1.5% 0;
+  height: 8vh;
+}
+
+.class-headline.extend {
+  animation: stretchRight 0.7s ease-in-out;
+}
+
+.class-headline > h2 {
   color: white;
-  width: 100vw;
   padding: 1.5% 0 1.5% 7%;
 }
 
