@@ -28,6 +28,15 @@ export const CLASS_SKILLS = {
     "Zoomaster": ["Man vs. Wild"]
 };
 
+export const CLASS_FIGHTING_SKILLS = {
+    "Battlebro": ["Brute Force", "Rad Moves"],
+    "Bowslinger": ["Shootin'"],
+    "Knight of Tushuze": ["Brute Force"],
+    "Ne'erdowell": ["Rad Moves", "Shootin'"],
+    "Ragesmasher": ["Brute Force"],
+    "Zoomaster": ["Rad Moves", "Shootin'"]
+}
+
 export const CLASS_COLORS = {
     "Battlebro": "darkorange",
     "Bowslinger": "darkolivegreen",
@@ -726,20 +735,59 @@ export const DOMESTICATED_CREATURES = [
     "Turkey",
 ]
 
-export const ALTRACES = [
-    `${randomAnimal()}-person`,
-    "Dwarf",
-    "Edgy demon",
-    "Elf (christmas)",
-    "Elf (pretty)",
-    "Facechanger",
-    "Golem",
-    "Merman",
-    "Ogre",
-    "Ork",
-    "Thiefling",
-    "Zombie"
-];
+// export const ALTRACES = [
+//     `${randomAnimal()}-person`,
+//     "Dwarf",
+//     "Edgy demon",
+//     "Elf (christmas)",
+//     "Elf (pretty)",
+//     "Facechanger",
+//     "Golem",
+//     "Merman",
+//     "Ogre",
+//     "Ork",
+//     "Thiefling",
+//     "Zombie"
+// ];
+
+export const RACE_TRAITS = [
+    `${randomAnimal()} feature`,
+    "Animal talker",
+    "Arctic",
+    `${random(BACKGROUNDS)} tradition`,
+    "Bloodhound",
+    "Calming presence",
+    "Chameleon skin",
+    "Climber",
+    "Construct",
+    "Digger",
+    `${random(ELEMENTS)} affinity`,
+    "Eye for magic",
+    "Fireproof",
+    "Glider",
+    "Herbal knowledge",
+    "Historian",
+    "Huge",
+    "Keen hearing",
+    "Longjumper",
+    "Natural light",
+    "Omnigormand",
+    "Poison immunity",
+    "Scary-looking",
+    "Silver tongue",
+    "Slippery",
+    "Smithy",
+    "Sticky",
+    "Stink",
+    "Swimmer",
+    "Thieving",
+    "Tinkerer",
+    "Tiny",
+    "Undead",
+    "Underdweller",
+    "Very pretty",
+    "Workhorse"
+]
 
 export const MUTATIONS = [
     `${random(AERIAL_CREATURES)} feature`,
@@ -920,7 +968,7 @@ export function randomRace() {
     if (Math.floor(Math.random() * 100) <= 66) {
         return "Human";
     } else {
-        return random(ALTRACES);
+        return [random(RACE_TRAITS), random(RACE_TRAITS)];
     }
 }
 

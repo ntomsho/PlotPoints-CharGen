@@ -471,7 +471,8 @@ h1, h2, h3 {
 
 /* Classes */
 
-@keyframes stretchRight { from { width: 0; } to { width:100vw; } }
+@keyframes stretchRight { from { width: 0; } to { width:100vw; } };
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1}};
 
 .class-headline {
   position: relative;
@@ -485,9 +486,14 @@ h1, h2, h3 {
   animation: stretchRight 0.7s ease-in-out;
 }
 
-.class-headline > h2 {
+.class-headline-text {
   color: white;
   padding: 1.5% 0 1.5% 7%;
+}
+
+/* This doesn't work yet, easier to do it when compartmentalized */
+.class-headline-text.fade {
+  animation: fadeIn 1.5s ease-in;
 }
 
 .class-ability-container {

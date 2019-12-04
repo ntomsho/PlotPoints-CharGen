@@ -64,7 +64,7 @@ export default function ClassMain(props) {
     return (
         <>
             <div className="class-headline extend" style={{ backgroundColor: classColor }}>
-            <h2>{props.cClass}</h2>
+            <h2 className="class-headline-text fade">{props.cClass}</h2>
         </div>
         <br/>
         {classComp()}

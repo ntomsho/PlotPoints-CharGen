@@ -1,5 +1,7 @@
 import React from 'react';
-import { CLASSES, CLASS_COLORS, ALTRACES, random, randomRace, BACKGROUNDS, APPEARANCES, DERPS, CLASS_DESCRIPTIONS } from '../dndb-tables';
+import { CLASSES, CLASS_COLORS, RACE_TRAITS, random, BACKGROUNDS, APPEARANCES, DERPS, CLASS_DESCRIPTIONS } from '../../dndb-tables';
+import CharGenClass from './char_gen_class';
+import CharGenSkills from './char_gen_skills';
 
 class CharGen extends React.Component {
     constructor(props) {
@@ -7,12 +9,11 @@ class CharGen extends React.Component {
         this.state = {
             stage: 1,
             rerolls: 4,
-            anim: false,
             char: {
                 name: "",
                 cClass: "",
                 raceString: "",
-                raceTraits: [],
+                raceTraits: null,
                 background: "",
                 appearance: "",
                 derp: "",
@@ -22,6 +23,7 @@ class CharGen extends React.Component {
                 regulation: true
             }
         }
+        this.updateSelection = this.updateSelection.bind(this);
     }
 
     updateSelection(field, value, reroll) {
@@ -42,49 +44,6 @@ class CharGen extends React.Component {
         }
     }
 
-    selectClass() {
-        let classHeadline;
-        if (this.state.char.cClass) {
-            classHeadline = (
-                <div className={this.state.anim ? "class-headline extend" : "class-headline"}
-                    style={{ backgroundColor: CLASS_COLORS[this.state.char.cClass] }}
-                    onAnimationEnd={() => this.setState({anim: false})}
-                >
-                    <h2>{this.state.char.cClass}</h2>
-                </div>
-            )
-        }
-        return (
-            <>
-                <h1>Class</h1>
-                <button onClick={() => {
-                    this.setState({anim: true});
-                    this.updateSelection('cClass', random(CLASSES), true)
-                }}>
-                    Random Class</button>
-                <div className="class-selections">
-                    {CLASSES.map((c, i) => {
-                        return (
-                            <button key={i}
-                                className={`class-button${this.state.char.cClass === c ? " selected" : ""}`}
-                                onClick={() => {
-                                    this.setState({anim: true});
-                                    this.updateSelection('cClass', c);
-                                }}
-                                style={{backgroundColor: CLASS_COLORS[c]}}>
-                                {c}
-                            </button>
-                        )
-                    })}
-                </div>
-                <div className="selected-class-info">
-                    {classHeadline}
-                    <div>{CLASS_DESCRIPTIONS[this.state.char.cClass]}</div>
-                </div>
-            </>
-        )
-    }
-
     selectSkills() {
 
     }
@@ -97,18 +56,46 @@ class CharGen extends React.Component {
 
     }
 
+    confirmation() {
+        
+    }
+
+    stageText() {
+        switch (this.state.stage) {
+            case 1:
+                return "Class";
+            case 2:
+                return "Skills";
+            case 3:
+                return "Equipment";
+            case 4:
+                return "Details";
+            default:
+                return "Confirmation";
+        }
+    }
+
     selectionArea() {
         switch (this.state.stage) {
             case 1:
-                return this.selectClass();
+                return <CharGenClass
+                    cClass={this.state.char.cClass}
+                    updateSelection={this.updateSelection}
+                    rerolls={this.state.rerolls}
+                />
             case 2:
-                return this.selectSkills();
+                return <CharGenSkills
+                    raceString={this.state.char.raceString}
+                    raceTraits={this.state.char.raceTraits}
+                    updateSelection={this.updateSelection}
+                    rerolls={this.state.rerolls}
+                />
             case 3:
                 return this.selectStartingEquipment();
             case 4:
                 return this.selectDetails();
             default:
-                return;
+                return this.confirmation();
         }
     }
 
@@ -122,6 +109,11 @@ class CharGen extends React.Component {
                 <button onClick={() => this.props.setCharGen(false)}>X</button>
                 <div id="char-gen-progress">
                     {this.progress()}
+                </div>
+                <div style={{display: 'flex', justifyContent: 'space-between'}}>
+                    <button onClick={() => this.setState({stage: this.state.stage - 1})}>{this.state.stage != 1 ? "<<" : ""}</button>
+                    <h1>{this.stageText()}</h1>
+                    <button onClick={() => this.setState({stage: this.state.stage + 1})}>{">>"}</button>
                 </div>
                 <div id="char-gen-selection-area">
                     {this.selectionArea()}

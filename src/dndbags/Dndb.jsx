@@ -1,5 +1,5 @@
 import React from 'react';
-import { CLASSES, ALTRACES, random, randomRace, BACKGROUNDS, APPEARANCES, DERPS } from '../dndb-tables';
+import { CLASSES, random, randomRace, BACKGROUNDS, APPEARANCES, DERPS } from '../dndb-tables';
 import RulesModal from './rules_modal';
 import DiceRoller from './dice_roller';
 import Skills from './skills';
@@ -112,11 +112,11 @@ class Dndb extends React.Component {
                                     {/* Bug with 'Animal-person' in race selector */}
                                     <select name="race" onChange={this.props.handleChange} value={this.props.loadedChar.race}>
                                         <option value="Human">Human</option>
-                                        {ALTRACES.map((r, i) => {
+                                        {/* {ALTRACES.map((r, i) => {
                                             return (
                                                 <option key={i} value={r}>{r}</option>
                                             )
-                                        })}
+                                        })} */}
                                     </select>
                                     <button className="randomize-button" onClick={() => this.props.updateState('race', randomRace())}>🎲</button>
                                 </div>

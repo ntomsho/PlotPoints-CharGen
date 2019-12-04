@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { withAuthenticator } from 'aws-amplify-react';
 import { API } from 'aws-amplify';
-import { CLASSES, CLASS_COLORS, SKILLS, ALTRACES, random, randomRace, BACKGROUNDS, APPEARANCES, DERPS } from '../dndb-tables';
+import { CLASSES, CLASS_COLORS, SKILLS, random, randomRace, BACKGROUNDS, APPEARANCES, DERPS } from '../dndb-tables';
 import Dndb from './Dndb';
 import ModalManager from '../modal_manager';
 import MyNavbar from '../navbar';
-import CharGen from './char_gen';
+import CharGen from './char_gen/char_gen';
 
 function CharSelect(props) {
     const [charsList, setCharsList] = useState([]);
