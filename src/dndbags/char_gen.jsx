@@ -1,5 +1,5 @@
 import React from 'react';
-import { CLASSES, CLASS_COLORS, ALTRACES, random, randomRace, BACKGROUNDS, APPEARANCES, DERPS } from '../dndb-tables';
+import { CLASSES, CLASS_COLORS, ALTRACES, random, randomRace, BACKGROUNDS, APPEARANCES, DERPS, CLASS_DESCRIPTIONS } from '../dndb-tables';
 
 class CharGen extends React.Component {
     constructor(props) {
@@ -7,7 +7,7 @@ class CharGen extends React.Component {
         this.state = {
             stage: 1,
             rerolls: 4,
-            selected: [],
+            selected: null,
             char: {
                 name: "",
                 cClass: "",
@@ -45,6 +45,10 @@ class CharGen extends React.Component {
     }
 
     selectClass() {
+        let classHeadline;
+        if (this.state.selected) {
+            classHeadline = <h2 id="class-headline" style={{ backgroundColor: CLASS_COLORS[this.state.selected] }}>{this.state.selected}</h2>
+        }
         return (
             <>
                 <h1>Class</h1>
@@ -64,7 +68,8 @@ class CharGen extends React.Component {
                     })}
                 </div>
                 <div className="selected-class-info">
-                    
+                    {classHeadline}
+                    <div>{CLASS_DESCRIPTIONS[this.state.selected]}</div>
                 </div>
             </>
         )
