@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import { random, CLASSES, CLASS_COLORS, CLASS_DESCRIPTIONS } from '../../dndb-tables'
 
 export default function CharGenClass(props) {
-    const [firstRoll, setFirstRoll] = useState(true);
+    const [firstRoll, setFirstRoll] = useState(!props.cClass);
     const [bannerAnim, setBannerAnim] = useState(false);
     const [fadeAnim, setFadeAnim] = useState(false);
 

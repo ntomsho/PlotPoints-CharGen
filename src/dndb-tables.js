@@ -968,6 +968,11 @@ export function randomRace() {
     if (Math.floor(Math.random() * 100) <= 66) {
         return "Human";
     } else {
+        const trait1 = random(RACE_TRAITS);
+        let trait2 = random(RACE_TRAITS);
+        while (trait1 === trait2) {
+            trait2 = random(RACE_TRAITS);
+        }
         return [random(RACE_TRAITS), random(RACE_TRAITS)];
     }
 }

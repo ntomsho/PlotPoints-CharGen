@@ -1,6 +1,7 @@
 import React from 'react';
 import { CLASSES, CLASS_COLORS, RACE_TRAITS, random, BACKGROUNDS, APPEARANCES, DERPS, CLASS_DESCRIPTIONS } from '../../dndb-tables';
 import CharGenClass from './char_gen_class';
+import CharGenRace from './char_gen_race';
 import CharGenSkills from './char_gen_skills';
 
 class CharGen extends React.Component {
@@ -40,6 +41,7 @@ class CharGen extends React.Component {
             case 2:
             case 3:
             case 4:
+            case 5:
             default:
                 return
         }
@@ -66,10 +68,12 @@ class CharGen extends React.Component {
             case 1:
                 return "Class";
             case 2:
-                return "Skills";
+                return "Race";
             case 3:
-                return "Equipment";
+                return "Skills";
             case 4:
+                return "Equipment";
+            case 5:
                 return "Details";
             default:
                 return "Confirmation";
@@ -85,15 +89,22 @@ class CharGen extends React.Component {
                     rerolls={this.state.rerolls}
                 />
             case 2:
-                return <CharGenSkills
+                return <CharGenRace
                     raceString={this.state.char.raceString}
                     raceTraits={this.state.char.raceTraits}
                     updateSelection={this.updateSelection}
                     rerolls={this.state.rerolls}
                 />
             case 3:
-                return this.selectStartingEquipment();
+                return <CharGenSkills
+                    cClass={this.state.char.cClass}
+                    trainedSkills={this.state.char.trainedSkills}
+                    updateSelection={this.updateSelection}
+                    rerolls={this.state.rerolls}
+                />
             case 4:
+                return this.selectStartingEquipment();
+            case 5:
                 return this.selectDetails();
             default:
                 return this.confirmation();

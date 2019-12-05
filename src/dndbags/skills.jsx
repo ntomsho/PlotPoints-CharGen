@@ -91,7 +91,7 @@ export default function Skills(props) {
                     classSkill={classSkills.includes(skill)}
                     selected={props.trainedSkills.includes(skill)}
                     setHighlightedSkill={setHighlightedSkill}
-                    selectSkill={selectSkill}
+                    // selectSkill={selectSkill}
                     classColor={CLASS_COLORS[props.cClass]}
                 />
             )
