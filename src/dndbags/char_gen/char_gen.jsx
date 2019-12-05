@@ -99,6 +99,8 @@ class CharGen extends React.Component {
                 return <CharGenSkills
                     cClass={this.state.char.cClass}
                     trainedSkills={this.state.char.trainedSkills}
+                    selectedFightingSkill={this.state.char.selectedFightingSkill}
+                    raceTraits={this.state.char.raceTraits}
                     updateSelection={this.updateSelection}
                     rerolls={this.state.rerolls}
                 />

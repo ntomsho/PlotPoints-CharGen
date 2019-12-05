@@ -108,6 +108,10 @@ button {
   padding: 0;
 }
 
+.class-column {
+  width: 40vw;
+}
+
 .class-selections {
   columns: 20vw;
 }
