@@ -3,6 +3,7 @@ import { CLASSES, CLASS_COLORS, RACE_TRAITS, random, BACKGROUNDS, APPEARANCES, D
 import CharGenClass from './char_gen_class';
 import CharGenRace from './char_gen_race';
 import CharGenSkills from './char_gen_skills';
+import CharGenEquipment from './char_gen_equipment';
 
 class CharGen extends React.Component {
     constructor(props) {
@@ -45,14 +46,6 @@ class CharGen extends React.Component {
             default:
                 return
         }
-    }
-
-    selectSkills() {
-
-    }
-
-    selectStartingEquipment() {
-
     }
 
     selectDetails() {
@@ -105,7 +98,12 @@ class CharGen extends React.Component {
                     rerolls={this.state.rerolls}
                 />
             case 4:
-                return this.selectStartingEquipment();
+                return <CharGenEquipment
+                    cClass={this.state.char.cClass}
+                    inventory={this.state.char.inventory}
+                    updateSelection={this.updateSelection}
+                    rerolls={this.state.rerolls}
+                />
             case 5:
                 return this.selectDetails();
             default:

@@ -91,7 +91,7 @@ export default function RulesModal(props) {
                         <br/>
                         <div>1 cash item is worth:</div>
                         <ul>
-                            <li>6 standard items</li>
+                            <li>3 standard items</li>
                             <li>1 magic item</li>
                             <li>Live the high life (gain 1 Plot Point)</li>
                             <li>A hefty bribe</li>
