@@ -938,7 +938,7 @@ export const STARTING_ITEMS = {
         ["Melee Weapon", "Ranged Weapon"], ["Musical instrument", "Horn"], ["Lockpicks", "Disguise Kit"], ["Songbook", "Magic Item"]
     ],
     "Mixologist": [
-        ["Melee Weapon", "Ranged Weapon"], ["Alchemist's tools"], ["Vial of acid", "Vial of poison"], ["Potion of Healing", "2 Alchemical Ingredients"]
+        ["Melee Weapon", "Ranged Weapon"], ["Alchemist's tools"], ["Vial of acid", "Vial of poison"], ["Potion of Healing", "Alchemical Ingredient"]
     ],
     "Ne'erdowell": [
         ["Melee Weapon", "Ranged Weapon"], ["Lockpicks", "Grappling hook"], ["Caltrops", "Crowbar"], ["Magic Item"]

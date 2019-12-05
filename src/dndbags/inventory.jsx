@@ -84,9 +84,10 @@ export default function Inventory(props) {
                 case "Weapon Oil":
                 case "Animal Totem":
                 case "Songbook":
-                case "2 Alchemical Ingredients":
                 case "Scroll of Power":
+                case "Command Scroll":
                 case "Holy Symbol":
+                case "Alchemical Ingredient":
                     item = randomResourceItem(startingChoices[i])
                     break;
                 case "Magic Item":
