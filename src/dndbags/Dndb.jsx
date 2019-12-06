@@ -109,15 +109,7 @@ class Dndb extends React.Component {
                             <div className="field-container">
                                 <div className="field-header">Race <span style={{fontSize: '9px'}}>(but not in like a racist way)</span>:</div>
                                 <div className="sub-field">
-                                    {/* Bug with 'Animal-person' in race selector */}
-                                    <select name="race" onChange={this.props.handleChange} value={this.props.loadedChar.race}>
-                                        <option value="Human">Human</option>
-                                        {/* {ALTRACES.map((r, i) => {
-                                            return (
-                                                <option key={i} value={r}>{r}</option>
-                                            )
-                                        })} */}
-                                    </select>
+                                    <span>{this.props.loadedChar.raceString}</span>
                                     <button className="randomize-button" onClick={() => this.props.updateState('race', randomRace())}>🎲</button>
                                 </div>
                             </div>

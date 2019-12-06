@@ -139,6 +139,12 @@ function CharSelect(props) {
         setChar(newChar);
     }
 
+    function createChar(char) {
+        const newChar = Object.assign(defaultSheet, char);
+        setChar(newChar);
+        setCharGen(false);
+    }
+
     function charSelectDisp() {
         return (
             <>
@@ -212,7 +218,7 @@ function CharSelect(props) {
                 randomChar={randomChar}
             />
             <CharGen 
-                setCharGen={setCharGen} 
+                createChar={createChar} 
             />
             </>
         )

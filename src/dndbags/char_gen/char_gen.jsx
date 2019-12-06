@@ -5,6 +5,7 @@ import CharGenRace from './char_gen_race';
 import CharGenSkills from './char_gen_skills';
 import CharGenEquipment from './char_gen_equipment';
 import CharGenDetails from './char_gen_details';
+import CharGenConfirm from './char_gen_confirm';
 
 class CharGen extends React.Component {
     constructor(props) {
@@ -47,14 +48,6 @@ class CharGen extends React.Component {
             default:
                 return
         }
-    }
-
-    selectDetails() {
-
-    }
-
-    confirmation() {
-        
     }
 
     stageText() {
@@ -114,7 +107,12 @@ class CharGen extends React.Component {
                     rerolls={this.state.rerolls}
                 />
             default:
-                return this.confirmation();
+                return <CharGenConfirm
+                    char={this.state.char}
+                    updateSelection={this.updateSelection}
+                    rerolls={this.state.rerolls}
+                    createChar={this.props.createChar}
+                />
         }
     }
 
