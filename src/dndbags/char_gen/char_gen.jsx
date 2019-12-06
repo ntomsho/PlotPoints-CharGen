@@ -1,9 +1,10 @@
 import React from 'react';
-import { CLASSES, CLASS_COLORS, RACE_TRAITS, random, BACKGROUNDS, APPEARANCES, DERPS, CLASS_DESCRIPTIONS } from '../../dndb-tables';
+import { random, BACKGROUNDS, APPEARANCES, DERPS } from '../../dndb-tables';
 import CharGenClass from './char_gen_class';
 import CharGenRace from './char_gen_race';
 import CharGenSkills from './char_gen_skills';
 import CharGenEquipment from './char_gen_equipment';
+import CharGenDetails from './char_gen_details';
 
 class CharGen extends React.Component {
     constructor(props) {
@@ -16,9 +17,9 @@ class CharGen extends React.Component {
                 cClass: "",
                 raceString: "",
                 raceTraits: null,
-                background: "",
-                appearance: "",
-                derp: "",
+                background: random(BACKGROUNDS),
+                appearance: random(APPEARANCES),
+                derp: random(DERPS),
                 selectedFightingSkill: "",
                 trainedSkills: [],
                 inventory: ["", "", "", "", "", "", "", "", "", "", "", ""],
@@ -105,7 +106,13 @@ class CharGen extends React.Component {
                     rerolls={this.state.rerolls}
                 />
             case 5:
-                return this.selectDetails();
+                return <CharGenDetails
+                    background={this.state.char.background}
+                    appearance={this.state.char.appearance}
+                    derp={this.state.char.derp}
+                    updateSelection={this.updateSelection}
+                    rerolls={this.state.rerolls}
+                />
             default:
                 return this.confirmation();
         }

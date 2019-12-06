@@ -3,10 +3,11 @@ import { EQUIPMENT, WEAPONS, STARTING_ITEMS, random, randomMagicItem, randomReso
 
 export default function CharGenEquipment(props) {
     const itemPackage = STARTING_ITEMS[props.cClass];
-    const [startingChoices, setStartingChoices] = useState(new Array)
+    //Need to move startingChoices, startingChoicesMade up in state so it doesn't go away when navigating out
+    const [startingChoices, setStartingChoices] = useState(new Array())
     const [startingChoicesMade, setStartingChoicesMade] = useState(false);
     
-    const randomRequired = ["Melee Weapon", "Ranged Weapon", "Weapon Oil", "Animal Totem", "Scroll of Power", "Command Scroll", "Songbook", "Holy Symbol", "Alchemical Ingredient"];
+    const randomRequired = ["Melee Weapon", "Ranged Weapon", "Weapon Oil", "Animal Totem", "Scroll of Power", "Command Scroll", "Songbook", "Holy Symbol", "Alchemical Ingredient", "Magic Item"];
 
     function createStartingInv() {
         let newInv = startingChoices;
@@ -26,6 +27,7 @@ export default function CharGenEquipment(props) {
         if (props.cClass && JSON.stringify(props.inventory) === JSON.stringify(["", "", "", "", "", "", "", "", "", "", "", ""])) {
             return (
                 <>
+                    <h3>Choose one item from each row</h3>
                     <ul>
                         {itemPackage.map((choices, i) => {
                             return (
@@ -34,14 +36,14 @@ export default function CharGenEquipment(props) {
                                 </div>
                             )
                         })}
+                        <button
+                            className="accept-button"
+                            // disabled={startingChoices.length === itemPackage.length}
+                            onClick={createStartingInv}
+                            >
+                            Accept
+                        </button>
                     </ul>
-                    <button
-                        className="accept-button"
-                        // disabled={startingChoices.length === itemPackage.length}
-                        onClick={createStartingInv}
-                    >
-                        Accept
-                </button>
                 </>
             )
         }
@@ -85,10 +87,8 @@ export default function CharGenEquipment(props) {
         switch (startingChoices[index]) {
             case "Melee Weapon":
                 return random(WEAPONS.slice(0, 18));
-                break;
             case "Ranged Weapon":
                 return random(WEAPONS.slice(19, 36));
-                break;
             case "Weapon Oil":
             case "Animal Totem":
             case "Songbook":
@@ -97,10 +97,8 @@ export default function CharGenEquipment(props) {
             case "Holy Symbol":
             case "Alchemical Ingredient":
                 return randomResourceItem(startingChoices[index])
-                break;
             case "Magic Item":
                 return randomMagicItem();
-                break;
             default:
                 return random(EQUIPMENT);
         }
