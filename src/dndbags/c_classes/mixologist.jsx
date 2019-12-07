@@ -5,6 +5,8 @@ export default function Mixologist(props) {
     let { currentSpecials } = props;
     let { bases, catalysts } = currentSpecials;
 
+    const [keepComp, setKeepComp] = useState(null);
+    const [lastClicked, setLastClicked] = useState("Base");
     //currentConcoction[0] === base;
     //currentConcoction[1] === catalyst;
     const [selectedBase, setSelectedBase] = useState(null);
@@ -55,42 +57,99 @@ export default function Mixologist(props) {
         }
     }
 
+    function selectComponent(category, i) {
+        if (category === "Base") {
+            if (selectedBase === i) {
+                setKeepComp(null);
+            }
+            setSelectedBase(selectedBase === i ? null : i);
+            setLastClicked("Base");
+        } else {
+            if (selectedCatalyst === i) {
+                setKeepComp(null);
+            }
+            setSelectedCatalyst(selectedCatalyst === i ? null : i);
+            setLastClicked("Catalyst");
+        }
+    }
+
     function consumeCurrentConcoction() {
-        const newBases = bases
-        newBases.splice(selectedBase, 1);
-        const newCatalysts = catalysts
-        newCatalysts.splice(selectedCatalyst, 1);
+        const newBases = bases;
+        const newCatalysts = catalysts;
+        keepComp === "Base" ?
+            newCatalysts.splice(selectedCatalyst, 1) : 
+            newBases.splice(selectedBase, 1);
+        setKeepComp(null);
         setSelectedBase(null);
         setSelectedCatalyst(null);
+        setLastClicked(null);
         props.updateState('currentSpecials', { 'bases': newBases, 'catalysts': newCatalysts });
     }
 
     function consumeButton() {
-        if (selectedBase !== null && selectedCatalyst !== null) {
+        if (selectedBase !== null && selectedCatalyst !== null && keepComp !== null) {
             return (
-                <button onClick={consumeCurrentConcoction}>Use</button>
+                <button className="ability-main-button" onClick={consumeCurrentConcoction}>Create Concoction</button>
             )
         }
     }
 
     function currentConcoctionDisp() {
         if (selectedBase !== null && selectedCatalyst === null) {
-            return bases[selectedBase];
+            return (
+                <>{bases[selectedBase]}</>
+            );
         } else if (selectedBase === null && selectedCatalyst !== null) {
-            return catalysts[selectedCatalyst].comp;
+            return (
+                <>{catalysts[selectedCatalyst].comp}</>
+            );
         } else if (selectedBase !== null && selectedCatalyst !== null) {
-            if (catalysts[selectedCatalyst].compCat === 'verb') {
-                return catalysts[selectedCatalyst].comp + " " + bases[selectedBase];
+            const base = bases[selectedBase]
+            const catalyst = catalysts[selectedCatalyst].comp
+            const catalystCat = catalysts[selectedCatalyst].compCat;
+            if (catalystCat === 'verb') {
+                return (
+                    <>
+                        <div className="wizcaster-spell-word" style={{display: 'flex', flexDirection: 'column'}}>
+                            <div className="wizcaster-spell-word">{catalyst} </div>
+                            <button className={`keepword${keepComp === "Catalyst" ? ' selected' : ''}`} onClick={() => setKeepComp("Catalyst")}>Keep?</button>
+                        </div>
+                        <div className="wizcaster-spell-word" style={{display: 'flex', flexDirection: 'column'}}>
+                            <div className="wizcaster-spell-word">{base} </div>
+                            <button className={`keepword${keepComp === "Base" ? ' selected' : ''}`} onClick={() => setKeepComp("Base")}>Keep?</button>
+                        </div>
+                    </>
+                );
             } else {
-                return random([
-                    catalysts[selectedCatalyst].comp + " " + bases[selectedBase],
-                    //This breaks on custom elements
-                    bases[selectedBase] + " of " + ELEMENTS_OF[ELEMENTS.indexOf(catalysts[selectedCatalyst].comp)]
-                ])
+                return lastClicked === "Base" ?
+                    <>
+                        <div className="wizcaster-spell-word" style={{ display: 'flex', flexDirection: 'column' }}>
+                            <div className="wizcaster-spell-word">{catalyst} </div>
+                            <button className={`keepword${keepComp === "Catalyst" ? ' selected' : ''}`} onClick={() => setKeepComp("Catalyst")}>Keep?</button>
+                        </div>
+                        <div className="wizcaster-spell-word" style={{ display: 'flex', flexDirection: 'column' }}>
+                            <div className="wizcaster-spell-word">{base} </div>
+                            <button className={`keepword${keepComp === "Base" ? ' selected' : ''}`} onClick={() => setKeepComp("Base")}>Keep?</button>
+                        </div>
+                    </>
+                    :
+                    <>
+                        <div className="wizcaster-spell-word" style={{ display: 'flex', flexDirection: 'column' }}>
+                            <div className="wizcaster-spell-word">{base} </div>
+                            <button className={`keepword${keepComp === "Base" ? ' selected' : ''}`} onClick={() => setKeepComp("Base")}>Keep?</button>
+                        </div>
+                        <div className="wizcaster-spell-word">
+                            <div className="wizcaster-spell-word"> of </div>
+                        </div>
+                        <div className="wizcaster-spell-word" style={{ display: 'flex', flexDirection: 'column' }}>
+                            <div className="wizcaster-spell-word">{ELEMENTS.includes(catalyst) ? ELEMENTS_OF[ELEMENTS.indexOf(catalyst)] : catalyst } </div>
+                            <button className={`keepword${keepComp === "Catalyst" ? ' selected' : ''}`} onClick={() => setKeepComp("Catalyst")}>Keep?</button>
+                        </div>
+                    </>
             }
         }
         else {
-            return ""
+            return <></>
         }
     }
     
@@ -104,7 +163,7 @@ export default function Mixologist(props) {
                         {bases.map((b, i) => {
                             return (
                                 <li key={i} className="resource-list-entry">
-                                    <div className={`comp${selectedBase === i ? ' selected' : ''}`} onClick={() => setSelectedBase(selectedBase === i ? null : i)}>{b}</div>
+                                    <div className={`comp${selectedBase === i ? ' selected' : ''}`} onClick={() => selectComponent("Base", i)}>{b}</div>
                                 </li>
                             )
                         })}
@@ -116,7 +175,7 @@ export default function Mixologist(props) {
                         {catalysts.map((c, i) => {
                             return (
                                 <li key={i} className="resource-list-entry">
-                                    <div className={`comp${selectedCatalyst === i ? ' selected' : ''}`} onClick={() => setSelectedCatalyst(selectedCatalyst === i ? null : i)}>{c.comp}</div>
+                                    <div className={`comp${selectedCatalyst === i ? ' selected' : ''}`} onClick={() => selectComponent("Catalyst", i)}>{c.comp}</div>
                                 </li>
                             )
                         })}
@@ -136,7 +195,7 @@ export default function Mixologist(props) {
                     <div className="ability-desc-scrollbox">
                         <div>Magic Ability:<br /><strong>Alchemical Concoctions</strong></div>
                         <div>You carry with you a supply of 5 alchemical Bases and 5 Catalysts with you that inexplicably replenishes itself when you rest.</div>
-                        <div>Combine a Base and a Catalyst to create a Concoction you can use immediately.</div>
+                        <div>Combine a Base and a Catalyst to create a Concoction you can use immediately. Select one of those components to keep, the other is expended.</div>
                         <br/>
                         <div>Resource Item:<br/><strong>Alchemical Ingredients</strong></div>
                         <div>Spend an alchemical ingredient to add it your current lists of Bases or Catalysts.</div>
@@ -146,13 +205,14 @@ export default function Mixologist(props) {
             </div>
             <div className="class-ability-display">
                 <div className="ability-main">
-                    <div>
-                        {currentConcoctionDisp()}
+                    <div style={{display: 'flex', flexDirection: 'column'}}>
+                        <div style={{display: 'flex'}}>
+                            {currentConcoctionDisp()}
+                        </div>
+                        {consumeButton()}
                     </div>
-                    {consumeButton()}
                 </div>
-                {/* <div className="components-list"> */}
-                <div style={{display: 'flex'}}>
+                <div className="resource-lists-container">
                     {componentsList()}
                 </div>
                 <div>
