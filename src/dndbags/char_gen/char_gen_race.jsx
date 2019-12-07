@@ -13,8 +13,7 @@ export default function CharGenRace(props) {
             } else {
                 newRaceString = "";
             }
-            props.updateSelection("raceString", newRaceString, false);
-            props.updateSelection("raceTraits", newRaceTraits, !raceFirstRoll);
+            props.updateSelection(["raceString", "raceTraits"], [newRaceString, newRaceTraits], !raceFirstRoll);
             if (raceFirstRoll) setRaceFirstRoll(false);
         }
     }
@@ -43,7 +42,7 @@ export default function CharGenRace(props) {
         if (props.raceTraits) {
             if (props.raceTraits === "Human") {
                 return (
-                    <div>You gain training in an additional Skill. You can choose your second Class Skill, or roll a random Civilized Skill</div>
+                    <div>You gain training in an additional Skill. You can choose your second Class Skill, or roll a random Civilized Skill on the next screen</div>
                 )
             } else {
                 return (
@@ -67,6 +66,7 @@ export default function CharGenRace(props) {
             </button>
             <div style={{ display: 'flex', flexDirection: 'column' }}>
                 {raceStringDisplay()}
+                <br/>
                 {raceTraitsDisplay()}
             </div>
         </>

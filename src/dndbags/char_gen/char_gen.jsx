@@ -39,7 +39,13 @@ class CharGen extends React.Component {
 
     updateSelection(field, value, reroll) {
         let newChar = Object.assign({}, this.state.char);
-        newChar[field] = value;
+        if (field instanceof Array) {
+            for (let i = 0; i < field.length; i++) {
+                newChar[field[i]] = value[i];
+            }
+        } else {
+            newChar[field] = value;
+        }
         let newRerolls = this.state.rerolls;
         if (reroll) newRerolls -= 1;
         this.setState({ rerolls: newRerolls, char: newChar});

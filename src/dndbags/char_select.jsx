@@ -157,9 +157,9 @@ function CharSelect(props) {
                 randomChar={randomChar}
             />
             <div className="char-select-menu">
-                <h1 className="color-header">Dungeons & Douchebags</h1>
+                <h1 className="color-header">GED:<br/>Guild of Expendable Dungeoneers</h1>
                 <div className="random-character">
-                    <h2 className="char-select-link" onClick={() => setCharGen(true)}>Generate New<br/>Random Character</h2>
+                    <h2 className="char-select-link" onClick={() => setCharGen(true)}>Generate New<br/>Character</h2>
                 </div>
                 <div className="blank-character">
                     <h2 className="char-select-link" onClick={blankSheet}>Blank Character Sheet</h2>
