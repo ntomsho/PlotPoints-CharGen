@@ -89,7 +89,7 @@ export default function Skills(props) {
                 <SkillButton key={ind}
                     skill={skill}
                     classSkill={classSkills.includes(skill)}
-                    selected={props.trainedSkills.includes(skill)}
+                    selected={props.selectedFightingSkill === skill || props.trainedSkills.includes(skill)}
                     setHighlightedSkill={setHighlightedSkill}
                     // selectSkill={selectSkill}
                     classColor={CLASS_COLORS[props.cClass]}

@@ -219,7 +219,8 @@ function CharSelect(props) {
                 randomChar={randomChar}
             />
             <CharGen 
-                createChar={createChar} 
+                createChar={createChar}
+                setCharGen={setCharGen}
             />
             </>
         )

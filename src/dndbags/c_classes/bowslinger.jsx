@@ -17,7 +17,7 @@ export default function Bowslinger(props) {
 
     function createAmmo() {
         let ammo = [];
-        for(let i = 0; i < 4; i++) {
+        for(let i = 0; i < 3; i++) {
             ammo.push(randomAmmo());
         };
         setSavableAmmo([]);
@@ -108,7 +108,7 @@ export default function Bowslinger(props) {
                 <div className="ability-desc">
                     <div className="ability-desc-scrollbox">
                         <div>Magic Ability:<br /><strong>Magic Ammo</strong></div>
-                        <div>You are skilled in adding magical properties to arrows, bullets, and throwing weapons. Whenever you rest, you construct four shots of magic ammo, each with a magical property that activates when fired</div>
+                        <div>You are skilled in adding magical properties to arrows, bullets, and throwing weapons. Whenever you rest, you construct three shots of magic ammo, each with a magical property that activates when fired.</div>
                         <div>After firing a piece of ammo, there is a 50% chance it remains intact and can be recovered, but any unused ammo becomes inert when you rest.</div>
                         <br/>
                         <div>Resource Item:<br/><strong>Weapon Oil</strong></div>

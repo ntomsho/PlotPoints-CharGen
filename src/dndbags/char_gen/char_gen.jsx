@@ -60,7 +60,7 @@ class CharGen extends React.Component {
             case 3:
                 if (CLASS_FIGHTING_SKILLS[this.state.char.cClass]) {
                     return this.state.char.raceTraits === "Human" ?
-                        (!!this.state.char.selectedFightingSkill && !!this.state.trainedSkills.length >= 1) :
+                        (!!this.state.char.selectedFightingSkill && !!this.state.char.trainedSkills.length >= 1) :
                         (!!this.state.char.selectedFightingSkill)
                 } else {
                     return this.state.char.raceTraits === "Human" ?
@@ -69,6 +69,8 @@ class CharGen extends React.Component {
                 };
             case 4:
                 return (JSON.stringify(this.props.inventory) !== JSON.stringify(["", "", "", "", "", "", "", "", "", "", "", ""]));
+            case 5:
+                return (!!this.state.char.background && !!this.state.char.appearance && !!this.state.char.derp);
             default:
                 return false
         }
@@ -82,7 +84,7 @@ class CharGen extends React.Component {
             case 4:
             case 5:
             default:
-                return
+                return;
         }
     }
 
@@ -98,8 +100,10 @@ class CharGen extends React.Component {
                 return "Equipment";
             case 5:
                 return "Details";
-            default:
+            case 6:
                 return "Confirmation";
+            default:
+                return;
         }
     }
 
@@ -143,13 +147,15 @@ class CharGen extends React.Component {
                     updateSelection={this.updateSelection}
                     rerolls={this.state.rerolls}
                 />
-            default:
+            case 6:
                 return <CharGenConfirm
                     char={this.state.char}
                     updateSelection={this.updateSelection}
                     rerolls={this.state.rerolls}
                     createChar={this.props.createChar}
                 />
+            default:
+                return;
         }
     }
 
