@@ -35,7 +35,7 @@ export default function CharGenConfirm(props) {
                 <span>Class: </span><span>{char.cClass}</span>
             </div>
             <div>
-                <span>Race (but not in like a racist way)</span><span>{char.raceString}</span>
+                <span>Race (but not in like a racist way): </span><span>{char.raceString}</span>
                 {raceTraits()}
             </div>
             <div>

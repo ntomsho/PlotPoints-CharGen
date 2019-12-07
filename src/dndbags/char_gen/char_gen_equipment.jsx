@@ -4,20 +4,20 @@ import { EQUIPMENT, WEAPONS, STARTING_ITEMS, random, randomMagicItem, randomReso
 export default function CharGenEquipment(props) {
     const itemPackage = STARTING_ITEMS[props.cClass];
     //Need to move startingChoices, startingChoicesMade up in state so it doesn't go away when navigating out
-    const [startingChoices, setStartingChoices] = useState(new Array())
-    const [startingChoicesMade, setStartingChoicesMade] = useState(false);
+    // const [startingChoices, setStartingChoices] = useState(new Array())
+    const [startingChoicesMade, setStartingChoicesMade] = useState(JSON.stringify(props.inventory) !== JSON.stringify(["", "", "", "", "", "", "", "", "", "", "", ""]));
     
     const randomRequired = ["Melee Weapon", "Ranged Weapon", "Weapon Oil", "Animal Totem", "Scroll of Power", "Command Scroll", "Songbook", "Holy Symbol", "Alchemical Ingredient", "Magic Item"];
 
     function createStartingInv() {
-        let newInv = startingChoices;
+        let newInv = props.inventoryStartingChoices;
         let standardItems = [];
         for (let i = 0; i < 8 - itemPackage.length; i++) {
             standardItems.push(random(EQUIPMENT));
         }
         newInv = newInv.concat(standardItems);
         setStartingChoicesMade(true);
-        for (let i = 0; i < startingChoices.length; i++) {
+        for (let i = 0; i < props.inventoryStartingChoices.length; i++) {
             if (randomRequired.includes(newInv[i])) newInv[i] = randomizeItem(i);
         }
         props.updateSelection("inventory", newInv);
@@ -56,7 +56,7 @@ export default function CharGenEquipment(props) {
                     return (
                         <div key={i}
                             onClick={() => startingChoice(choice, ind)}
-                            className={`starting-items-choice${startingChoices[ind] === choice ? ' selected' : ''}`}>
+                            className={`starting-items-choice${props.inventoryStartingChoices[ind] === choice ? ' selected' : ''}`}>
                             {choice}
                         </div>
                     )
@@ -66,9 +66,9 @@ export default function CharGenEquipment(props) {
     }
 
     function startingChoice(choice, ind) {
-        let newChoices = startingChoices;
+        let newChoices = props.inventoryStartingChoices;
         newChoices[ind] = choice;
-        setStartingChoices([...newChoices]);
+        props.updateSelection('inventoryStartingChoices', newChoices, false);
     }
 
     function typeSpace(event) {
@@ -84,7 +84,7 @@ export default function CharGenEquipment(props) {
     }
 
     function randomizeItem(index) {
-        switch (startingChoices[index]) {
+        switch (props.inventoryStartingChoices[index]) {
             case "Melee Weapon":
                 return random(WEAPONS.slice(0, 18));
             case "Ranged Weapon":
@@ -96,7 +96,7 @@ export default function CharGenEquipment(props) {
             case "Scroll of Power":
             case "Holy Symbol":
             case "Alchemical Ingredient":
-                return randomResourceItem(startingChoices[index])
+                return randomResourceItem(props.inventoryStartingChoices[index])
             case "Magic Item":
                 return randomMagicItem();
             default:
@@ -106,8 +106,8 @@ export default function CharGenEquipment(props) {
     }
 
     function rerollButton(i) {
-        if (randomRequired.includes(startingChoices[i])) {
-            return <button onClick={() => randomizeSpace(i, true)}>Reroll {startingChoices[i]}</button>
+        if (randomRequired.includes(props.inventoryStartingChoices[i])) {
+            return <button onClick={() => randomizeSpace(i, true)}>Reroll {props.inventoryStartingChoices[i]}</button>
         } else if (i >= itemPackage.length) {
             return <button onClick={() => randomizeSpace(i, true)}>Reroll Equipment</button>
         }

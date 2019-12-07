@@ -141,6 +141,7 @@ function CharSelect(props) {
 
     function createChar(char) {
         const newChar = Object.assign(defaultSheet, char);
+        delete newChar.inventoryStartingChoices
         setChar(newChar);
         setCharGen(false);
     }

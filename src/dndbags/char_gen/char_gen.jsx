@@ -1,5 +1,5 @@
 import React from 'react';
-import { random, BACKGROUNDS, APPEARANCES, DERPS } from '../../dndb-tables';
+import { random, BACKGROUNDS, APPEARANCES, DERPS, CLASS_FIGHTING_SKILLS } from '../../dndb-tables';
 import CharGenClass from './char_gen_class';
 import CharGenRace from './char_gen_race';
 import CharGenSkills from './char_gen_skills';
@@ -23,11 +23,18 @@ class CharGen extends React.Component {
                 derp: random(DERPS),
                 selectedFightingSkill: "",
                 trainedSkills: [],
+                inventoryStartingChoices: [],
                 inventory: ["", "", "", "", "", "", "", "", "", "", "", ""],
                 regulation: true
             }
         }
         this.updateSelection = this.updateSelection.bind(this);
+    }
+
+    componentDidUpdate() {
+        if (this.state.stage <= 0) {
+            this.props.setCharGen(false);
+        }
     }
 
     updateSelection(field, value, reroll) {
@@ -36,6 +43,29 @@ class CharGen extends React.Component {
         let newRerolls = this.state.rerolls;
         if (reroll) newRerolls -= 1;
         this.setState({ rerolls: newRerolls, char: newChar});
+    }
+
+    canProceed() {
+        switch (this.state.stage) {
+            case 1:
+                return !!this.state.char.cClass;
+            case 2:
+                return (!!this.state.char.raceString && !!this.state.char.raceTraits);
+            case 3:
+                if (CLASS_FIGHTING_SKILLS[this.state.char.cClass]) {
+                    return this.state.char.raceTraits === "Human" ?
+                        (!!this.state.char.selectedFightingSkill && !!this.state.trainedSkills.length >= 1) :
+                        (!!this.state.char.selectedFightingSkill)
+                } else {
+                    return this.state.char.raceTraits === "Human" ?
+                        (!!this.state.char.trainedSkills.length >= 2) : 
+                        (!!this.state.char.trainedSkills.length >= 2);
+                };
+            case 4:
+                return (JSON.stringify(this.props.inventory) !== JSON.stringify(["", "", "", "", "", "", "", "", "", "", "", ""]));
+            default:
+                return false
+        }
     }
 
     progress() {
@@ -94,6 +124,7 @@ class CharGen extends React.Component {
             case 4:
                 return <CharGenEquipment
                     cClass={this.state.char.cClass}
+                    inventoryStartingChoices={this.state.char.inventoryStartingChoices}
                     inventory={this.state.char.inventory}
                     updateSelection={this.updateSelection}
                     rerolls={this.state.rerolls}
@@ -130,7 +161,7 @@ class CharGen extends React.Component {
                 <div style={{display: 'flex', justifyContent: 'space-between'}}>
                     <button onClick={() => this.setState({stage: this.state.stage - 1})}>{this.state.stage != 1 ? "<<" : ""}</button>
                     <h1>{this.stageText()}</h1>
-                    <button onClick={() => this.setState({stage: this.state.stage + 1})}>{">>"}</button>
+                    <button disabled={!this.canProceed()} onClick={() => this.setState({stage: this.state.stage + 1})}>{">>"}</button>
                 </div>
                 <div id="char-gen-selection-area">
                     {this.selectionArea()}
