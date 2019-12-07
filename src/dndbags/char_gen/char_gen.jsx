@@ -160,7 +160,7 @@ class CharGen extends React.Component {
                     <h3>{this.state.rerolls}</h3>
                     <h3>Rerolls Remaining</h3>
                 </div>
-                <button onClick={() => this.props.setCharGen(false)}>X</button>
+                <button onClick={() => this.setState({stage: 0})}>X</button>
                 <div id="char-gen-progress">
                     {this.progress()}
                 </div>

@@ -51,6 +51,7 @@ export default function Battlebro(props) {
     }
 
     function createWeaponForms() {
+        setCurrentWeapon({ 'type': randomWeaponType() })
         let weapons = [];
         for (let i = 0; i < 3; i++) {
             weapons.push(randomWeapon());
@@ -61,7 +62,7 @@ export default function Battlebro(props) {
     function currentWeaponDisp() {
         let endSceneButton;
         if (currentWeapon.special) endSceneButton = <button onClick={() => {
-            let nullSpecial = currentWeapon;
+            let nullSpecial = Object.assign({}, currentWeapon);
             nullSpecial.special = null;
             setCurrentWeapon(nullSpecial);
         }}>End Scene</button>
@@ -129,6 +130,8 @@ export default function Battlebro(props) {
                                 <option value="Verb">Verb</option>
                                 <option value="Element">Element</option>
                             </select>
+                        </div>
+                        <div className="custom-add-field">
                             <div>Magic Property</div>
                             <input style={{ width: '30vw' }} type="text" ref={input2}></input>
                         </div>
