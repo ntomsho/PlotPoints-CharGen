@@ -3,6 +3,7 @@ import { random, SONGS, ELEMENTS, GERUNDS } from '../../dndb-tables';
 
 export default function Minstrel(props) {
     const { currentSpecials } = props;
+    const [skillBorrowed, setSkillBorrowed] = useState(false);
     const input1 = React.createRef();
     const input2 = React.createRef();
 
@@ -26,9 +27,14 @@ export default function Minstrel(props) {
         let songs = [];
         let notes = [];
         for (let i = 0; i < 3; i++) {
-            songs.push(randomSong());
+            let ind = Math.floor(Math.random() * 6);
+            while (songs.includes(ind)) {
+                ind = Math.floor(Math.random() * 6);
+            }
+            songs.push(ind);
         };
-        for (let i = 0; i < 6; i++) {
+        songs = songs.map(ind => SONGS[ind]);
+        for (let i = 0; i < 5; i++) {
             notes.push(randomNote());
         };
         props.updateState('currentSpecials', { 'songs': songs.sort(), 'notes': notes });
@@ -66,6 +72,17 @@ export default function Minstrel(props) {
             default:
                 return "Challenge or enrage listener";
         }
+    }
+
+    function skillHarmonyDisp() {
+        return (
+            <>
+            <div>Skill Harmony {skillBorrowed ? "Expended" : "Available"}</div>
+            <button onClick={() => setSkillBorrowed(skillBorrowed ? false : true)}>
+                {skillBorrowed ? "End Scene" : "Borrow Skill"}
+            </button>
+            </>
+        )
     }
 
     function songsDisp() {
@@ -133,8 +150,9 @@ export default function Minstrel(props) {
                 <div className="ability-desc">
                     <div className="ability-desc-scrollbox">
                         <div>Magic Ability:<br /><strong>Bard Songs</strong></div>
-                        <div>Your music is magic! Whenever you rest, you recall a selection of three song genres and six magic notes.</div>
-                        <div>Spend one of your notes to play a song as an action, performing the song's effect modified by the effect of the note used.</div>
+                        <div>Your music is magic! Whenever you rest, you recall a selection of three song genres and five magic notes.</div>
+                        <div>Spend one of your notes to play a song, performing the song's effect modified by the effect of the note used.</div>
+                        <div>You can also use your Skill Harmony once per scene to borrow a nearby ally's Skill Training, gaining Skill Advantage on an action using that Skill.</div>
                         <br/>
                         <div>Resource Item:<br/><strong>Songbooks</strong></div>
                         <div>Spend a songbook to add its song or note to your day's repertoire.</div>
@@ -143,6 +161,9 @@ export default function Minstrel(props) {
                 </div>
             </div>
             <div className="class-ability-display">
+                <div className="ability-main">
+                    {skillHarmonyDisp()}
+                </div>
                 <div className="resource-lists-container" id="form-list">
                     <div id="songs-list">
                         {songsDisp()}

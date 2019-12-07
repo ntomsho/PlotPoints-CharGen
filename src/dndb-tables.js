@@ -1009,7 +1009,9 @@ export function randomResourceItem(resource) {
         case "Command Scroll":
             return `Scroll of ${random(COMMANDS)}`
         case "Songbook":
-            return `Songbook of ${random([random(ELEMENTS_OF), random(GERUNDS)])}`
+            const noteType = random(["Element", "Verb"])
+            const song = noteType === "Element" ? `${random(SONGS)} of ${random(ELEMENTS_OF)}` : `${random(GERUNDS)} ${random(SONGS)}`
+            return `Songbook of ${song}`
         case "Holy Symbol":
             return `Holy Symbol of ${random(SKILLS)}`
         case "Alchemical Ingredient":

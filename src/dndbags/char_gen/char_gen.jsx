@@ -60,12 +60,12 @@ class CharGen extends React.Component {
             case 3:
                 if (CLASS_FIGHTING_SKILLS[this.state.char.cClass]) {
                     return this.state.char.raceTraits === "Human" ?
-                        (!!this.state.char.selectedFightingSkill && !!this.state.char.trainedSkills.length >= 1) :
+                        (!!this.state.char.selectedFightingSkill && this.state.char.trainedSkills.length >= 1) :
                         (!!this.state.char.selectedFightingSkill)
                 } else {
                     return this.state.char.raceTraits === "Human" ?
-                        (!!this.state.char.trainedSkills.length >= 2) : 
-                        (!!this.state.char.trainedSkills.length >= 2);
+                        (this.state.char.trainedSkills.length >= 2) : 
+                        (this.state.char.trainedSkills.length >= 1);
                 };
             case 4:
                 return (JSON.stringify(this.props.inventory) !== JSON.stringify(["", "", "", "", "", "", "", "", "", "", "", ""]));
