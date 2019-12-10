@@ -3,9 +3,7 @@ import { randomAnimal } from '../../dndb-tables';
 
 export default function Ragesmasher(props) {
     const { currentSpecials } = props;
-    const [raging, setRaging] = useState(false);
-    const [rage, setRage] = useState(0);
-    const [totemLost, setTotemLost] = useState(true);
+    const [currentActive, setCurrentActive] = useState(null);
     const input = React.createRef();
 
     if (!currentSpecials.totems) {
@@ -26,59 +24,62 @@ export default function Ragesmasher(props) {
         props.updateState('currentSpecials', { 'totems': newTotems });
     }
 
-    function setRageNum(num) {
-        let newRage = rage;
-        newRage === num ? newRage = (rage - 1) : newRage = (num);
-        if (newRage === 3) {
-            setRaging(true);
-            setTotemLost(false);
-        }
-        setRage(newRage);
-     }
+    // function setRageNum(num) {
+    //     let newRage = rage;
+    //     newRage === num ? newRage = (rage - 1) : newRage = (num);
+    //     if (newRage === 3) {
+    //         setRaging(true);
+    //         setTotemLost(false);
+    //     }
+    //     setRage(newRage);
+    //  }
 
-    function rageOut(totemInd) {
-        if (raging) {
-            setTotemLost(true);
-        } else {
-            setRaging(true);
-        }
+    function activateTotem(totemInd, rage) {
+        rage ? setCurrentActive("rage") : setCurrentActive(currentSpecials.totems[totemInd]);
         let newTotems = currentSpecials.totems;
         newTotems.splice(totemInd, 1);
         props.updateState('currentSpecials', { 'totems': newTotems });
     }
 
-    function endRage() {
-        setRage(0);
-        setRaging(false);
-    }
-
     function totemsDisp() {
         if (currentSpecials.totems && currentSpecials.totems.length > 0) {
             return (
+                <>
+                <h3>Totem Spirits</h3>
                 <ul className="resource-list">
                     {currentSpecials.totems.map((totem, i) => {
                         return (
                             <li key={i} className="resource-list-entry">
                                 <div><strong>{totem}</strong> Totem</div>
-                                <button onClick={() => rageOut(i)}>X</button>
+                                <button onClick={() => activateTotem(i, false)}>Use</button>
+                                <button onClick={() => activateTotem(i, true)}>Rage!</button>
                             </li>
                         )
                     })}
                 </ul>
+                </>
             )
         }
     }
 
-    function rageDisp() {
-        let endRageButton = <button onClick={endRage}>End Scene</button>
-        let endRageInfo = <div style={{fontWeight: 'normal', fontSize: '2.5vw'}}>Lose a totem, Rage ends at end of scene</div>
-        return (
-            <>
-                <strong>RAGING!</strong>
-                <div style={{fontWeight: 'normal', fontFamily: 'auto', fontSize: '2.5vw'}}>Gain Magic Advantage on all rolls to fight, smash, punch, or break stuff<br/>Take +1 Difficulty on anything else</div>
-                {totemLost ? endRageButton : endRageInfo}
-            </>
-        )
+    function currentDisp() {
+        if (currentActive === "rage") {
+            return (
+                <>
+                    <div><strong>RAGING!</strong></div>
+                    <div style={{fontWeight: 'normal', fontFamily: 'auto', fontSize: '2.5vw'}}>Gain Magic Advantage on all rolls to fight, smash, punch, or break stuff<br/>Take +1 Difficulty on anything else</div>
+                    <button onClick={() => setCurrentActive(null)}>End Scene</button>
+                </>
+            )
+        } else if (currentActive) {
+            return (
+                <>
+                    <div>Channeling the Spirit of the:</div>
+                    <div><strong>{currentActive}</strong></div>
+                    <button onClick={() => setCurrentActive(null)}>End Scene</button>
+                </>
+            )
+        }
     }
 
     return (
@@ -89,10 +90,9 @@ export default function Ragesmasher(props) {
                 <div className="ability-desc">
                     <div className="ability-desc-scrollbox">
                         <div>Magic Ability:<br /><strong>Totem Spirits and Barbaric Rage</strong></div>
-                        <div>Whenever you rest, you have a set of four Totem Spirits. You gain Magic Advantage on any action associated with one of those animals.</div>
-                        <div>You gain a point of Rage whenever you take a Consequence. You can also take a point of Rage to gain Magic Advantage on an aggressive or destructive action.</div>
-                        <div>Whenever your Rage reaches 3, you Rage Out, losing a Totem and gaining Magic Advantage on aggressive or destructive actions and +1 Difficulty on any other actions for the duration fo the scene.</div>
-                        <div>At the end of every scene, your Rage goes back to 0.</div>
+                        <div>Whenever you rest, you gain a set of three Totem Spirits. You can spend one of these totems to channel that animal spirit or rage out for the duration of the scene.</div>
+                        <div>When channeling a spirit, you can do things that that animal can do and gain Magic Advantage on actions it would be associated with.</div>
+                        <div>Whe raging out, you gain Magic Advantage on aggressive or destructive actions but take +1 Difficulty on any other actions.</div>
                         <br/>
                         <div>Resource Item:<br/><strong>Animal Totems</strong></div>
                         <div>Spend an Animal Totem to gain a Totem Spirit of its animal type.</div>
@@ -103,16 +103,7 @@ export default function Ragesmasher(props) {
             <div className="class-ability-display">
                 <div className="ability-main">
                     <div style={{display: 'flex', flexDirection: 'column'}}>
-                        {raging ? rageDisp() : null}
-                        <div id="rage-counter">
-                            <div>Rage</div>
-                            <div className="class-radio-container">
-                                <button onClick={() => setRageNum(1)}>{rage >= 1 ? "⦿" : "⦾"}</button>
-                                <button onClick={() => setRageNum(2)}>{rage >= 2 ? "⦿" : "⦾"}</button>
-                                <button onClick={() => setRageNum(3)}>{rage >= 3 ? "⦿" : "⦾"}</button>
-                            </div>
-                            <button onClick={() => setRageNum(0)}>Clear Rage</button>
-                        </div>
+                        {currentDisp()}
                     </div>
                 </div>
                 <div className="resource-lists-container">
