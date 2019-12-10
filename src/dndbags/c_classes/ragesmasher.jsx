@@ -24,16 +24,6 @@ export default function Ragesmasher(props) {
         props.updateState('currentSpecials', { 'totems': newTotems });
     }
 
-    // function setRageNum(num) {
-    //     let newRage = rage;
-    //     newRage === num ? newRage = (rage - 1) : newRage = (num);
-    //     if (newRage === 3) {
-    //         setRaging(true);
-    //         setTotemLost(false);
-    //     }
-    //     setRage(newRage);
-    //  }
-
     function activateTotem(totemInd, rage) {
         rage ? setCurrentActive("rage") : setCurrentActive(currentSpecials.totems[totemInd]);
         let newTotems = currentSpecials.totems;
