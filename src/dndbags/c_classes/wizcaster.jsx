@@ -5,9 +5,10 @@ export default function Wizcaster(props) {
     let { currentSpecials } = props;
     let { words } = currentSpecials;
 
-    const [currentSpell, setCurrentSpell] = useState([])
-    const [keepWordInd, setKeepWordInd] = useState(null)
-    const [selectedWordInd, setSelectedWordInd] = useState(null)
+    const [currentSpell, setCurrentSpell] = useState([]);
+    const [keepWordInd, setKeepWordInd] = useState(null);
+    const [selectedWordInd, setSelectedWordInd] = useState(null);
+    const [missileUsed, setMissileUsed] = useState(false);
     const input1 = React.createRef();
     const input2 = React.createRef();
 
@@ -31,10 +32,13 @@ export default function Wizcaster(props) {
         return { 'word': random(wordCat), 'wordCat': wordCatName }
     }
 
-    function addCustomWord(randomize) {
+    function addCustomWord(randomize, missile) {
         let newWords = [...currentSpecials.words];
         if (randomize) {
             newWords.push(randomWord());
+        } else if (missile) {
+            setMissileUsed(false);
+            newWords.unshift({'word': "Missile", 'wordCat': "Form"});
         } else {
             newWords.push({ 'word': input2.current.value, 'wordCat': input1.current.value })
         }
@@ -42,10 +46,11 @@ export default function Wizcaster(props) {
     }
 
     function createWords() {
-        let newWords = [];
+        let newWords = [{'word': 'Missile', 'wordCat': 'Form'}];
         for (let i = 0; i < 6; i++) {
             newWords.push(randomWord());
         }
+        setMissileUsed(false);
         setCurrentSpell([]);
         props.updateState('currentSpecials', { 'words': newWords });
     }
@@ -77,6 +82,7 @@ export default function Wizcaster(props) {
     function castSpell() {
         let newWords = words;
         for (let i = 0; i < currentSpell.length; i++) {
+            if (newWords[i].word === "Missile") setMissileUsed(true);
             if (i !== keepWordInd) newWords.splice(currentSpell[i], 1);
         }
         setKeepWordInd(null);
@@ -85,15 +91,24 @@ export default function Wizcaster(props) {
         props.updateState('currentSpecials', {'words': newWords});
     }
 
+    function endSceneButton() {
+        if (missileUsed) {
+            return (
+                <button onClick={() => addCustomWord(false, true)}>End Scene</button>
+            )
+        }
+    }
+
     function wordsListDisp() {
         if (words) {
             return (
                 <ul className="resource-list">
+                    {endSceneButton()}
                     {words.map((word, i) => {
                         return (
                             <li key={i} 
                             className={`resource-list-entry wizcaster-word${selectedWordInd === i ? ' selected' : ''}`} 
-                            style={{width: '22vw'}}
+                            style={word.word === "Missile" ? {width: '22vw', color: 'white', backgroundColor: 'darkmagenta'} : {width: '22vw'}}
                                 onClick={() => setSelectedWordInd(selectedWordInd === i ? null : i)}>
                                 <div><strong>{word.word}</strong> {word.wordCat}</div>
                             </li>
@@ -153,11 +168,13 @@ export default function Wizcaster(props) {
             <div style={{display: 'flex'}}>
                 {spellAddButtonLeft()}
                 {currentSpell.map((wordInd, spellInd) => {
+                    let keepButton;
+                    if (words[wordInd].word !== "Missile") keepButton = <button className={`keepword${keepWordInd === spellInd ? ' selected' : ''}`} onClick={() => setKeepWordInd(spellInd)}>Keep?</button>
                     return (
                         <div className="wizcaster-spell-word" key={spellInd}>
                             <div className="wizcaster-spell-word">{currentSpellWord(words[wordInd], spellInd)}</div>
                             <button onClick={() => removeWordFromSpell(spellInd)}>Remove</button>
-                            <button className={`keepword${keepWordInd === spellInd ? ' selected' : ''}`} onClick={() => setKeepWordInd(spellInd)}>Keep?</button>
+                            {keepButton}
                         </div>
                     )
                 })}
@@ -184,6 +201,7 @@ export default function Wizcaster(props) {
                         <div>Magic Ability:<br /><strong>Words of Power</strong></div>
                         <div>The Wizcaster creates magic spells by combining Words of Power. Whenever you rest, you are given six words and you can combine two or three to create that effect.</div>
                         <div>Whenever you cast a spell, you can choose one Word to keep. Any others used in the spell are lost.</div>
+                        <div>You also gain the Missile Form word which can be used to build spells as normal, but cannot be kept and is restored at the end of every scene.</div>
                         <br/>
                         <div>Resource Item:<br/><strong>Scrolls of Power</strong></div>
                         <div>Spend a Scroll of Power to add its word to your current Words of Power.</div>
