@@ -3,118 +3,72 @@ import { randomAnimal, random, MUTATIONS, ADJECTIVE_MUTATIONS } from '../../dndb
 
 export default function Zoomaster(props) {
     const { currentSpecials } = props;
-    const [currentForm, setCurrentForm] = useState(null);
+    const [currentBeast, setCurrentBeast] = useState(null);
     const input1 = React.createRef();
     const input2 = React.createRef();
-    const input3 = React.createRef();
 
-    if (!currentSpecials.naturalForms) {
-        props.updateState('currentSpecials', { 'naturalForms': [], 'chimericForms': [] })
+    if (!currentSpecials.beasts) {
+        props.updateState('currentSpecials', { 'beasts': [] })
     }
 
-    function randomNaturalForm() {
-        return randomAnimal();
+    function randomBeast() {
+        return beastString(randomAnimal(), random(MUTATIONS));
     }
 
-    function randomChimericForm() {
-        return {'mutation': random(MUTATIONS), 'animal': randomAnimal()};
-    }
-
-    function createForms() {
-        let naturals = [];
-        let chimerics = [];
-        for (let i = 0; i < 3; i++) {
-            naturals.push(randomNaturalForm());
-            chimerics.push(randomChimericForm());
-        }
-        chimerics.push(randomChimericForm());
-        props.updateState('currentSpecials', { 'naturalForms': naturals, 'chimericForms': chimerics });
-    }
-
-    function addCustomForm(randomize, natural) {
-        let newForms = currentSpecials;
-        natural ? 
-            newForms.naturalForms.push(randomize ? randomNaturalForm() : input1.current.value) : 
-            newForms.chimericForms.push(randomize ? randomChimericForm() : {'mutation': input3.current.value, 'animal': input2.current.value})
-        props.updateState('currentSpecials', newForms);
-    }
-
-    function formString(animal, mutation) {
-        let newFormString;
-        console.log(mutation)
+    function beastString(animal, mutation) {
         if (ADJECTIVE_MUTATIONS.includes(mutation)) {
-            newFormString = mutation + " " + animal;
-        } else {
-            newFormString = animal + " with " + mutation;
+            return mutation + " " + animal;
         }
-        return newFormString;
+        return animal + " with " + mutation;
     }
 
-    function setChimericForm(formIndex) {
-        let newForms = currentSpecials;
-        let newForm = currentSpecials.chimericForms[formIndex]
-        const newFormString = formString(newForm.animal, newForm.mutation);
-        setCurrentForm({'formType': 'chimeric', 'form': newFormString });
-        newForms.chimericForms.splice(formIndex, 1);
-        props.updateState('currentSpecials', newForms);
+    function createBeasts() {
+        let beasts = [];
+        for (let i = 0; i < 3; i++) {
+            beasts.push(randomBeast());
+        }
+        props.updateState('currentSpecials', { 'beasts': beasts });
     }
 
-    function currentFormDisp() {
-        if (currentForm) {
-            let endSceneButton;
-            let formName;
-            if (currentForm.formType === 'chimeric') {
-                endSceneButton = <button onClick={() => setCurrentForm(null)}>End Scene</button>
-                formName = currentForm.form;
-            } else {
-                formName = currentSpecials.naturalForms[currentForm.index]
-            }
-                
+    function addCustomBeast(randomize) {
+        let newBeasts = currentSpecials.beasts;
+        newBeasts.push(randomize ? randomBeast() : {'mutation': input2.current.value, 'animal': input1.current.value})
+        props.updateState('currentSpecials', {'beasts': newBeasts});
+    }
+
+    function releaseBeast(beastIndex) {
+        let newBeasts = currentSpecials.beasts;
+        setCurrentBeast(currentSpecials.beasts[beastIndex]);
+        newBeasts.splice(beastIndex, 1);
+        props.updateState('currentSpecials', {'beasts': newBeasts});
+    }
+
+    function currentBeastDisp() {
+        if (currentBeast) {    
             return (
                 <>
                 <div>
-                    Current Form: <strong>{formName}</strong>
+                    Current Beast: <strong>{currentBeast}</strong>
                 </div>
-                {endSceneButton}
+                <button onClick={() => setCurrentBeast(null)}>End Scene</button>
                 </>
             )
         }
     }
 
-    function naturalFormsDisp() {
-        if (currentSpecials.naturalForms && currentSpecials.naturalForms.length > 0) {
+    function beastsDisp() {
+        if (currentSpecials.beasts && currentSpecials.beasts.length > 0) {
             return (
                 <>
-                <h3>Natural Forms</h3>
-                <ul className="resource-list">
-                    {currentSpecials.naturalForms.map((form, i) => {
-                        return (
-                            <li key={i} className="resource-list-entry">
-                                <div onClick={() => setCurrentForm({ 'formType': 'natural', 'index': i })} className={`form${currentForm === form ? ' selected' : ''}`}>
-                                    <strong>{form}</strong>
-                                </div>
-                            </li>
-                        )
-                    })}
-                </ul>
-                </>
-            )
-        }
-    }
-
-    function chimericFormsDisp() {
-        if (currentSpecials.chimericForms && currentSpecials.chimericForms.length > 0) {
-            return (
-                <>
-                    <h3>Natural Forms</h3>
+                    <h3>Beasts</h3>
                     <ul className="resource-list">
-                        {currentSpecials.chimericForms.map((form, i) => {
+                        {currentSpecials.beasts.map((beast, i) => {
                             return (
                                 <li key={i} className="resource-list-entry">
                                     <div>
-                                        <strong>{formString(form.animal, form.mutation)}</strong>
+                                        <strong>{beast}</strong>
                                     </div>
-                                    <button onClick={() => setChimericForm(i)}>Use</button>
+                                    <button onClick={() => releaseBeast(i)}>Go!</button>
                                 </li>
                             )
                         })}
@@ -131,54 +85,41 @@ export default function Zoomaster(props) {
                 <br />
                 <div className="ability-desc">
                     <div className="ability-desc-scrollbox">
-                        <div>Magic Ability:<br /><strong>Chimeric Companion</strong></div>
-                        <div>Your best friend is a Chimera that shifts between the shapes of various creatures. Whenever you rest, it assumes a new animal form and mutation.</div>
-                        <div>Whenever you rest, it generates a set of 3 natural forms it can shift between at will, and 4 chimeric forms.</div>
-                        <div>You can spend a chimeric form to turn your companion into that creature for the duration of the scene, afterwhich it must return to one of its natural forms.</div>
-                        <div>You and your Chimera share Health. Any damage or healing done to one of you is done to the other.</div>
+                        <div>Magic Ability:<br /><strong>Chimeric Beasts</strong></div>
+                        <div>You carry a menagerie of exotic creatures frozen in tiny crystal globes. Whenever you rest, you randomly select three of them for your team for the day.</div>
+                        <div>You can release each beast for one scene. It obeys your commands and you gain Magic Advantage for any roll that the beast makes or assists you with that it is particularly well suited for.</div>
+                        <div>The beast returns to the wild at the end of the scene or as a Consequence if it is hurt or scared.</div>
                         <br />
                         <div>Resource Item:<br/><strong></strong></div>
-                        <div>Spend an Animal Totem to add a Chimeric Form with its animal type and mutation to your current list.</div>
+                        <div>Spend an Animal Totem to add a Chimeric Form with its animal type and mutation to your current list of beasts.</div>
                     </div>
                 </div>
             </div>
             <div className="class-ability-display">
                 <div className="ability-main">
-                    {currentFormDisp()}
+                    {currentBeastDisp()}
                 </div>
                 <div className="resource-lists-container" id="form-list">
-                    <div id="chimerics-display">
-                        {chimericFormsDisp()}
-                    </div>
-                    <div id="naturals-display">
-                        {naturalFormsDisp()}
+                    <div id="beasts-display">
+                        {beastsDisp()}
                     </div>
                 </div>
                 <div>
                     <div className="ability-management-container">
                         <div className="custom-add-row">
-                            <div>Add Natural Form: </div>
-                            <div className="custom-add-field">
-                                <input type="text" ref={input1}></input>
-                                <button onClick={() => addCustomForm(false, true)}>+</button>
-                                <button onClick={() => addCustomForm(true, true)}>🎲</button>
-                            </div>
-                        </div>
-                        <br/>
-                        <div className="custom-add-row">
-                            <div>Add Chimeric Form: </div>
+                            <div>Add Beast: </div>
                             <div>Base Animal</div>
                             <div className="custom-add-field">
-                                <input type="text" ref={input2}></input>
+                                <input type="text" ref={input1}></input>
                             </div>
                             <div>Mutation</div>
                             <div className="custom-add-field">
-                                <input type="text" ref={input3}></input>
-                                <button onClick={() => addCustomForm(false, false)}>+</button>
-                                <button onClick={() => addCustomForm(true, false)}>🎲</button>
+                                <input type="text" ref={input2}></input>
+                                <button onClick={() => addCustomBeast(false, false)}>+</button>
+                                <button onClick={() => addCustomBeast(true, false)}>🎲</button>
                             </div>
                         </div>
-                        <button className="ability-randomize-button" onClick={createForms}>Generate New Forms<br />(On rest)</button>
+                        <button className="ability-randomize-button" onClick={createBeasts}>Generate New Beasts<br />(On rest)</button>
                     </div>
                 </div>
             </div>
