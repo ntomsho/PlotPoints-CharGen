@@ -12,7 +12,7 @@ export default function Zoomaster(props) {
     }
 
     function randomBeast() {
-        return beastString(randomAnimal(), random(MUTATIONS));
+        return {'beast': beastString(randomAnimal(), random(MUTATIONS)), 'name': ""};
     }
 
     function beastString(animal, mutation) {
@@ -32,7 +32,7 @@ export default function Zoomaster(props) {
 
     function addCustomBeast(randomize) {
         let newBeasts = currentSpecials.beasts;
-        newBeasts.push(randomize ? randomBeast() : {'mutation': input2.current.value, 'animal': input1.current.value})
+        newBeasts.push(randomize ? randomBeast() : {'beast': beastString(input1.current.value, input2.current.value), 'name': ""})
         props.updateState('currentSpecials', {'beasts': newBeasts});
     }
 
@@ -48,12 +48,18 @@ export default function Zoomaster(props) {
             return (
                 <>
                 <div>
-                    Current Beast: <strong>{currentBeast}</strong>
+                    Current Beast: <><div>{currentBeast.name}</div><strong>{currentBeast.beast}</strong></>
                 </div>
                 <button onClick={() => setCurrentBeast(null)}>End Scene</button>
                 </>
             )
         }
+    }
+
+    function changeBeastName(event) {
+        let newBeasts = currentSpecials.beasts;
+        newBeasts[event.target.name].name = event.target.value;
+        props.updateState('currentSpecials', {'beasts': newBeasts});
     }
 
     function beastsDisp() {
@@ -66,7 +72,11 @@ export default function Zoomaster(props) {
                             return (
                                 <li key={i} className="resource-list-entry">
                                     <div>
-                                        <strong>{beast}</strong>
+                                        <strong>{beast.beast}</strong>
+                                        <br/>
+                                        <span>Name</span>
+                                        <br/>
+                                        <input type="text" onChange={changeBeastName} name={i} value={beast.name}></input>
                                     </div>
                                     <button onClick={() => releaseBeast(i)}>Go!</button>
                                 </li>
