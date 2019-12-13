@@ -74,8 +74,11 @@ export default function DiceRoller(props) {
                 >
                     X
                 </button>
-                <img className="d20" src="https://thecarnivoreproject.typepad.com/.a/6a00d8345295c269e201b7c86447b6970b-600wi"></img>
-                <div className="d20-value">{mainDie === null ? "20" : mainDie}</div>
+                {/* <img className="d20" src="https://thecarnivoreproject.typepad.com/.a/6a00d8345295c269e201b7c86447b6970b-600wi"></img>
+                <div className="d20-value">{mainDie === null ? "20" : mainDie}</div> */}
+                <div className="d20">
+                    <div className="d20-value">{mainDie === null ? "" : mainDie}</div>
+                </div>
                 <h2>Advantage Dice</h2>
                 <div className="advantage-container">
                     <button onClick={() => changeDice(false)}>-</button>
