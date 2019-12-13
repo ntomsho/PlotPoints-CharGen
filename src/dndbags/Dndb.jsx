@@ -79,7 +79,7 @@ class Dndb extends React.Component {
                 <DiceRoller setRollerOut={this.props.setRollerOut} extended={this.props.rollerOut} />
                 <div id="dndb-sheet-container">
                     <div id="sheet-header">
-                        <h1 className="color-header">Dungeons & Douchebags</h1>
+                        <h1 className="color-header">GED:<br/>Guild of Expendable Dungeoneers</h1>
                     </div>
                     <div id="main-button-row">
                         <button onClick={() => this.props.setModalOut(true)}>Show Rules</button>

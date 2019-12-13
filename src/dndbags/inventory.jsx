@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { random, EQUIPMENT, STARTING_ITEMS, WEAPONS, ELEMENTS, VERBS, GERUNDS, randomAnimal, randomMagicItem, SONGS, ELEMENTS_OF, BASES, FORMS, randomResourceItem } from '../dndb-tables';
+import { random, EQUIPMENT, STARTING_ITEMS, WEAPONS, randomMagicItem, randomResourceItem } from '../dndb-tables';
 
 export default function Inventory(props) {
     const [startingChoices, setStartingChoices] = useState([])

@@ -74,7 +74,7 @@ export default function Zoomaster(props) {
                                     <div>
                                         <strong>{beast.beast}</strong>
                                         <br/>
-                                        <span>Name</span>
+                                        <span style={{color: 'darkgreen'}}>Name</span>
                                         <br/>
                                         <input type="text" onChange={changeBeastName} name={i} value={beast.name}></input>
                                     </div>
@@ -101,7 +101,7 @@ export default function Zoomaster(props) {
                         <div>The beast returns to the wild at the end of the scene or as a Consequence if it is hurt or scared.</div>
                         <br />
                         <div>Resource Item:<br/><strong></strong></div>
-                        <div>Spend an Animal Totem to add a Chimeric Form with its animal type and mutation to your current list of beasts.</div>
+                        <div>Spend an Animal Totem to add a new beast with its animal type and mutation to your current team.</div>
                     </div>
                 </div>
             </div>
