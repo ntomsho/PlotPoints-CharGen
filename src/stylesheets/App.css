@@ -278,12 +278,31 @@ button {
 
 .advantage-die {
   font-size: 25vw;
+  opacity: 20%;
+}
+
+.advantage-die-selected {
+  font-size: 25vw;
+  opacity: 100%;
+  position: relative;
 }
 
 .dice-roller-main button {
   width: 5vw;
   height: 5vh;
   font-size: 5vw;
+}
+
+.canceled-x {
+  color: red;
+  position: absolute;
+  top: -11%;
+  left: 2%;
+  font-size: 35vw;
+}
+
+.canceled-x.hidden {
+  display: none;
 }
 
 /* Dndb Main */

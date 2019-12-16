@@ -2,11 +2,21 @@ import React, { useState } from 'react';
 
 export default function DiceRoller(props) {
     const [disadvantage, setDisadvantage] = useState(false);
-    const [advantageDice, setAdvantageDice] = useState([]);
+    const [advantageDice, setAdvantageDice] = useState([null, null, null]);
+    const [disadvantageDie, setDisadvantageDie] = useState(null);
     const [mainDie, setMainDie] = useState(null);
+    const [difficulty, setDifficulty] = useState(0);
+    const [selectedDice, setSelectedDice] = useState([false, false, false]);
     const [displayRoll, setDisplayRoll] = useState('');
+    const [rollHistory, setRollHistory] = useState([]);
 
+    const blankd6 = '▢';
     const dieFaces = ['⚀','⚁','⚂','⚃','⚄','⚅'];
+    const advantageSources = [
+        "You have a Skill that applies",
+        "You have Magic that applies",
+        "You have a Circumstance in your favor"
+    ]
 
     function resetDice() {
         let newDice = advantageDice.map(die => null);
@@ -15,26 +25,61 @@ export default function DiceRoller(props) {
         setDisplayRoll('');
     }
 
-    function changeDice(increment) {
-        let newDice = advantageDice;
-        if (increment && newDice.length < 3) {
-            if (disadvantage) {
-                setDisadvantage(false)
-                newDice.pop();
-            } else {
-                newDice.push(null);
-            }
+    function selectAdvantageDie(ind) {
+        let newDice = [...selectedDice];
+        newDice[ind] = newDice[ind] ? false : true;
+        setSelectedDice(newDice);
+    }
+
+    function changeDifficulty(inc) {
+        if (inc && difficulty < 3) {
+            setDifficulty(difficulty + 1);    
+        } else if (!inc && difficulty > 0) {
+            setDifficulty(difficulty - 1);
         }
-        else if (!increment && !disadvantage) {
-            if (newDice.length === 0) {
-                setDisadvantage(true)
-                newDice.push(null);
-             } else {
-                newDice.pop();
-             }
+    }
+
+    function numDice() {
+        let num = 0;
+        for (let i = 0; i < 3; i++) {
+            if (selectedDice[i]) num++;
         }
-        setAdvantageDice(newDice);
-        resetDice();
+        return num;
+    }
+
+    function diceSelectionDisplay() {
+        let cancels = difficulty;
+        return (
+            <>
+            {advantageDice.map((die, i) => {
+                let canceled = false;
+                if (selectedDice[i] && cancels > 0) {
+                    cancels -= 1;
+                    canceled = true;
+                }
+                return (
+                    <div style={{ display: 'flex', flexDirection: 'column' }}>
+                        <div>{advantageSources[i]}</div>
+                        <div key={i} onClick={() => selectAdvantageDie(i)} className={selectedDice[i] ? 'advantage-die-selected' : 'advantage-die'}>
+                            {die === null ? `${blankd6}` : dieFaces[die - 1]}
+                            <div className={`canceled-x${canceled ? '' : ' hidden'}`}>X</div>
+                        </div>
+                    </div>
+                )
+            })}
+            </>
+        )
+    }
+
+    function disadvantageDieDisp() {
+        return (
+            <div style={{ color: 'red', display: 'flex', flexDirection: 'column' }}>
+                <div>Disadvantage</div>
+                <div className={disadvantageDie ? 'advantage-die' : 'advantage-die-selected'}>
+                    {disadvantageDie ? dieFaces[disadvantageDie - 1] : blankd6}
+                </div>
+            </div>
+        )
     }
 
     function resultText() {
@@ -56,14 +101,30 @@ export default function DiceRoller(props) {
 
     function rollDice() {
         const mainRoll = Math.floor(Math.random() * 20 + 1);
-        let newDice = advantageDice.map(die => Math.floor(Math.random() * 6) + 1);
-        console.log(newDice);
-        const advSum = newDice.reduce((acc, num) => acc + num, 0);
-        let result = mainRoll
-        disadvantage ? result -= advSum : result += advSum;
+        let mod;
+        let newDice;
+        if (disadvantage) {
+            mod = -1 * Math.floor(Math.random() * 6) + 1
+            newDice = [mod, null, null];
+        } else {
+            let cancels = difficulty;
+            newDice = selectedDice.map(die => {
+                if (cancels && die) {
+                    cancels -= 1;
+                    return null;
+                }
+                return !!die ? Math.floor(Math.random() * 6) + 1 : 0;
+            });
+            console.log(newDice);
+            mod = newDice.reduce((acc, num) => acc + num, 0);
+        }
+        let result = mainRoll + mod;
         setAdvantageDice(newDice);
         setMainDie(mainRoll);
         setDisplayRoll(result);
+        const rolls = [...rollHistory];
+        rolls.push({ 'result': result, 'mainRoll': mainRoll, 'd6s': newDice, 'disadvantage': disadvantage });
+        setRollHistory(rolls);
     }
 
     return (
@@ -74,22 +135,21 @@ export default function DiceRoller(props) {
                 >
                     X
                 </button>
-                {/* <img className="d20" src="https://thecarnivoreproject.typepad.com/.a/6a00d8345295c269e201b7c86447b6970b-600wi"></img>
-                <div className="d20-value">{mainDie === null ? "20" : mainDie}</div> */}
                 <div className="d20">
                     <div className="d20-value">{mainDie === null ? "" : mainDie}</div>
                 </div>
                 <h2>Advantage Dice</h2>
+                <div style={{display: 'flex'}}>
+                    <div style={{display: 'flex', justifyContent: 'space-between', width: '25%'}}>
+                        <div onClick={() => changeDifficulty(false)}>-</div>
+                        <div><strong>Difficulty:</strong> <span>{difficulty}</span></div>
+                        <div onClick={() => changeDifficulty(true)}>+</div>
+                    </div>
+                    {numDice() < difficulty ? disadvantageDieDisp() : <div></div> }
+                </div>
+                <br/>
                 <div className="advantage-container">
-                    <button onClick={() => changeDice(false)}>-</button>
-                    {advantageDice.map((die, i) => {
-                        return (
-                            <div key={i} className="advantage-die" style ={{color: disadvantage ? 'red' : 'black'}}>
-                                {die === null ? `${dieFaces[i]}` : dieFaces[die - 1]}
-                            </div>
-                        )
-                    })}
-                    <button onClick={() => changeDice(true)}>+</button>
+                    {diceSelectionDisplay()}
                 </div>
                 <div>
                     <div>{displayRoll}</div>
