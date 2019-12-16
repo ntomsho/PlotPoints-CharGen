@@ -250,9 +250,24 @@ button {
   align-items: center;
 }
 
+.roller-top {
+  display: flex;
+  width: 100%;
+  height: 50%;
+}
+
+.roller-top-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 50%;
+  height: 100%;
+  border: 1px solid black;
+}
+
 .d20 {
-  width: 60vw;
-  height: 60vh;
+  width: 15vw;
+  height: 15vh;
   background: url("https://thecarnivoreproject.typepad.com/.a/6a00d8345295c269e201b7c86447b6970b-600wi") no-repeat center;
   background-size: contain;
   position: relative;
@@ -267,7 +282,25 @@ button {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 9vw;
+  font-size: 4vw;
+}
+
+.current-d6 {
+  font-size: 13vw;
+  line-height:0.6em;
+}
+
+.history-box {
+  overflow-y: auto;
+  width: 75%;
+  height: 65%;
+  display: flex;
+  flex-direction: column-reverse;
+  margin-left: 12vw;
+}
+
+.history-box span {
+  margin: 0 0.5vw;
 }
 
 .advantage-container {

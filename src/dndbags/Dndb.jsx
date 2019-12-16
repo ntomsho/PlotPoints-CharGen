@@ -1,7 +1,8 @@
 import React from 'react';
 import { CLASSES, random, randomRace, BACKGROUNDS, APPEARANCES, DERPS } from '../dndb-tables';
 import RulesModal from './rules_modal';
-import DiceRoller from './dice_roller';
+//Change this back later
+import DiceRoller from './dice_roller_new';
 import Skills from './skills';
 import ClassMain from './class_main';
 import Inventory from './inventory';

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 export default function DiceRoller(props) {
     const [disadvantage, setDisadvantage] = useState(false);
@@ -17,6 +17,10 @@ export default function DiceRoller(props) {
         "You have Magic that applies",
         "You have a Circumstance in your favor"
     ]
+
+    useEffect(() => {
+        if (difficulty > numDice()) setDisadvantage(true);
+    }, [JSON.stringify(selectedDice), difficulty])
 
     function resetDice() {
         let newDice = advantageDice.map(die => null);
@@ -82,21 +86,50 @@ export default function DiceRoller(props) {
         )
     }
 
-    function resultText() {
-        if (displayRoll) {
-            if (mainDie === 1) {
-                return "Critical Failure: You fail, hard; take a Serious Consequence";
-            } else if (mainDie === 20) {
-                return "Critical Success: You succeed or make Progress (2) and then some";
-            } else if (displayRoll <= 9) {
-                return "Failure: You fail; Take a Consequence"
-            } else if (displayRoll >= 18) {
-                return "Success: You succeed or make Progress (2)"
-            } else {
-                return "Pass: You succeed or make Progress (2), but take a Consequence"
-            }
+    function resultText(total, mainDie) {
+        if (mainDie === 1) {
+            return "Critical Failure: You fail, hard; take a Serious Consequence";
+        } else if (mainDie === 20) {
+            return "Critical Success: You succeed or make Progress (2) and then some";
+        } else if (total <= 9) {
+            return "Failure: You fail; Take a Consequence"
+        } else if (total >= 18) {
+            return "Success: You succeed or make Progress (2)"
+        } else {
+            return "Pass: You succeed or make Progress (2), but take a Consequence"
         }
         return "";
+    }
+
+    function displayResultText() {
+        if (displayRoll) return resultText(displayRoll, mainDie);
+    }
+
+    function rollHistoryDisp() {
+        return (
+            <div>
+                {rollHistory.map((roll, i) => {
+                    return (
+                        <div>
+                            <div>
+                                <span><strong>{roll.result}</strong> </span>
+                                <span>{resultText(roll.result, roll.mainDie)}</span>
+                            </div>
+                            <div>
+                            <span>{roll.mainDie}</span>
+                            <span>
+                                {
+                                    roll.disadvantage ? 
+                                    dieFaces[(roll.disadvantage * -1) - 1] :
+                                    roll.d6s.map((die) => dieFaces[die])
+                                }
+                            </span>
+                            </div>
+                        </div>
+                    )
+                })}
+            </div>
+        )
     }
 
     function rollDice() {
@@ -123,7 +156,7 @@ export default function DiceRoller(props) {
         setMainDie(mainRoll);
         setDisplayRoll(result);
         const rolls = [...rollHistory];
-        rolls.push({ 'result': result, 'mainRoll': mainRoll, 'd6s': newDice, 'disadvantage': disadvantage });
+        rolls.unshift({ 'result': result, 'mainDie': mainRoll, 'd6s': newDice, 'disadvantage': disadvantage ? mod : false });
         setRollHistory(rolls);
     }
 
@@ -135,27 +168,37 @@ export default function DiceRoller(props) {
                 >
                     X
                 </button>
-                <div className="d20">
-                    <div className="d20-value">{mainDie === null ? "" : mainDie}</div>
-                </div>
-                <h2>Advantage Dice</h2>
-                <div style={{display: 'flex'}}>
-                    <div style={{display: 'flex', justifyContent: 'space-between', width: '25%'}}>
-                        <div onClick={() => changeDifficulty(false)}>-</div>
-                        <div><strong>Difficulty:</strong> <span>{difficulty}</span></div>
-                        <div onClick={() => changeDifficulty(true)}>+</div>
-                    </div>
-                    {numDice() < difficulty ? disadvantageDieDisp() : <div></div> }
-                </div>
-                <br/>
-                <div className="advantage-container">
-                    {diceSelectionDisplay()}
-                </div>
                 <div>
-                    <div>{displayRoll}</div>
-                    <div>{resultText()}</div>
+                    <div className="result-box">
+                        <h3>Result</h3>
+                        <div>
+                            <div>{displayRoll}</div>
+                            <div>{resultText()}</div>
+                        </div>
+                    </div>
+                    <div className="history-box">
+                        {rollHistoryDisp()}
+                    </div>
                 </div>
-                <button onClick={rollDice}>Roll</button>
+                <div className="selection-box">
+                    <div className="d20">
+                        <div className="d20-value">{mainDie === null ? "" : mainDie}</div>
+                    </div>
+                    <h2>Advantage Dice</h2>
+                    <div style={{display: 'flex'}}>
+                        <div style={{display: 'flex', justifyContent: 'space-between', width: '25%'}}>
+                            <div onClick={() => changeDifficulty(false)}>-</div>
+                            <div><strong>Difficulty:</strong> <span>{difficulty}</span></div>
+                            <div onClick={() => changeDifficulty(true)}>+</div>
+                        </div>
+                        {numDice() < difficulty ? disadvantageDieDisp() : <div></div> }
+                    </div>
+                    <br/>
+                    <div className="advantage-container">
+                        {diceSelectionDisplay()}
+                    </div>
+                    <button onClick={rollDice}>Roll</button>
+                </div>
             </div>
         </div>
     )

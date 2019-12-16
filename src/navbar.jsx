@@ -22,7 +22,6 @@ export default class MyNavbar extends Greetings {
         }
         if (this.props.currentChar) {
             const disable = this.props.currentChar.name === "";
-            console.log(disable);
             return (
                 <li style={{cursor: disable ? 'normal' : 'pointer', color: disable ? 'gray' : 'black'}}
                     onClick={disable ? nonSave : this.props.saveChar}
