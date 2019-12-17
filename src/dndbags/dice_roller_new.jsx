@@ -181,7 +181,12 @@ export default function DiceRoller(props) {
     function diceSelectDisadvantage() {
         if (disadvantage) {
             return (
-                <></>
+                <div>
+                    <div>Disadvantage</div>
+                    <div>
+                        <div className="disadvantage-die">{blankd6}</div>
+                    </div>
+                </div>
             )
         }
     }
@@ -206,9 +211,12 @@ export default function DiceRoller(props) {
                 </div>
                 <div className="dice-selection-box">
                     <div style={{ display: 'flex' }}>
-                        <div style={{display: 'flex', flexDirection: 'column'}}>
+                        <div className="advantage-container">
+                            {diceSelectionDisplay()}
+                        </div>
+                        <div style={{display: 'flex', flexDirection: 'column', width: '30%'}}>
                             <button onClick={rollDice}>Roll</button>
-                            <div style={{ color: disadvantage ? 'red' : 'black', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                            <div style={{ color: disadvantage ? 'red' : 'black', display: 'flex', flexDirection: 'column', alignItems: 'center', position: 'relative' }}>
                                 <div><strong>Difficulty</strong></div>
                                 <br/>
                                 <div style={{ display: 'flex', justifyContent: 'space-around', width: '100%' }}>
@@ -218,9 +226,6 @@ export default function DiceRoller(props) {
                                 </div>
                                 {diceSelectDisadvantage()}
                             </div>
-                        </div>
-                        <div className="advantage-container">
-                            {diceSelectionDisplay()}
                         </div>
                     </div>
                 </div>

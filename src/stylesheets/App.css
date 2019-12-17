@@ -310,14 +310,19 @@ button {
 }
 
 .advantage-die {
-  font-size: 25vw;
+  font-size: 20vw;
   opacity: 20%;
 }
 
 .advantage-die-selected {
-  font-size: 25vw;
+  font-size: 20vw;
   opacity: 100%;
   position: relative;
+}
+
+.disadvantage-die {
+  color: red;
+  font-size: 11vw;
 }
 
 .dice-roller-main button {
@@ -333,7 +338,7 @@ button {
   position: absolute;
   top: -11%;
   left: 2%;
-  font-size: 35vw;
+  font-size: 28vw;
 }
 
 .canceled-x.hidden {
