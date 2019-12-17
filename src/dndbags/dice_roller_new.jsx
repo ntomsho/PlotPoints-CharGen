@@ -178,6 +178,14 @@ export default function DiceRoller(props) {
         )
     }
 
+    function diceSelectDisadvantage() {
+        if (disadvantage) {
+            return (
+                <></>
+            )
+        }
+    }
+
     return (
         <div className={`dice-roller-container${props.extended ? '' : ' hidden'}`}>
             <div className="dice-roller-main">
@@ -198,13 +206,19 @@ export default function DiceRoller(props) {
                 </div>
                 <div className="dice-selection-box">
                     <div style={{ display: 'flex' }}>
-                        <button onClick={rollDice}>Roll</button>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', width: '25%' }}>
-                            <div onClick={() => changeDifficulty(false)}>-</div>
-                            <div><strong>Difficulty:</strong> <span>{difficulty}</span></div>
-                            <div onClick={() => changeDifficulty(true)}>+</div>
+                        <div style={{display: 'flex', flexDirection: 'column'}}>
+                            <button onClick={rollDice}>Roll</button>
+                            <div style={{ color: disadvantage ? 'red' : 'black', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                                <div><strong>Difficulty</strong></div>
+                                <br/>
+                                <div style={{ display: 'flex', justifyContent: 'space-around', width: '100%' }}>
+                                    <div onClick={() => changeDifficulty(false)}>-</div>
+                                    <div><strong>{difficulty}</strong></div>
+                                    <div onClick={() => changeDifficulty(true)}>+</div>
+                                </div>
+                                {diceSelectDisadvantage()}
+                            </div>
                         </div>
-                        <br />
                         <div className="advantage-container">
                             {diceSelectionDisplay()}
                         </div>

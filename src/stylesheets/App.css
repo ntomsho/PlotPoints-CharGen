@@ -321,9 +321,11 @@ button {
 }
 
 .dice-roller-main button {
-  width: 5vw;
-  height: 5vh;
+  width: 10vw;
+  height: 8vh;
   font-size: 5vw;
+  margin: 2vh 0;
+  border-radius: 7%;
 }
 
 .canceled-x {
